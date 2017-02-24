@@ -1,0 +1,14 @@
+**  pyqt4_to_pyqt5.log  Thursday 23. February 2017 17:36  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+**  pyqt4_to_pyqt5.log  Thursday 23. February 2017 17:37  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+**  pyqt4_to_pyqt5.log  Thursday 23. February 2017 17:37  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+Beginning into: C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app
+
+Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app\experiment.py`
+  File updated.
+
