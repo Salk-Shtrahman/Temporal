@@ -1,14 +1,24 @@
 #!/usr/bin/python
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (
-    FigureCanvasQTAgg as FigureCanvas,
-    NavigationToolbar2QT as NavigationToolbar)
+
 import itertools
 import sys,getopt,glob
 from serial.tools import list_ports
 import serial
 import time
-from multiprocessing import Process, Pipe
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QVBoxLayout, QSizePolicy, QMessageBox, QWidget, QPushButton
+from PyQt5.QtGui import QIcon
+
+import ctypes
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+import copy
+from multiprocessing import Process, Value, Array
+from Grinder import *
+import matplotlib.patches as patches
+import random
+import mysql.connector
+
 
 argv=sys.argv[1:]
 inputfile = ''
@@ -70,7 +80,6 @@ class Station:  # each Station can have multiple Sessions
         for session in Sessions:
             p = multiprocessing.Process(target=session.start, args=(i,))
 
-class Session:
     def __init__(self,Com_Port):
         self.ComPort = serial.Serial(Com_Port)  # open the COM Port
         self.ComPort.baudrate = 9600  # set Baud rate

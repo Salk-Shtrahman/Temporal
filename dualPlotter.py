@@ -9,6 +9,7 @@ import matplotlib.patches as patches
 import numpy as np
 import copy
 from multiprocessing import Process, Value, Array
+from Grinder import *
 lor=[]
 tof=[]
 
@@ -17,70 +18,7 @@ tof=[]
 # import plotly.tools as tls
 # Learn about API authentication here: https://plot.ly/python/getting-started
 # Find your api_key here: https://plot.ly/settings/api
-class Grind():
-    def __init__(self):
-        self.count=1
-    def read_serial(self):
 
-        #print(self.count)
-        if self.count == 1:
-            time.sleep(3)
-            payload=self.count, time.time()# new event tag
-        if self.count==2:
-            time.sleep(1.2)
-            payload= self.count, random.randint(0,3),random.randint(0,3),random.randint(0,3), random.randint(0,3) #Song
-        if self.count == 3:
-            time.sleep(random.randint(20,80)/100)
-            payload= self.count, time.time()#timestamp
-        if self.count == 4:
-            time.sleep(1)
-            payload= self.count, random.randint(-1, 1),random.randint(0, 1) #right/wrong
-        if self.count == 5:
-            time.sleep(.1)
-            payload= self.count, random.randint(0, 16)
-        self.count = self.count + 1 if self.count < 5 else 1
-        return payload
-# Type 1 Transmission: Session start Session_Id ++
-# Type 2 Transmission: End of Phase 1, tone info cdef
-# Type 3 Transmission: Event trigger, 1f - left, 1e - right
-# Type 4 Transmission: End of Phase 2, lick info, correct/ incorrect info
-# Type 5 Transmission: Difficulty
-
-def Serial_Process(pcc,idump,lickdump,songdump,timestampd,new_stuff):
-    print("thread started")
-
-    event_time = []
-    while 1:
-
-        result = pcc.read_serial()
-        print(result)
-        type = result[0]
-        if type == 1:
-            t_zero = result[1]
-        if type == 2:
-            song=result[1:4]
-        if type == 3:
-            event_time.append(result[1] - t_zero)
-            print('Lick time= %f' % event_time[::-1][0])
-
-        if type == 4:  # type==4:
-            direction = result[1]
-            correct = result[2]
-
-        if type == 5:  # plot difficulty
-            difficulty=result[1]
-
-            idump[0]=direction
-            idump[1]=correct
-            idump[2]=difficulty
-            for i in range(len(event_time)):
-                lickdump[i]=event_time[i]
-            # print(event_time[:])
-            # print(lickdump[:])
-            songdump=song
-            timestampd=t_zero
-            event_time = []
-            new_stuff.value=True
 
 p = Grind()
 
@@ -99,6 +37,7 @@ l_diff=[0,]
 bar_cache=[]
 event_time=[]
 
+SONGDICT = {0:'x',1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g'}
 
 
 if __name__ == '__main__':
@@ -110,10 +49,12 @@ if __name__ == '__main__':
     ax1 = fig1.add_subplot(211)
     ax1.set_autoscale_on(False)
     plt.ion()
-    plt.yticks([-1, 0, 1], ['Left', 'No lick', 'Right'])
+    ax1.set_yticks([-1, 0, 1])
+    ax1.set_yticklabels(['Left', 'No lick', 'Right'])
     ax2 = fig1.add_subplot(212)
     ax2.grid(True)
     ax2.xaxis.grid(True)
+    ax2.set_ylim(0, 16)
     del_but0 = ax2.step(1, 1)
 
     #### the second figure window
@@ -122,24 +63,27 @@ if __name__ == '__main__':
     plt.ion()
     ### first guy
     ax3 = fig2.add_subplot(311)
-    plt.xlim(0, 3)
-    plt.ylim(-1, 1)
-    plt.title('Most recent')
-    plt.yticks([-1, 0, 1], ['Left', 'No lick', 'Right'])
+    ax3.set_xlim(0, 3)
+    ax3.set_ylim(-1, 1)
+    ax3.set_title('Most recent')
+    ax3.set_yticks([-1, 0, 1])
+    ax3.set_yticklabels(['Left', 'No lick', 'Right'])
     ax3.axhline(y=0, color='k')
     ### second guy
     ax4 = fig2.add_subplot(312)
-    plt.xlim(0, 3)
-    plt.ylim(-1, 1)
-    plt.title('Last Trail')
-    plt.yticks([-1, 0, 1], ['Left', 'No lick', 'Right'])
+    ax4.set_xlim(0, 3)
+    ax4.set_ylim(-1, 1)
+    ax4.set_title('Last Trail')
+    ax4.set_yticks([-1, 0, 1])
+    ax4.set_yticklabels(['Left', 'No lick', 'Right'])
     ax4.axhline(y=0, color='k')
     ### third guy
     ax5 = fig2.add_subplot(313)
-    plt.xlim(0, 3)
-    plt.ylim(-1, 1)
-    plt.title('2 Trails Ago')
-    plt.yticks([-1, 0, 1], ['Left', 'No lick', 'Right'])
+    ax5.set_xlim(0, 3)
+    ax5.set_ylim(-1, 1)
+    ax5.set_title('2 Trails Ago')
+    ax5.set_yticks([-1, 0, 1])
+    ax5.set_yticklabels(['Left', 'No lick', 'Right'])
     ax5.axhline(y=0, color='k')
     fig2.subplots_adjust(hspace=.75)
     plt.pause(0.01)
@@ -161,20 +105,25 @@ if __name__ == '__main__':
     # lickdump = event_time
     # songdump = song
     # timestampd = t_zero
+        song_alpha = []
         t_zero=timestampd.value
         song=songdump
         event_time= lickdump[:]
         direction= dump[0]
         correct= dump[1]
         difficulty= dump[2]
+        song = songdump[:]
+        for tone in song:
+            song_alpha.append(SONGDICT[tone])
+        print(song)
+        print(''.join(song_alpha))
 
         print("bro watch outtttttttttt")
         print(event_time)
         print(dump[:])
     ########################### Update color bar graph
         print(ind)
-        plt.figure(1)
-        plt.subplot(211)
+
         #result[1]
         fill="red" if correct else "green"
        # print(fill)
@@ -186,12 +135,11 @@ if __name__ == '__main__':
                 facecolor=fill,
             )
         )
-        plt.xlim(0, ind+1)
+        ax1.set_xlim(0, ind+1)
         plt.pause(0.001)
 
     ###################### Update difficulty graph
         l_diff.append(difficulty)
-        plt.subplot(212)
         now = time.time()
        # print(list(range(ind+1)), difficulty)
         try:  # get rid of whatever was there
@@ -204,14 +152,13 @@ if __name__ == '__main__':
 
         del_but0=ax2.step(list(range(ind+1)), l_diff)
 
-        plt.xlim(0, ind + 1)
-        plt.ylim(0, 16)
+        ax2.set_xlim(0, ind + 1)
+
         plt.pause(0.001)
 
                 # after plot difficulty, also plot lick window
-        plt.figure(2)
-        plt.subplot(311)
-        plt.title('Most Recent #%d' % ind)
+
+        ax3.set_title('Most Recent #%d' % ind)
         try: # get rid of whatever was there
             for dell in del_but1:
                 dell.remove()
@@ -236,7 +183,6 @@ if __name__ == '__main__':
 
         plt.pause(0.001)
 
-        plt.subplot(312)
 
         try:  # get rid of whatever was there
             for dell in del_but2:
@@ -250,13 +196,13 @@ if __name__ == '__main__':
             inst1= copy.copy(bar_cache[1])
             #     print(inst1.get_axes())
             del_but2=ax4.add_patch(inst1)
-            plt.title('Last Trail #%d' % (ind - 1))
+            ax4.set_title('Last Trail #%d' % (ind - 1))
         except IndexError:
             print("312 exception")
             pass;
         plt.pause(0.001)
 
-        plt.subplot(313)
+
 
         try:  # get rid of whatever was there
             for dell in del_but3:
@@ -269,7 +215,7 @@ if __name__ == '__main__':
         try:
             inst2 = bar_cache[2]
             del_but3=ax5.add_patch(inst2)
-            plt.title('2 Trails Ago #%d' % (ind-2))
+            ax5.set_title('2 Trails Ago #%d' % (ind-2))
         except IndexError:
             print("313 exception")
             pass
