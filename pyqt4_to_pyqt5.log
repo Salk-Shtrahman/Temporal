@@ -12,3 +12,14 @@ Beginning into: C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app
 Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app\experiment.py`
   File updated.
 
+**  pyqt4_to_pyqt5.log  Saturday 04. March 2017 19:34  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+**  pyqt4_to_pyqt5.log  Saturday 04. March 2017 19:35  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+Beginning into: C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app
+
+Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app\luncher.py`
+  File updated.
+

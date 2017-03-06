@@ -8,14 +8,18 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import copy
-from multiprocessing import Process, Value, Array
+from multiprocessing import Process, Value, Array, Manager
 from Grinder import *
 import matplotlib.patches as patches
 import random
-
+import signal, time
+from eventlet.timeout import Timeout
+import csv
+import mysql.connector
+from luncher import Luncher
 class App(QMainWindow):
 
-    def __init__(self):
+    def __init__(self,cnx):
 
         user32 = ctypes.windll.user32
         winWidth = user32.GetSystemMetrics(0)
@@ -30,6 +34,31 @@ class App(QMainWindow):
         self.scrollWidth=10
         self.scrollPercent =0
         self.connected=False
+        self.cnx=cnx
+        self.cursor = self.cnx.cursor()
+
+        self.writer=csv.writer(prep.theFile)
+        ###########Obtain Session ID from Server
+
+        self.cursor.execute(
+            "INSERT INTO  Temporal_Session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (config[0], config[1], config[2], config[3], config[4], config[5], config[6], config[7], config[8],
+             config[9], config[10], config[11]))
+        self.cnx.commit()
+        read_que = '''
+            SELECT
+            Temporal_Session.id
+            FROM
+            Temporal_Session
+            ORDER BY Temporal_Session.id DESC
+            LIMIT 1
+        '''
+        self.cursor.execute(read_que)
+
+        self.session_ID = self.cursor.fetchone()[0] #get first shit of tuple
+
+        #########################################
+
         self.initUI()
 
 
@@ -51,15 +80,22 @@ class App(QMainWindow):
 
         self.setupUi(self)
 
-        self.sessionID.setText("Session :1")
-        self.port_Status.setText("Port:")
-        self.db_status.setText('SQL(%s): %s'% (sql_status,dbName))
+        self.sessionID.setText("Session : %i"% self.session_ID)
+        self.port_Status.setText("Port: %s"%prep.portName )
+        self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
 
         self.show()
+        # time.sleep(3)
+        # self.update_figure()
+        #
+        # time.sleep(3)
+        # self.update_figure()
+        # time.sleep(3)
+        # self.update_figure()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-
+        # MainWindow.resize(1063, 394)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -74,12 +110,22 @@ class App(QMainWindow):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout_2.setObjectName("gridLayout_2")
+        self.line = QtWidgets.QFrame(self.centralwidget)
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.gridLayout_2.addWidget(self.line, 1, 1, 1, 1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.gridLayout.setObjectName("gridLayout")
-        #self.sidePlot = QtWidgets.QWidget(self.centralwidget)
+        self.line_2 = QtWidgets.QFrame(self.centralwidget)
+        self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.gridLayout.addWidget(self.line_2, 0, 2, 1, 1)
+        # self.sidePlot = QtWidgets.QWidget(self.centralwidget)
         self.sidePlot.setObjectName("sidePlot")
-        self.gridLayout.addWidget(self.sidePlot, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.sidePlot, 0, 3, 1, 1)
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
                                            QtWidgets.QSizePolicy.MinimumExpanding)
@@ -91,18 +137,17 @@ class App(QMainWindow):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 959, 298))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 871, 289))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        #self.mainPlot = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+        # self.mainPlot = QtWidgets.QWidget(self.scrollAreaWidgetContents)
         self.mainPlot.setObjectName("mainPlot")
         self.verticalLayout.addWidget(self.mainPlot)
         self.horizontalScrollBar = QtWidgets.QScrollBar(self.scrollAreaWidgetContents)
         self.horizontalScrollBar.setSingleStep(3)
-        self.horizontalScrollBar.setPageStep(100000)
-        self.horizontalScrollBar.setSliderPosition(99)
+        self.horizontalScrollBar.setPageStep(50)
         self.horizontalScrollBar.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalScrollBar.setObjectName("horizontalScrollBar")
         self.verticalLayout.addWidget(self.horizontalScrollBar)
@@ -137,8 +182,13 @@ class App(QMainWindow):
         self.song3.setFont(font)
         self.song3.setObjectName("song3")
         self.verticalLayout_2.addWidget(self.song3)
-        self.gridLayout.addLayout(self.verticalLayout_2, 0, 3, 1, 1)
-        self.gridLayout_2.addLayout(self.gridLayout, 1, 1, 1, 1)
+        self.gridLayout.addLayout(self.verticalLayout_2, 0, 5, 1, 1)
+        self.line_3 = QtWidgets.QFrame(self.centralwidget)
+        self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_3.setObjectName("line_3")
+        self.gridLayout.addWidget(self.line_3, 0, 4, 1, 1)
+        self.gridLayout_2.addLayout(self.gridLayout, 2, 1, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.sessionID = QtWidgets.QLabel(self.centralwidget)
@@ -166,6 +216,26 @@ class App(QMainWindow):
         self.timeText.setObjectName("timeText")
         self.horizontalLayout.addWidget(self.timeText)
         self.gridLayout_2.addLayout(self.horizontalLayout, 0, 1, 1, 1)
+        self.line_4 = QtWidgets.QFrame(self.centralwidget)
+        self.line_4.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_4.setObjectName("line_4")
+        self.gridLayout_2.addWidget(self.line_4, 2, 2, 1, 1)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.startButton = QtWidgets.QPushButton(self.centralwidget)
+        self.startButton.setObjectName("startButton")
+        self.verticalLayout_3.addWidget(self.startButton)
+        self.pauseButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pauseButton.setObjectName("pauseButton")
+        self.verticalLayout_3.addWidget(self.pauseButton)
+        self.resumeButton = QtWidgets.QPushButton(self.centralwidget)
+        self.resumeButton.setObjectName("resumeButton")
+        self.verticalLayout_3.addWidget(self.resumeButton)
+        self.gridLayout_2.addLayout(self.verticalLayout_3, 2, 3, 1, 1)
+        self.quitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.quitButton.setObjectName("quitButton")
+        self.gridLayout_2.addWidget(self.quitButton, 0, 3, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1063, 21))
@@ -201,10 +271,15 @@ class App(QMainWindow):
         self.port_Status.setText(_translate("MainWindow", "Port:"))
         self.db_status.setText(_translate("MainWindow", "SQL(connected):"))
         self.timeText.setText(_translate("MainWindow", "TIME"))
+        self.startButton.setText(_translate("MainWindow", "Start"))
+        self.pauseButton.setText(_translate("MainWindow", "Pause"))
+        self.resumeButton.setText(_translate("MainWindow", "Resume"))
+        self.quitButton.setText(_translate("MainWindow", "Quit n Save"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSettings.setText(_translate("MainWindow", "Settings"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))
+
     def slideVal(self):
         scroll=self.horizontalScrollBar.value()
         print(scroll)
@@ -225,27 +300,61 @@ class App(QMainWindow):
             song = songdump[:]
             for tone in song:
                 song_alpha.append(SONGDICT[tone])
-            print(song)
+            # print(song)
             self.song_mem.insert(0,''.join(song_alpha))
             if len(self.song_mem) == 4:
                 self.song_mem.pop()
             self.mainPlot.update_figure(self.ind)
             self.sidePlot.update_figure(self.ind)
+            self.writeSQL()
+            self.writeCSV()
+
 
             self.song1.setText(self.song_mem[0] )
             self.song2.setText(self.song_mem[1] if len(self.song_mem)>1 else "N/A")
             self.song3.setText(self.song_mem[2] if len(self.song_mem) > 2 else "N/A")
 
             if self.ind+1>=self.scrollWidth and not self.connected:
-                print("denny chinito is here")
+                # print("denny chinito is here")
                 self.horizontalScrollBar.sliderMoved['int'].connect(self.slideVal)
                 self.connected=True
             elif self.ind>self.scrollWidth and self.connected:
-                print("deenah latina is here")
-                print(100 * self.scrollWidth / (self.ind - self.scrollWidth))
+                # print("deenah latina is here")
+                # print(100 * self.scrollWidth / (self.ind - self.scrollWidth))
                 self.horizontalScrollBar.setPageStep(100 * self.scrollWidth / (self.ind - self.scrollWidth))
-            print("deenah latina is gone")
+            # print("deenah latina is gone")
             self.ind+=1
+    def writeSQL(self):
+        t_zero = timestampd.value
+        song = songdump
+        event_time = lickdump[:]
+        #####################
+        sevent_time='['
+        for i,eventee in enumerate(event_time):
+            sevent_time+=(('%.4f' % event_time[i])+',')
+        sevent_time=sevent_time[:-1]+']'
+        #######formatting storage string
+        # print(sevent_time)
+        direction = dump[0]
+        correct = dump[1]
+        difficulty = dump[2]
+        # print(self.session_ID, self.ind, str(t_zero), self.song_mem[0], str(event_time), difficulty, correct,direction)
+
+        self.cursor.execute(
+            "INSERT INTO  Temporal_Trails ( Session_ID, Trail_ID, SequenceStartTime, Song, LickTime, Difficulty, Correctness, LickResult) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
+            (self.session_ID, self.ind, str(t_zero), self.song_mem[0], sevent_time, difficulty, correct,direction))
+        self.cnx.commit()
+
+    def writeCSV(self):
+        t_zero = timestampd.value
+        song = songdump
+        event_time = lickdump[:]
+        direction = dump[0]
+        correct = dump[1]
+        difficulty = dump[2]
+        self.writer.writerow([self.session_ID, self.ind, str(t_zero), self.song_mem[0], str(event_time), difficulty, correct,direction])
+
+
 
 class PlotMain(FigureCanvas):
 
@@ -279,6 +388,7 @@ class PlotMain(FigureCanvas):
 
 
     def update_figure(self,ind):
+        print('update_main')
         self.ind=ind
         # idump = [direction, correct, difficulty]
         # lickdump = event_time
@@ -291,12 +401,12 @@ class PlotMain(FigureCanvas):
         correct = dump[1]
         difficulty = dump[2]
 
-        print("bro watch outtttttttttt")
+        # print("bro watch outtttttttttt")
         # print(event_time)
         # print(dump[:])
         ########################### Update color bar graph
 
-        print(ind)
+        # print(ind)
 
         # result[1]
         fill = "red" if correct else "green"
@@ -405,20 +515,22 @@ class PlotSide(FigureCanvas):
             .01,  # width
             1,  # height
         )
-        self.del_but1 = self.ax3.add_patch(copy.copy(temp))
-        self.del_but2 = self.ax4.add_patch(copy.copy(temp))
-        self.del_but3 = self.ax4.add_patch(copy.copy(temp))
+
+        self.del_but1 = []
+        self.del_but2 = []
+        self.del_but3 = []
+        self.del_but1.append(self.ax3.add_patch(copy.copy(temp)))
+        self.del_but2.append(self.ax4.add_patch(copy.copy(temp)))
+        self.del_but3.append(self.ax4.add_patch(copy.copy(temp)))
 
         self.bar_cache = []
     def update_figure(self,ind):
-        t_zero = timestampd.value
-        song = songdump
+        print('update_side')
         event_time = lickdump[:]
-        direction = dump[0]
-        correct = dump[1]
-        difficulty = dump[2]
+        # print(event_time)
+        ld = lickdirection[:]
        # print(ind)
-        print("bro watch innnnnnnnnnn")
+       #  print("bro watch innnnnnnnnnn")
         self.ax3.set_title('Most Recent #%d' % ind)
         # print("made it to .05")
         try:  # get rid of whatever was there
@@ -432,19 +544,24 @@ class PlotSide(FigureCanvas):
             # print("made it to .3")
             pass
         # print("made it to 1")
-        temp = patches.Rectangle(
-            (event_time[0], -1 if direction == -1 else 0),  # (x,y)
-            .01,  # width
-            0 if direction == 0 else 1,  # height
-        )
+        tempy = []
+        a_tempy = []
+        for eventee, l in zip(event_time, ld):
+            tempy.append(patches.Rectangle(
+                (eventee, -1 if l == 0 else 0),  # (x,y)
+                .01,  # width
+                1,  # height
+            ))
         #    print(temp.get_axes())
         # print("made it to 2")
-        self.bar_cache.insert(0, copy.copy(temp))  # load up history list
-        # print("made it to 2.5")
+        for term in tempy: a_tempy.append(copy.copy(term))
+        self.bar_cache.insert(0, a_tempy)  # load up history list
         if len(self.bar_cache) == 4:
             self.bar_cache.pop()
             #   print(bar_cache[0].get_axes())
-        self.del_but1 = self.ax3.add_patch(temp)  # return delete button
+        self.del_but1 = []
+        for term in a_tempy:
+            self.del_but1.append(self.ax3.add_patch(term))  # return delete button
         # print("made it to 3")
         #print(self.del_but2)
         try:  # get rid of whatever was there
@@ -466,11 +583,13 @@ class PlotSide(FigureCanvas):
         # print("made it to 4")
 
         try:
-            inst1 = copy.copy(self.bar_cache[1])
-            # print("made it to 4.1")
-
-            # print("made it to 4.2")
-            self.del_but2 = self.ax4.add_patch(inst1)
+            inst1 = []
+            self.del_but2 = []
+            for term in self.bar_cache[1]:
+                inst1.append(copy.copy(term))
+                # print(inst1[::-1][0].get_axes())
+                self.del_but2.append(self.ax4.add_patch(inst1[::-1][0]))
+                # print(inst1[::-1][0].get_axes())
             # print("made it to 4.3")
             self.ax4.set_title('Last Trail #%d' % (ind - 1))
         except IndexError:
@@ -493,11 +612,11 @@ class PlotSide(FigureCanvas):
 
         #print(self.bar_cache)
         try:
-            inst2 = copy.copy(self.bar_cache[2])
-            # print("made it to 5.1")
-            # print(inst2)
-            self.del_but3 = self.ax5.add_patch(inst2)
-            # print("made it to 5.2")
+            inst2 = []
+            self.del_but3 = []
+            for term in self.bar_cache[2]:
+                inst2.append(copy.copy(term))
+                self.del_but3.append(self.ax5.add_patch(inst2[::-1][0]))
 
             self.ax5.set_title('2 Trails Ago #%d' % (ind - 2))
             # print("made it to 5.3")
@@ -506,39 +625,51 @@ class PlotSide(FigureCanvas):
             pass
         time.sleep(0.05)
         self.draw()
-        # print("made it to 6")
+        #print("made it to 6")
 
 
                 #self.draw()
 
+def exitApp():
+    slave.terminate()
+    sys.exit()
 if __name__ == '__main__':
+
+    app = QtWidgets.QApplication(sys.argv)
+    prep = Luncher()
+    app.exec_()
+
+    print(prep.ComPort)
+    print(prep.theFile)
+    print(prep.cnx)
     momom=5
     ind = 1
     l_diff = [0, ]
     event_time = []
     p = Grind()
-
+    #`Animal_ID`, `Training`, `Punishment_Duration`, `Tone_Duration`, `Ttime_Between_Tones`, `Lickwindow_Duration`, `R_Opentime`, `L_Opentime`, `Trial_Limit`, `min_Difficulty`, `max_Difficulty`, `Drip_Delay`    #
+    config=[1       ,1          ,1.5                    ,2.5            ,0.5                    ,.25                ,.65            ,.65            ,200        ,4              ,20                 , 5]
     dbName='Salk'
-    try:
-        cnx = mysql.connector.connect(user='dennis', password='rh960615',
-                                           host='ssh.dennisren.com',
-                                           database=dbName)  # connect to Database
-        sql_status = 'Connected'
-    except Exception as e:
-        sql_status = str(e)
-    print(sql_status)
-    # sql_status = 'Connected'
+
+
+
+
     new_stuff = Value('b', False)
     dump = Array('i', range(3))
     timestampd = Value('f', 0.0)
     songdump = Array('i', range(4))
-    lickdump = Array('f', range(5))
+    # l = Array('f',100)
+    manager = Manager()
+    lickdump = manager.list()
+    lickdirection = manager.list()
     time.sleep(2)
-    slave = Process(target=Serial_Process, args=( p, dump, lickdump, songdump, timestampd, new_stuff))
+    slave = Process(target=Serial_Process, args=(lickdirection, p, dump, lickdump, songdump, timestampd, new_stuff))
     slave.start()
 
 
 
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
+    mainApp = QApplication(sys.argv)
+    ex = App(prep.cnx)
+    mainApp.exec_()
+    exitApp()
+

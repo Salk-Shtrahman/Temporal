@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e20bb91-bbd6-4125-a18a-e951eca07de5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Grinder.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/luncher.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pyqt4app/luncher.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pyqt4app/experiment.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pyqt5app/experiment.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/window.ui" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GUItry.py" afterPath="$PROJECT_DIR$/GUItry.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Grinder.py" afterPath="$PROJECT_DIR$/Grinder.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dualPlotter.py" afterPath="$PROJECT_DIR$/dualPlotter.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/experiment.py" afterPath="$PROJECT_DIR$/experiment.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pySalk.py" afterPath="$PROJECT_DIR$/pySalk.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pyqt4_to_pyqt5.log" afterPath="$PROJECT_DIR$/pyqt4_to_pyqt5.log" />
     </list>
     <ignored path="Salk_Temporal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,11 +27,12 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Salk_Temporal$newwin.coverage" NAME="newwin Coverage Results" MODIFIED="1488282746523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Salk_Temporal$experiment.coverage" NAME="experiment Coverage Results" MODIFIED="1488334629122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Salk_Temporal$experiment.coverage" NAME="experiment Coverage Results" MODIFIED="1488674820429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Salk_Temporal$pySalk.coverage" NAME="pySalk Coverage Results" MODIFIED="1487465841187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Salk_Temporal$main.coverage" NAME="main Coverage Results" MODIFIED="1487825468374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Salk_Temporal$dualPlotter.coverage" NAME="dualPlotter Coverage Results" MODIFIED="1488322656679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Salk_Temporal$GUItry.coverage" NAME="GUItry Coverage Results" MODIFIED="1488399719230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Salk_Temporal$dualPlotter.coverage" NAME="dualPlotter Coverage Results" MODIFIED="1488767137119" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Salk_Temporal$luncher.coverage" NAME="luncher Coverage Results" MODIFIED="1488748254501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Salk_Temporal$GUItry.coverage" NAME="GUItry Coverage Results" MODIFIED="1488767372977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -40,11 +46,9 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-952">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -52,9 +56,11 @@
       <file leaf-file-name="pySalk.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pySalk.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1078">
+              <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
+              <folding>
+                <element signature="e#19#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,23 +68,10 @@
       <file leaf-file-name="dualPlotter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dualPlotter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2924">
-              <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
+            <state relative-caret-position="193">
+              <caret line="197" column="43" selection-start-line="197" selection-start-column="43" selection-end-line="197" selection-end-column="43" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Grinder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Grinder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-                <marker date="1488399075093" expanded="true" signature="1491:1592" placeholder="INSERT INTO Temporal_Trails" />
               </folding>
             </state>
           </provider>
@@ -87,10 +80,13 @@
       <file leaf-file-name="GUItry.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GUItry.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="530" column="2" selection-start-line="530" selection-start-column="2" selection-end-line="530" selection-end-column="2" />
+            <state relative-caret-position="437">
+              <caret line="671" column="22" selection-start-line="671" selection-start-column="22" selection-end-line="671" selection-end-column="22" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+                <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+                <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+                <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
               </folding>
             </state>
           </provider>
@@ -99,8 +95,43 @@
       <file leaf-file-name="newwin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/newwin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+            <state relative-caret-position="364">
+              <caret line="195" column="65" selection-start-line="195" selection-start-column="65" selection-end-line="195" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Grinder.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Grinder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+                <marker date="1488767082016" expanded="true" signature="1728:1829" placeholder="INSERT INTO Temporal_Trails" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="luncher.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/luncher.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-328">
+              <caret line="166" column="52" selection-start-line="166" selection-start-column="52" selection-end-line="166" selection-end-column="52" />
+              <folding>
+                <element signature="e#24#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="luncherUI.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/luncherUI.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="139" column="45" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -109,10 +140,11 @@
       <file leaf-file-name="experiment.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/experiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+            <state relative-caret-position="196">
+              <caret line="39" column="138" selection-start-line="39" selection-start-column="138" selection-end-line="39" selection-end-column="138" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#0#37#0" expanded="true" />
+                <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
               </folding>
             </state>
           </provider>
@@ -134,11 +166,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/dualPlotter.py" />
-        <option value="$PROJECT_DIR$/experiment.py" />
         <option value="$PROJECT_DIR$/newwin.py" />
         <option value="$PROJECT_DIR$/pySalk.py" />
+        <option value="$PROJECT_DIR$/experiment.py" />
+        <option value="$PROJECT_DIR$/luncherUI.py" />
+        <option value="$PROJECT_DIR$/luncher.py" />
         <option value="$PROJECT_DIR$/Grinder.py" />
+        <option value="$PROJECT_DIR$/dualPlotter.py" />
         <option value="$PROJECT_DIR$/GUItry.py" />
       </list>
     </option>
@@ -149,10 +183,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1932" />
-    <option name="height" value="1066" />
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -198,8 +231,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -255,6 +288,32 @@
               <option name="myItemId" value="&lt; Python 3.5.2 (C:\Users\Dennis\AppData\Local\Programs\Python\Python35-32\python.exe) &gt;" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="site-packages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PyQt5" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Salk_Temporal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Python 3.5.2 (C:\Users\Dennis\AppData\Local\Programs\Python\Python35-32\python.exe) &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -266,6 +325,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Salk_Temporal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Salk_Temporal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pyqt5app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Salk_Temporal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Salk_Temporal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pyqt4app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -273,6 +360,11 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="C:/Python27/python.exe" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt4app" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.GUItry">
     <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -555,6 +647,24 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="luncher" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Salk_Temporal" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/luncher.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
     <configuration default="false" name="experiment" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -591,13 +701,14 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <list size="6">
+    <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Python.GUItry" />
-      <item index="1" class="java.lang.String" itemvalue="Python.experiment" />
-      <item index="2" class="java.lang.String" itemvalue="Python.newwin" />
-      <item index="3" class="java.lang.String" itemvalue="Python.main" />
-      <item index="4" class="java.lang.String" itemvalue="Python.pySalk" />
-      <item index="5" class="java.lang.String" itemvalue="Python.dualPlotter" />
+      <item index="1" class="java.lang.String" itemvalue="Python.luncher" />
+      <item index="2" class="java.lang.String" itemvalue="Python.experiment" />
+      <item index="3" class="java.lang.String" itemvalue="Python.newwin" />
+      <item index="4" class="java.lang.String" itemvalue="Python.main" />
+      <item index="5" class="java.lang.String" itemvalue="Python.pySalk" />
+      <item index="6" class="java.lang.String" itemvalue="Python.dualPlotter" />
     </list>
     <recent_temporary>
       <list size="3">
@@ -621,6 +732,14 @@
       <option name="presentableId" value="Default" />
       <updated>1486757575977</updated>
     </task>
+    <task id="LOCAL-00001" summary="works fine">
+      <created>1488515133281</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1488515133281</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -633,27 +752,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1932" height="1066" extended-state="0" />
-    <editor active="false" />
+    <frame x="-7" y="0" width="974" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15811966" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24617068" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31532526" sideWeight="0.50479746" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.4968017" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739422" sideWeight="0.4968017" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31514478" sideWeight="0.49520257" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33076075" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39911798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31201765" sideWeight="0.49520257" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39911798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -667,6 +786,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="works fine" />
+    <option name="LAST_COMMIT_MESSAGE" value="works fine" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="1" />
@@ -674,60 +797,13 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Grinder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <marker date="1488399075093" expanded="true" signature="1491:1592" placeholder="INSERT INTO Temporal_Trails" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GUItry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/newwin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pySalk.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -747,6 +823,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -756,7 +835,8 @@
         <state relative-caret-position="2431">
           <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -765,9 +845,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -775,7 +853,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -795,6 +875,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -804,7 +887,8 @@
         <state relative-caret-position="2431">
           <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -813,9 +897,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -823,7 +905,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -843,6 +927,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -852,7 +939,8 @@
         <state relative-caret-position="646">
           <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -861,9 +949,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1139">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -871,7 +957,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="935">
           <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -891,6 +979,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -900,7 +991,8 @@
         <state relative-caret-position="697">
           <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -909,9 +1001,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -919,7 +1009,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -939,6 +1031,9 @@
           <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -948,7 +1043,8 @@
         <state relative-caret-position="561">
           <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
@@ -957,9 +1053,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
           <caret line="89" column="12" selection-start-line="89" selection-start-column="12" selection-end-line="89" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -967,7 +1061,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="10" selection-end-column="41" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -999,9 +1095,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1009,7 +1103,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1017,9 +1113,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,7 +1121,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1073,69 +1169,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/pyqt5app/luncher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+        <state relative-caret-position="255">
+          <caret line="15" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pyqt4app/luncher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/experiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+        <state relative-caret-position="196">
+          <caret line="39" column="138" selection-start-line="39" selection-start-column="138" selection-end-line="39" selection-end-column="138" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1488674820415" expanded="true" signature="963:1120" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newwin.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35-32/Lib/site-packages/mysql/connector/connection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+        <state relative-caret-position="215">
+          <caret line="395" column="0" selection-start-line="395" selection-start-column="0" selection-end-line="395" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pySalk.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="1078">
+          <caret line="84" column="53" selection-start-line="84" selection-start-column="53" selection-end-line="84" selection-end-column="53" />
+          <folding>
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/luncherUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="139" column="45" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/luncher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-328">
+          <caret line="166" column="52" selection-start-line="166" selection-start-column="52" selection-end-line="166" selection-end-column="52" />
+          <folding>
+            <element signature="e#24#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-952">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/newwin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="195" column="65" selection-start-line="195" selection-start-column="65" selection-end-line="195" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Grinder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <marker date="1488767082016" expanded="true" signature="1728:1829" placeholder="INSERT INTO Temporal_Trails" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dualPlotter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2924">
-          <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
+        <state relative-caret-position="193">
+          <caret line="197" column="43" selection-start-line="197" selection-start-column="43" selection-end-line="197" selection-end-column="43" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Grinder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <marker date="1488399075093" expanded="true" signature="1491:1592" placeholder="INSERT INTO Temporal_Trails" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GUItry.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="530" column="2" selection-start-line="530" selection-start-column="2" selection-end-line="530" selection-end-column="2" />
+        <state relative-caret-position="437">
+          <caret line="671" column="22" selection-start-line="671" selection-start-column="22" selection-end-line="671" selection-end-column="22" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <marker date="1488767372961" expanded="true" signature="1331:1586" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="1811:1961" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1488767372961" expanded="true" signature="15542:15699" placeholder="INSERT INTO Temporal_Trails" />
           </folding>
         </state>
       </provider>

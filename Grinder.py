@@ -1,10 +1,11 @@
-import random,time
+import random,time,datetime
 import mysql.connector
 
 class Grind():
     def __init__(self):
         self.count=1
         self.sql_status='pending'
+        self.badboy=4
 
 
     def read_serial(self):
@@ -12,14 +13,18 @@ class Grind():
         #print(self.count)
         if self.count == 1:
             time.sleep(1)
-            payload=self.count, time.time()# new event tag
+            payload=self.count, time.time(), datetime.datetime.now().strftime("%Y%m%d%H%M%S.%f")# new event tag
         if self.count==2:
             time.sleep(1.2)
             payload= self.count, random.randint(0,3),random.randint(0,3),random.randint(0,3), random.randint(0,3) #Song
         if self.count == 3:
             time.sleep(random.randint(20,80)/100)
-            payload= self.count, time.time()#timestamp
+            payload= self.count, time.time(), random.randint(0, 1)#timestamp
+            if self.badboy:
+                self.count-=1
+                self.badboy-=1
         if self.count == 4:
+            self.badboy = 4
             time.sleep(1)
             payload= self.count, random.randint(-1, 1),random.randint(0, 1) #right/wrong
         if self.count == 5:
@@ -38,11 +43,12 @@ class Grind():
 # 4	Difficulty	INT
 # 5	LickResult	INT
 # 6	Correctness	BOOL
-def Serial_Process(pcc,idump,lickdump,songdump,timestampd,new_stuff):
+def Serial_Process(lickdirection,pcc,idump,lickdump,songdump,timestampd,new_stuff):
     print("thread started")
     # cursor = cnx.cursor()
     # t_zero_que = "INSERT INTO  Temporal_Trails(Session_ID,Animal_ID,Event_Type_ID,Trail_ID,Result) VALUES (%i,%i,%i,%i)"
     event_time = []
+    dirr=[]
     while 1:
 
         result = pcc.read_serial()
@@ -50,7 +56,8 @@ def Serial_Process(pcc,idump,lickdump,songdump,timestampd,new_stuff):
         type = result[0]
         if type == 1:
             t_zero = result[1]
-            # cursor.execute(t_zero_que, (t_zero,))
+            text_time=float(result[2])
+            print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
             # cnx.commit()
         if type == 2:
             song=result[1:4]
@@ -58,6 +65,7 @@ def Serial_Process(pcc,idump,lickdump,songdump,timestampd,new_stuff):
                 songdump[i] = song[i]
         if type == 3:
             event_time.append(result[1] - t_zero)
+            dirr.append(result[2])
           #  print('Lick time= %f' % event_time[::-1][0])
 
         if type == 4:  # type==4:
@@ -70,11 +78,13 @@ def Serial_Process(pcc,idump,lickdump,songdump,timestampd,new_stuff):
             idump[0]=direction
             idump[1]=correct
             idump[2]=difficulty
-            for i in range(len(event_time)):
-                lickdump[i]=event_time[i]
+            # for i in range(len(event_time)):
+            lickdump[:]=event_time
+            # print(event_time)
             # print(event_time[:])
             # print(lickdump[:])
-            timestampd=t_zero
+            lickdirection[:]=dirr
+            timestampd.value=text_time
             event_time = []
             new_stuff.value=True
             print("####THREAD##### : Toggled")

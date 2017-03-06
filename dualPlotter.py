@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 import copy
-from multiprocessing import Process, Value, Array
+from multiprocessing import Process, Value, Array, Manager
 from Grinder import *
 lor=[]
 tof=[]
@@ -88,14 +88,30 @@ if __name__ == '__main__':
     fig2.subplots_adjust(hspace=.75)
     plt.pause(0.01)
 
+    temp = patches.Rectangle(
+        (1, 1),  # (x,y)
+        .01,  # width
+        1,  # height
+    )
 
+    del_but1 = []
+    del_but2 = []
+    del_but3 = []
+    del_but1.append(ax3.add_patch(copy.copy(temp)))
+    del_but2.append(ax4.add_patch(copy.copy(temp)))
+    del_but3.append(ax4.add_patch(copy.copy(temp)))
+    tempy = []
+    a_tempy=[]
     new_stuff = Value('b', False)
     dump = Array('i', range(3))
     timestampd = Value('f', 0.0)
     songdump = Array('i', range(4))
     lickdump =Array('f', range(5))
+    manager = Manager()
+    lickdirection = manager.list()
+
     time.sleep(2)
-    slave = Process(target=Serial_Process, args=(p, dump, lickdump, songdump, timestampd, new_stuff))
+    slave = Process(target=Serial_Process, args=(lickdirection,p, dump, lickdump, songdump, timestampd, new_stuff))
     slave.start()
 
     while 1:
@@ -113,6 +129,7 @@ if __name__ == '__main__':
         correct= dump[1]
         difficulty= dump[2]
         song = songdump[:]
+        ld=lickdirection[:]
         for tone in song:
             song_alpha.append(SONGDICT[tone])
         print(song)
@@ -158,6 +175,14 @@ if __name__ == '__main__':
 
                 # after plot difficulty, also plot lick window
 
+
+
+
+
+
+
+
+
         ax3.set_title('Most Recent #%d' % ind)
         try: # get rid of whatever was there
             for dell in del_but1:
@@ -168,34 +193,46 @@ if __name__ == '__main__':
             pass
 
         print(direction)
-        temp=patches.Rectangle(
-            (event_time[0], -1 if direction==-1 else 0),  # (x,y)
-            .01,  # width
-            0 if direction==0 else 1,  # height
-        )
+        tempy=[]
+        a_tempy=[]
+        for eventee,l in zip(event_time,ld ):
+            tempy.append(patches.Rectangle(
+                (eventee, -1 if l==0 else 0),  # (x,y)
+                .01,  # width
+                1,  # height
+            ))
+        # print(tempy)
     #    print(temp.get_axes())
-
-        bar_cache.insert(0,copy.copy(temp))#load up history list
+        for term in tempy: a_tempy.append(copy.copy(term))
+        bar_cache.insert(0, a_tempy)#load up history list
         if len(bar_cache) == 4:
             bar_cache.pop()
             #   print(bar_cache[0].get_axes())
-        del_but1=ax3.add_patch(temp)  #return delete button
-
+        del_but1=[]
+        for term in a_tempy:
+            del_but1.append(ax3.add_patch(term))  #return delete button
+        # print("delete time!!")
+        # print(del_but1)
         plt.pause(0.001)
 
-
+        print(del_but2)
         try:  # get rid of whatever was there
             for dell in del_but2:
                 dell.remove()
         except TypeError:
             del_but2.remove()
-        except NameError:
-            pass
+        except Exception as e:
+            print(str(e))
 
         try:
-            inst1= copy.copy(bar_cache[1])
+            inst1=[]
+            del_but2=[]
+            for term in bar_cache[1]:
+                inst1.append(copy.copy(term))
+                print(inst1[::-1][0])
+                ass=ax4.add_patch(inst1[::-1][0])
+                del_but2.append(ass)
             #     print(inst1.get_axes())
-            del_but2=ax4.add_patch(inst1)
             ax4.set_title('Last Trail #%d' % (ind - 1))
         except IndexError:
             print("312 exception")
@@ -209,12 +246,16 @@ if __name__ == '__main__':
                 dell.remove()
         except TypeError:
             del_but3.remove()
-        except NameError:
-            pass
+        except Exception as e:
+            print(str(e))
 
         try:
-            inst2 = bar_cache[2]
-            del_but3=ax5.add_patch(inst2)
+            inst2 = []
+            del_but3 = []
+            for term in bar_cache[2]:
+                inst2.append(copy.copy(term))
+                del_but3.append(ax5.add_patch(inst2[::-1][0]))
+
             ax5.set_title('2 Trails Ago #%d' % (ind-2))
         except IndexError:
             print("313 exception")
