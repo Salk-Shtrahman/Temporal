@@ -21,9 +21,11 @@ class brother():
         self.return_lick = False
         self.session_song_temp = []
         self.COR={0:0,1:0,2:1}
-        self.LOR={0:0,1:-1,2:1}
+        self.LOR={0:0,2:-1,1:1}
         self.event_list=[]
         self.event_dir_list = []
+        self.return_new_trail = False
+        self.payload_cue = False
 
         self.Port = serial.Serial(george)  # open the COM Port
         self.Port.baudrate = 20800  # set Baud rate
@@ -36,8 +38,12 @@ class brother():
         index=0
         out=[]
         KEY={b'\xff':5, b'\xfe':10}
-        return_new_trail = False
+
         consecutive=False
+
+        if self.payload_cue:
+            self.payload_cue=False
+            return self.cued_payload
         while self.Port.inWaiting()==0:pass
         while self.Port.inWaiting() > 0:
             buf=self.Port.read(1)
@@ -47,6 +53,7 @@ class brother():
                 return
             index+=1
         # print(self.return_song)
+        print('Ladder',self.char_ladder)
         for yo in out:
             # print(yo)
             # print(self.char_ladder)
@@ -58,51 +65,74 @@ class brother():
                         nobro=KEY[o]
                     return (3, time.time(), 1 if out[0] == b'\xff' else 0)
                 except KeyError:
-                    pass
+                    print('super jackpottttttttttttttttttttttttttttt')
+                    if out[1]==b'\x74':
+                        print(out)
+                        while len(out) < 4:
+                            buf = self.Port.read(1)
+                            if buf:
+                                out.append(buf)
+                        print(out)
+                        self.payload_cue=True
+                        self.cued_payload=(4, self.LOR[int.from_bytes(out[2], byteorder='big') % 16], self.COR[
+                            int.from_bytes(out[2], byteorder='big') // 16], int.from_bytes(out[3], byteorder='big'))
+                        print('jackpot just got bigger')
+                        self.char_ladder = 0
+                        return (3, time.time(), 1 if out[0] == b'\xff' else 0)
+
             elif self.char_ladder==0 and yo==b'\x71':
                 self.char_ladder=1
                 self.sesh_timeF=time.time()
-                sesh_timeS=datetime.datetime.now().strftime("%Y%m%d%H%M%S.%f")
-                return_new_trail=True
+                self.sesh_timeS=datetime.datetime.now().strftime("%Y%m%d%H%M%S.%f")
+                self.return_new_trail=True
                 self.event_list = []
+                print('made it to 0')
             elif self.char_ladder==1 or self.char_ladder ==2:
                 self.session_num_temp.append(yo)
                 self.char_ladder+=1
-
+                print('made it to 1,2')
 
             elif self.char_ladder==3 and yo==b'\x72':
                 self.char_ladder = 4
+                print('made it to 3')
                 #do shits to varify above
             elif self.char_ladder==4 or self.char_ladder ==5:
                 self.session_song_temp.append(yo)
                 self.char_ladder += 1
+                print('made it to 4,5')
 
 
             elif self.char_ladder==6 and yo==b'\x74':
                 self.char_ladder=7
+                print('made it to 6')
                 # do shits to varify above
             elif self.char_ladder == 7:
                 self.char_ladder = 8
-                correct = int.from_bytes(yo, byteorder='big') // 16
-                direction = int.from_bytes(yo, byteorder='big') % 16
+                self.correct = int.from_bytes(yo, byteorder='big') // 16
+                self.direction = int.from_bytes(yo, byteorder='big') % 16
+                print('made it to 7')
                 # print('yo',yo)
                 # print('corr, dir',correct,direction)
             elif self.char_ladder == 8:
                 difficulty = int.from_bytes(yo, byteorder='big')
                 self.char_ladder=0
-                self.return_lick = True
-                return (4,  self.LOR[direction], self.COR[correct], difficulty)
+                print('made it to 8')
+                if self.return_lick:
+                    self.return_lick=False
+                    return (4,  self.LOR[self.direction], self.COR[self.correct], difficulty)
 
 
 
-        if return_new_trail:
+        if self.return_new_trail:
+            self.return_new_trail = False
             # print(self.session_num_temp)
             try:
                 high_byte=int.from_bytes(self.session_num_temp[0], byteorder='big')<<8
                 low_byte=int.from_bytes(self.session_num_temp[1], byteorder='big')
             except IndexError:
-                print('jackpooooottttttttttttt',out)
-                return
+                print('jackpooooottttttttttttt',out,)
+                self.return_new_trail = True
+                return [5]
             sum = high_byte + low_byte
             # print(sum)
             try:
@@ -121,9 +151,10 @@ class brother():
             self.session_num_temp=[]
             if consecutive:
                 self.return_song = True
-                return(1, self.sesh_timeF, sesh_timeS)
+                return(1, self.sesh_timeF, self.sesh_timeS)
         elif self.return_song:
             self.return_song=False
+            self.return_lick=True
             try:
                 tone1 =int.from_bytes(self.session_song_temp[0], byteorder='big') // 16
                 tone2 =int.from_bytes(self.session_song_temp[0], byteorder='big') % 16
@@ -132,8 +163,10 @@ class brother():
 
                 self.session_song_temp=[]
                 return(2,tone1,tone2,tone3,tone4)
-            except Exception:
-                pass
+            except Exception as e:
+                print(e)
+                self.return_song = True
+
 
 
 
@@ -142,21 +175,21 @@ class brother():
 
 
    ###sequencer
-        return ([0])
+        return (0)
 
 
 
 
 
-# if __name__ == '__main__':
-#
-#
-#     bro=brother()
-#     while 1:
-#     #    theStartTime = time.time()
-#         ID_data=bro.read_serial()
-#         print('yyyyyyyyyyyyyyyyyyyyyyyyyyy',ID_data)
-#         #
+if __name__ == '__main__':
+
+
+    bro=brother('COM9')
+    while 1:
+    #    theStartTime = time.time()
+        ID_data=bro.read_serial()
+        print('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy',ID_data)
+        #
 
 
     # let's wait one second before reading output (let's give device time to answer)

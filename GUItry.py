@@ -482,7 +482,7 @@ class PlotSide(FigureCanvas):
         ### first guy
         print(momom)
         self.ax3 = self.figure.add_subplot(311)
-        self.ax3.set_xlim(0, 3)
+        self.ax3.set_xlim(0, 6)
         self.ax3.set_ylim(-1, 1)
         self.ax3.set_title('Most recent')
         self.ax3.set_yticks([-1, 0, 1])
@@ -490,7 +490,7 @@ class PlotSide(FigureCanvas):
         self.ax3.axhline(y=0, color='k')
         ### second guy
         self.ax4 = self.figure.add_subplot(312)
-        self.ax4.set_xlim(0, 3)
+        self.ax4.set_xlim(0, 6)
         self.ax4.set_ylim(-1, 1)
         self.ax4.set_title('Last Trail')
         self.ax4.set_yticks([-1, 0, 1])
@@ -498,7 +498,7 @@ class PlotSide(FigureCanvas):
         self.ax4.axhline(y=0, color='k')
         ### third guy
         self.ax5 = self.figure.add_subplot(313)
-        self.ax5.set_xlim(0, 3)
+        self.ax5.set_xlim(0, 6)
         self.ax5.set_ylim(-1, 1)
         self.ax5.set_title('2 Trails Ago')
         self.ax5.set_yticks([-1, 0, 1])
@@ -545,7 +545,7 @@ class PlotSide(FigureCanvas):
         for eventee, l in zip(event_time, ld):
             tempy.append(patches.Rectangle(
                 (eventee, -1 if l == 0 else 0),  # (x,y)
-                .01,  # width
+                .05,  # width
                 1,  # height
             ))
         #    print(temp.get_axes())

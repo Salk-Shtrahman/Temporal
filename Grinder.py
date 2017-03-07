@@ -50,7 +50,7 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
     dirr=[]
     bro=brother(port_name)
     # pcc=Grind()
-
+    t_zero=time.time()
     while 1:
         # (1, 1488832244.381148, '20170306123044.381148')
         # 20170306123044.383
@@ -59,7 +59,12 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
         result = bro.read_serial()
         print(result)
   #      print(result)
-        type = result[0]
+        try:
+            type = result[0]
+        except Exception as e:
+            print(e)
+            type=result
+
         if type == 1:
             t_zero = result[1]
             text_time=float(result[2])
@@ -88,12 +93,15 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
             try:
                 lickdump[:]=event_time
                 lickdirection[:]=dirr
-            except ValueError:
+                timestampd.value = text_time
+                event_time = []
+                new_stuff.value = True
+                print("####THREAD##### : Toggled")
+            except Exception as e:
                 lickdump[:]=[0]
                 lickdirection[:] = [0]
-            timestampd.value=text_time
-            event_time = []
-            new_stuff.value=True
-            print("####THREAD##### : Toggled")
+                print(e,'ignoring this round, its garbage')
+
+
 
 
