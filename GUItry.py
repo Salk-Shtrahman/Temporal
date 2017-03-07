@@ -1,21 +1,16 @@
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QVBoxLayout, QSizePolicy, QMessageBox, QWidget, QPushButton
-from PyQt5.QtGui import QIcon
-
+import csv
 import ctypes
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 import copy
 from multiprocessing import Process, Value, Array, Manager
 from Grinder import *
 import matplotlib.patches as patches
 import random
 import signal, time
-from eventlet.timeout import Timeout
-import csv
-import mysql.connector
 from luncher import Luncher
 class App(QMainWindow):
 
@@ -83,6 +78,7 @@ class App(QMainWindow):
         self.sessionID.setText("Session : %i"% self.session_ID)
         self.port_Status.setText("Port: %s"%prep.portName )
         self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
+        self.quitButton.clicked.connect(self.close)
 
         self.show()
         # time.sleep(3)
@@ -288,7 +284,7 @@ class App(QMainWindow):
         self.mainPlot.update_scroll(scroll)
 
     def update_figure(self):
-        SONGDICT={0:'x',1:'a',2:'b',3:'c',4:'d',5:'e',6:'f',7:'g'}
+        SONGDICT={0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G'}
         song_alpha=[]
         if not new_stuff.value:
             self.timeText.setText(time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -632,6 +628,9 @@ class PlotSide(FigureCanvas):
 
 def exitApp():
     slave.terminate()
+    prep.ComPort.close()
+    prep.cnx.disconnect()
+    prep.theFile.close()
     sys.exit()
 if __name__ == '__main__':
 
@@ -646,30 +645,28 @@ if __name__ == '__main__':
     ind = 1
     l_diff = [0, ]
     event_time = []
-    p = Grind()
+
     #`Animal_ID`, `Training`, `Punishment_Duration`, `Tone_Duration`, `Ttime_Between_Tones`, `Lickwindow_Duration`, `R_Opentime`, `L_Opentime`, `Trial_Limit`, `min_Difficulty`, `max_Difficulty`, `Drip_Delay`    #
     config=[1       ,1          ,1.5                    ,2.5            ,0.5                    ,.25                ,.65            ,.65            ,200        ,4              ,20                 , 5]
     dbName='Salk'
 
-
-
-
-    new_stuff = Value('b', False)
-    dump = Array('i', range(3))
-    timestampd = Value('f', 0.0)
-    songdump = Array('i', range(4))
-    # l = Array('f',100)
-    manager = Manager()
-    lickdump = manager.list()
-    lickdirection = manager.list()
-    time.sleep(2)
-    slave = Process(target=Serial_Process, args=(lickdirection, p, dump, lickdump, songdump, timestampd, new_stuff))
-    slave.start()
-
-
-
-    mainApp = QApplication(sys.argv)
-    ex = App(prep.cnx)
-    mainApp.exec_()
+    try:
+        prep.ComPort.close()
+        new_stuff = Value('b', False)
+        dump = Array('i', range(3))
+        timestampd = Value('f', 0.0)
+        songdump = Array('i', range(4))
+        # l = Array('f',100)
+        manager = Manager()
+        lickdump = manager.list()
+        lickdirection = manager.list()
+        time.sleep(2)
+        slave = Process(target=Serial_Process, args=(prep.portName,lickdirection, dump, lickdump, songdump, timestampd, new_stuff))
+        slave.start()
+        mainApp = QApplication(sys.argv)
+        ex = App(prep.cnx)
+        mainApp.exec_()
+    except Exception:
+        pass
     exitApp()
 

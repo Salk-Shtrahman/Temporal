@@ -1,5 +1,6 @@
 import random,time,datetime
 import mysql.connector
+from experiment import brother
 
 class Grind():
     def __init__(self):
@@ -26,11 +27,9 @@ class Grind():
         if self.count == 4:
             self.badboy = 4
             time.sleep(1)
-            payload= self.count, random.randint(-1, 1),random.randint(0, 1) #right/wrong
-        if self.count == 5:
-            time.sleep(.1)
-            payload= self.count, random.randint(0, 16)
-        self.count = self.count + 1 if self.count < 5 else 1
+            payload= self.count, random.randint(-1, 1),random.randint(0, 1), random.randint(0, 16) #right/wrong
+
+        self.count = self.count + 1 if self.count < 4 else 1
         return payload
 # Type 1 Transmission: Session start Session_Id ++
 # Type 2 Transmission: End of Phase 1, tone info cdef
@@ -43,15 +42,22 @@ class Grind():
 # 4	Difficulty	INT
 # 5	LickResult	INT
 # 6	Correctness	BOOL
-def Serial_Process(lickdirection,pcc,idump,lickdump,songdump,timestampd,new_stuff):
+def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,new_stuff):
     print("thread started")
     # cursor = cnx.cursor()
     # t_zero_que = "INSERT INTO  Temporal_Trails(Session_ID,Animal_ID,Event_Type_ID,Trail_ID,Result) VALUES (%i,%i,%i,%i)"
     event_time = []
     dirr=[]
-    while 1:
+    bro=brother(port_name)
+    # pcc=Grind()
 
-        result = pcc.read_serial()
+    while 1:
+        # (1, 1488832244.381148, '20170306123044.381148')
+        # 20170306123044.383
+        # (2, 2, 6, 6, 5)
+        # (3, 0, 0, 13)
+        result = bro.read_serial()
+        print(result)
   #      print(result)
         type = result[0]
         if type == 1:
@@ -71,19 +77,20 @@ def Serial_Process(lickdirection,pcc,idump,lickdump,songdump,timestampd,new_stuf
         if type == 4:  # type==4:
             direction = result[1]
             correct = result[2]
+            difficulty = result[3]
 
-        if type == 5:  # plot difficulty
-            difficulty=result[1]
+
 
             idump[0]=direction
             idump[1]=correct
             idump[2]=difficulty
             # for i in range(len(event_time)):
-            lickdump[:]=event_time
-            # print(event_time)
-            # print(event_time[:])
-            # print(lickdump[:])
-            lickdirection[:]=dirr
+            try:
+                lickdump[:]=event_time
+                lickdirection[:]=dirr
+            except ValueError:
+                lickdump[:]=[0]
+                lickdirection[:] = [0]
             timestampd.value=text_time
             event_time = []
             new_stuff.value=True

@@ -10,6 +10,7 @@ import numpy as np
 import copy
 from multiprocessing import Process, Value, Array, Manager
 from Grinder import *
+import serial
 lor=[]
 tof=[]
 
@@ -20,7 +21,8 @@ tof=[]
 # Find your api_key here: https://plot.ly/settings/api
 
 
-p = Grind()
+
+
 
 
 
@@ -42,8 +44,9 @@ SONGDICT = {0:'x',1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e', 6: 'f', 7: 'g'}
 
 if __name__ == '__main__':
 
-    print("I'm in")
 
+
+    print("I'm in")
     fig1 = plt.figure(1)
     plt.ion()
     ax1 = fig1.add_subplot(211)
@@ -106,12 +109,11 @@ if __name__ == '__main__':
     dump = Array('i', range(3))
     timestampd = Value('f', 0.0)
     songdump = Array('i', range(4))
-    lickdump =Array('f', range(5))
     manager = Manager()
+    lickdump = manager.list()
     lickdirection = manager.list()
-
     time.sleep(2)
-    slave = Process(target=Serial_Process, args=(lickdirection,p, dump, lickdump, songdump, timestampd, new_stuff))
+    slave = Process(target=Serial_Process, args=(lickdirection, dump, lickdump, songdump, timestampd, new_stuff))
     slave.start()
 
     while 1:
