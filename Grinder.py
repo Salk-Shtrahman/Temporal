@@ -49,14 +49,14 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
     event_time = []
     dirr=[]
     bro=brother(port_name)
-    pcc=Grind()
+    # pcc=Grind()
     t_zero=time.time()
     while 1:
         # (1, 1488832244.381148, '20170306123044.381148')
         # 20170306123044.383
         # (2, 2, 6, 6, 5)
         # (3, 0, 0, 13)
-        result = pcc.read_serial()
+        result = bro.read_serial()
         print(result)
   #      print(result)
         try:
@@ -68,12 +68,13 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
         if type == 1:
             t_zero = result[1]
             text_time=float(result[2])
-            print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
+            #print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
             # cnx.commit()
         if type == 2:
-            song=result[1:4]
+            song=result[1:5]
             for i in range(len(song)):
                 songdump[i] = song[i]
+                
         if type == 3:
             event_time.append(result[1] - t_zero)
             dirr.append(result[2])
@@ -93,8 +94,10 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
             try:
                 lickdump[:]=event_time
                 lickdirection[:]=dirr
+                print('direction is important',lickdirection[:])
                 timestampd.value = text_time
                 event_time = []
+                dirr=[]
                 new_stuff.value = True
                 print("####THREAD##### : Toggled")
             except Exception as e:
