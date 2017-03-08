@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1063</width>
-    <height>394</height>
+    <height>391</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -72,7 +72,7 @@
            <x>0</x>
            <y>0</y>
            <width>871</width>
-           <height>289</height>
+           <height>286</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
@@ -232,7 +232,7 @@
       <item>
        <widget class="QPushButton" name="resumeButton">
         <property name="text">
-         <string>Resume</string>
+         <string>Flush</string>
         </property>
        </widget>
       </item>

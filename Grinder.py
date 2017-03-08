@@ -49,14 +49,14 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
     event_time = []
     dirr=[]
     bro=brother(port_name)
-    # pcc=Grind()
+    pcc=Grind()
     t_zero=time.time()
     while 1:
         # (1, 1488832244.381148, '20170306123044.381148')
         # 20170306123044.383
         # (2, 2, 6, 6, 5)
         # (3, 0, 0, 13)
-        result = bro.read_serial()
+        result = pcc.read_serial()
         print(result)
   #      print(result)
         try:

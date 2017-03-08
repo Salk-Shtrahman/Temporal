@@ -53,7 +53,7 @@ class brother():
                 return
             index+=1
         # print(self.return_song)
-        print('Ladder',self.char_ladder)
+        # print('Ladder',self.char_ladder)
         for yo in out:
             # print(yo)
             # print(self.char_ladder)
@@ -86,37 +86,37 @@ class brother():
                 self.sesh_timeS=datetime.datetime.now().strftime("%Y%m%d%H%M%S.%f")
                 self.return_new_trail=True
                 self.event_list = []
-                print('made it to 0')
+                # print('made it to 0')
             elif self.char_ladder==1 or self.char_ladder ==2:
                 self.session_num_temp.append(yo)
                 self.char_ladder+=1
-                print('made it to 1,2')
+                # print('made it to 1,2')
 
             elif self.char_ladder==3 and yo==b'\x72':
                 self.char_ladder = 4
-                print('made it to 3')
+                # print('made it to 3')
                 #do shits to varify above
             elif self.char_ladder==4 or self.char_ladder ==5:
                 self.session_song_temp.append(yo)
                 self.char_ladder += 1
-                print('made it to 4,5')
+                # print('made it to 4,5')
 
 
             elif self.char_ladder==6 and yo==b'\x74':
                 self.char_ladder=7
-                print('made it to 6')
+                # print('made it to 6')
                 # do shits to varify above
             elif self.char_ladder == 7:
                 self.char_ladder = 8
                 self.correct = int.from_bytes(yo, byteorder='big') // 16
                 self.direction = int.from_bytes(yo, byteorder='big') % 16
-                print('made it to 7')
+                # print('made it to 7')
                 # print('yo',yo)
                 # print('corr, dir',correct,direction)
             elif self.char_ladder == 8:
                 difficulty = int.from_bytes(yo, byteorder='big')
                 self.char_ladder=0
-                print('made it to 8')
+                # print('made it to 8')
                 if self.return_lick:
                     self.return_lick=False
                     return (4,  self.LOR[self.direction], self.COR[self.correct], difficulty)
@@ -130,7 +130,7 @@ class brother():
                 high_byte=int.from_bytes(self.session_num_temp[0], byteorder='big')<<8
                 low_byte=int.from_bytes(self.session_num_temp[1], byteorder='big')
             except IndexError:
-                print('jackpooooottttttttttttt',out,)
+                # print('jackpooooottttttttttttt',out,)
                 self.return_new_trail = True
                 return [5]
             sum = high_byte + low_byte
@@ -139,13 +139,13 @@ class brother():
                 self.MCU_count.pop(0)
                 self.MCU_count.append(sum)
                 if self.MCU_count[1]==self.MCU_count[0]+1:
-                    print('consecutive')
+                    # print('consecutive')
                     consecutive=True
                 else:
                     pass #deal with it later, 1f 1e injection fucked it up
             except IndexError:#the first freebee
                 self.MCU_count.append(sum)
-                print('consecutive')
+                # print('consecutive')
                 consecutive = True
             #clear temp
             self.session_num_temp=[]
@@ -184,7 +184,7 @@ class brother():
 if __name__ == '__main__':
 
 
-    bro=brother('COM9')
+    bro=brother('COM8')
     while 1:
     #    theStartTime = time.time()
         ID_data=bro.read_serial()

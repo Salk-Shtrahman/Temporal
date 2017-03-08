@@ -252,6 +252,8 @@ class Luncher(QtWidgets.QWidget):
             pathName += time.strftime("/%Y-%m-%d_%H%M%S_.csv")
             print(pathName)
             pathName.strip()
+            self.pathName = pathName[-22:]
+            print(self.pathName)
             print(pathName)
             try:
                 self.theFile=open(pathName, 'w')

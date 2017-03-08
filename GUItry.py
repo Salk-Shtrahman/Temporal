@@ -11,6 +11,7 @@ from Grinder import *
 import matplotlib.patches as patches
 import random
 import signal, time
+import os
 from luncher import Luncher
 class App(QMainWindow):
 
@@ -33,6 +34,7 @@ class App(QMainWindow):
         self.cursor = self.cnx.cursor()
 
         self.writer=csv.writer(prep.theFile)
+        self.flushButtonStatus=True
         ###########Obtain Session ID from Server
 
         self.cursor.execute(
@@ -73,6 +75,7 @@ class App(QMainWindow):
         self.ind = 1
 
 
+
         self.setupUi(self)
 
         self.sessionID.setText("Session : %i"% self.session_ID)
@@ -80,6 +83,16 @@ class App(QMainWindow):
         self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
         self.quitButton.clicked.connect(self.close)
 
+        self.flushButton.setIcon(QtGui.QIcon('flushOff.png'))
+        self.flushButton.setIconSize(QtCore.QSize(75,75))
+        self.flushButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon);
+        self.flushButton.clicked.connect(self.flushValves)
+
+        self.startButton.setIcon(QtGui.QIcon('play.png'))
+        self.startButton.setIconSize(QtCore.QSize(75, 75))
+        self.pauseButton.setIcon(QtGui.QIcon('pause.png'))
+        self.pauseButton.setIconSize(QtCore.QSize(75, 75))
+        self.statusbar.showMessage(prep.pathName)
         self.show()
         # time.sleep(3)
         # self.update_figure()
@@ -225,9 +238,9 @@ class App(QMainWindow):
         self.pauseButton = QtWidgets.QPushButton(self.centralwidget)
         self.pauseButton.setObjectName("pauseButton")
         self.verticalLayout_3.addWidget(self.pauseButton)
-        self.resumeButton = QtWidgets.QPushButton(self.centralwidget)
-        self.resumeButton.setObjectName("resumeButton")
-        self.verticalLayout_3.addWidget(self.resumeButton)
+        self.flushButton = QtWidgets.QToolButton(self.centralwidget)
+        self.flushButton.setObjectName("flushButton")
+        self.verticalLayout_3.addWidget(self.flushButton)
         self.gridLayout_2.addLayout(self.verticalLayout_3, 2, 3, 1, 1)
         self.quitButton = QtWidgets.QPushButton(self.centralwidget)
         self.quitButton.setObjectName("quitButton")
@@ -267,9 +280,9 @@ class App(QMainWindow):
         self.port_Status.setText(_translate("MainWindow", "Port:"))
         self.db_status.setText(_translate("MainWindow", "SQL(connected):"))
         self.timeText.setText(_translate("MainWindow", "TIME"))
-        self.startButton.setText(_translate("MainWindow", "Start"))
-        self.pauseButton.setText(_translate("MainWindow", "Pause"))
-        self.resumeButton.setText(_translate("MainWindow", "Resume"))
+        # self.startButton.setText(_translate("MainWindow", "Start"))
+        # self.pauseButton.setText(_translate("MainWindow", "Pause"))
+        self.flushButton.setText(_translate("MainWindow", "Flush"))
         self.quitButton.setText(_translate("MainWindow", "Quit n Save"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
@@ -282,6 +295,14 @@ class App(QMainWindow):
         self.horizontalScrollBar.setPageStep(100*self.scrollWidth/(self.ind-self.scrollWidth))
 
         self.mainPlot.update_scroll(scroll)
+    def flushValves(self):
+        if self.flushButtonStatus:
+            self.flushButton.setIcon(QtGui.QIcon('flushOn.png'))
+            self.flushButton.setText('Stop Flush')
+        else:
+            self.flushButton.setIcon(QtGui.QIcon('flushOff.png'))
+            self.flushButton.setText('Flush')
+        self.flushButtonStatus= not self.flushButtonStatus
 
     def update_figure(self):
         SONGDICT={0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G'}
@@ -488,6 +509,7 @@ class PlotSide(FigureCanvas):
         self.ax3.set_yticks([-1, 0, 1])
         self.ax3.set_yticklabels(['Left', 'No lick', 'Right'])
         self.ax3.axhline(y=0, color='k')
+        self.ax3.axvline(x=2,color='r')
         ### second guy
         self.ax4 = self.figure.add_subplot(312)
         self.ax4.set_xlim(0, 6)
@@ -496,6 +518,7 @@ class PlotSide(FigureCanvas):
         self.ax4.set_yticks([-1, 0, 1])
         self.ax4.set_yticklabels(['Left', 'No lick', 'Right'])
         self.ax4.axhline(y=0, color='k')
+        self.ax4.axvline(x=2, color='r')
         ### third guy
         self.ax5 = self.figure.add_subplot(313)
         self.ax5.set_xlim(0, 6)
@@ -504,6 +527,7 @@ class PlotSide(FigureCanvas):
         self.ax5.set_yticks([-1, 0, 1])
         self.ax5.set_yticklabels(['Left', 'No lick', 'Right'])
         self.ax5.axhline(y=0, color='k')
+        self.ax5.axvline(x=2, color='r')
         self.figure.subplots_adjust(hspace=.75)
 
         temp = patches.Rectangle(
@@ -558,7 +582,7 @@ class PlotSide(FigureCanvas):
         self.del_but1 = []
         for term in a_tempy:
             self.del_but1.append(self.ax3.add_patch(term))  # return delete button
-        # print("made it to 3")
+        self.draw()
         #print(self.del_but2)
         try:  # get rid of whatever was there
             for dell in self.del_but2:
@@ -577,7 +601,7 @@ class PlotSide(FigureCanvas):
             # print("made it to 3.3")
             pass
         # print("made it to 4")
-
+        self.draw()
         try:
             inst1 = []
             self.del_but2 = []
@@ -592,7 +616,7 @@ class PlotSide(FigureCanvas):
             print("312 exception")
             pass;
         # print("made it to 5")
-
+        self.draw()
         try:  # get rid of whatever was there
             for dell in self.del_but3:
                 dell.remove()
@@ -605,7 +629,7 @@ class PlotSide(FigureCanvas):
             # print("made it to 3.21")
         except NameError:
             pass
-
+        self.draw()
         #print(self.bar_cache)
         try:
             inst2 = []
@@ -619,7 +643,6 @@ class PlotSide(FigureCanvas):
         except IndexError:
             print("313 exception")
             pass
-        time.sleep(0.05)
         self.draw()
         #print("made it to 6")
 
@@ -631,6 +654,11 @@ def exitApp():
     prep.ComPort.close()
     prep.cnx.disconnect()
     prep.theFile.close()
+    newName=prep.pathName[:-4]+str(ex.session_ID)+'.csv'
+    os.rename(prep.pathName,newName)
+    print('leaving with hella style')
+        # ...
+        # os.rename(filename, filename[7:])
     sys.exit()
 if __name__ == '__main__':
 
