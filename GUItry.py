@@ -655,7 +655,7 @@ def exitApp():
     cursor = prep.cnx.cursor()
     cursor.execute(
             "INSERT INTO  Temporal_Session (Complete) VALUES (%s)",
-            (1)
+            (1))
     prep.cnx.commit()
     prep.cnx.disconnect()
     prep.theFile.close()
