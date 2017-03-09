@@ -652,6 +652,11 @@ class PlotSide(FigureCanvas):
 def exitApp():
     slave.terminate()
     prep.ComPort.close()
+    cursor = prep.cnx.cursor()
+    cursor.execute(
+            "INSERT INTO  Temporal_Session (Complete) VALUES (%s)",
+            (1)
+    prep.cnx.commit()
     prep.cnx.disconnect()
     prep.theFile.close()
     newName=prep.pathName[:-4]+str(ex.session_ID)+'.csv'
