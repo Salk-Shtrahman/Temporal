@@ -36,6 +36,9 @@ class Grind():
 # Type 3 Transmission: Event trigger, 1f - left, 1e - right
 # Type 4 Transmission: End of Phase 2, lick info, correct/ incorrect info
 # Type 5 Transmission: Difficulty
+
+# class Grind_DB():
+
 # 1	SequenceStartTime	TIME
 # 2	Song	STR
 # 3	LickTime	CSV(STR)

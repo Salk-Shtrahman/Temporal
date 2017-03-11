@@ -13,6 +13,7 @@ import random
 import signal, time
 import os
 from luncher import Luncher
+from settings import Settings
 class App(QMainWindow):
 
     def __init__(self,cnx):
@@ -93,6 +94,8 @@ class App(QMainWindow):
         self.pauseButton.setIcon(QtGui.QIcon('pause.png'))
         self.pauseButton.setIconSize(QtCore.QSize(75, 75))
         self.statusbar.showMessage(prep.pathName)
+
+        self.actionSettings.triggered.connect(self.openSettings)
         self.show()
         # time.sleep(3)
         # self.update_figure()
@@ -101,6 +104,11 @@ class App(QMainWindow):
         # self.update_figure()
         # time.sleep(3)
         # self.update_figure()
+    def openSettings(self):
+        #send pause signal
+        #wait for confirmed pause
+
+        self.settingsWindow = Settings("COM4")
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
