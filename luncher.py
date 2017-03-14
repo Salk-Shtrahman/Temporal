@@ -3,7 +3,7 @@ from serial.tools import list_ports
 import fnmatch
 import serial
 import mysql.connector
-import time,sys
+import time,sys,json
 import csv
 from settings import Settings
 # Form implementation generated from reading ui file 'luncherUI.ui'
@@ -18,7 +18,7 @@ class Luncher(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.settingsWidget = Settings('COM4')
+        self.settingsWidget = Settings('COM4',mode=2)
         self.setupUi(self)
 
 
@@ -30,12 +30,53 @@ class Luncher(QtWidgets.QWidget):
         self.serialButton.clicked.connect(self.openSerial)
         self.sqlButton.clicked.connect(self.openSQL)
         self.lunchButton.setEnabled(False)
-        self.lunchButton.clicked.connect(self.close)
+        self.lunchButton.clicked.connect(self.gtfo)
         self.lunchButton.setAutoDefault(True)
+
+        self.userText.setText(self.settingsWidget.jsettings['session_default']['db_login'])
+        self.passText.setText(self.settingsWidget.jsettings['session_default']['db_pass'])
+        self.dbText.setText(self.settingsWidget.jsettings['session_default']['db_schema'])
+        self.ipText.setText(self.settingsWidget.jsettings['session_default']['db_url'])
+        self.defaultPath=self.settingsWidget.jsettings['session_default']['path']
 
         self.show()
         self.broImReady=[0,0,0]
 
+
+    def gtfo(self):
+        self.settingsWidget.jsettings['session_default']['db_login']    =self.userText.text()
+        self.settingsWidget.jsettings['session_default']['db_pass']     =self.passText.text()
+        self.settingsWidget.jsettings['session_default']['db_schema']   =self.dbText.text()
+        self.settingsWidget.jsettings['session_default']['db_url']      =self.ipText.text()
+        self.settingsWidget.jsettings['session_default']['path'] = self.defaultPath
+
+        self.settingsWidget.jsettings['mcu_config']['drip_delay_time'] = self.settingsWidget.dripBox.value()
+        self.settingsWidget.jsettings['mcu_config']['punishment_duration'] = self.settingsWidget.punishBox.value()
+        self.settingsWidget.jsettings['mcu_config']['delay_duration'] = self.settingsWidget.delayBox.value()
+        self.settingsWidget.jsettings['mcu_config']['tone_duration'] = self.settingsWidget.toneBox.value()
+        self.settingsWidget.jsettings['mcu_config']['time_between_tones'] = self.settingsWidget.betweenToneBox.value()
+        self.settingsWidget.jsettings['mcu_config']['valve_open_time'] = self.settingsWidget.valveBox.value()
+        self.settingsWidget.jsettings['mcu_config']['lickwindow_duration'] = self.settingsWidget.lickBox.value()
+        self.settingsWidget.jsettings['mcu_config']['trial_number'] = self.settingsWidget.trailBox.value()
+        self.settingsWidget.jsettings['mcu_config']['min_difficulty'] = self.settingsWidget.minBox.value()
+        self.settingsWidget.jsettings['mcu_config']['max_difficulty'] = self.settingsWidget.maxBox.value()
+        self.settingsWidget.jsettings['mcu_config']['training_phase'] = 1 if self.settingsWidget.p1Button.isChecked() and self.settingsWidget.p2Button.isChecked() else 2
+        self.settingsWidget.jsettings['session_default']['position'] += 1
+        if self.settingsWidget.jsettings['session_default']['position'] == 5:
+            self.settingsWidget.jsettings['session_default']['position'] = 1
+        self.settingsWidget.ComPort=self.portName
+
+
+        with open('settings.json', 'w') as outfile:
+            json.dump(self.settingsWidget.jsettings, outfile)
+        try:
+            self.settingsWidget.download()
+            self.close()
+        except Exception as e:
+            print('Download Failure: '+ str(e))
+
+
+        self.close()
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(606, 413)
@@ -206,6 +247,7 @@ class Luncher(QtWidgets.QWidget):
         self.sqlButton.setText(_translate("Form", "Connect"))
         self.lunchButton.setText(_translate("Form", "Launch"))
     def openSQL(self):
+
         server=self.ipText.text()
         user= self.userText.text()
         password= self.passText.text()
@@ -216,14 +258,15 @@ class Luncher(QtWidgets.QWidget):
                                       host=server,
                                       database=database)  # connect to Database
             self.sql_status='SQL connected'
+            self.stepTwo.setText("Step 2: Connect to Database   (Connected)")
+            self.broImReady[1] = 1
+            if sum(self.broImReady) == 3:
+                self.lunchButton.setEnabled(True)
         except Exception as e:
             self.sql_status = str(e)
         self.textBrowser.append((self.sql_status))
-        self.stepTwo.setText("Step 2: Connect to Database   (Connected)")
 
-        self.broImReady[1]=1
-        if sum(self.broImReady) == 3:
-            self.lunchButton.setEnabled(True)
+
 
 
     def openSerial(self):
@@ -264,16 +307,16 @@ class Luncher(QtWidgets.QWidget):
     def saveFileDialog(self):
         options = QtWidgets.QFileDialog.Options()
         options |= QtWidgets.QFileDialog.DontUseNativeDialog
-        pathName= QtWidgets.QFileDialog.getExistingDirectory(self, "STEP 1, Choose Folder to Save", "",options=options)
-
+        pathName= QtWidgets.QFileDialog.getExistingDirectory(self, "STEP 1, Choose Folder to Save", self.defaultPath,options=options)
+        self.defaultPath=pathName
         # print(pathName[-4:])
         if pathName:
             pathName += time.strftime("/%Y-%m-%d_%H%M%S_.csv")
-            print(pathName)
+            # print(pathName)
             pathName.strip()
             self.pathName = pathName[-22:]
-            print(self.pathName)
-            print(pathName)
+
+
             try:
                 self.theFile=open(pathName, 'w')
                 self.textBrowser.append("file ready")

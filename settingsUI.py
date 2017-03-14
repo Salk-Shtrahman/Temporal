@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
-from serial.tools import list_ports
-import fnmatch
-import serial
-import mysql.connector
-import time,sys,json
-import csv,os
-# Form implementation generated from reading ui file 'luncherUI.ui'
+
+# Form implementation generated from reading ui file 'settingsUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.8
 #
@@ -13,102 +8,8 @@ import csv,os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Settings(QtWidgets.QWidget):
-    def __init__(self,comPort,mode=1):
-        super().__init__()
-        abspath = os.path.abspath(__file__)
-        dname = os.path.dirname(abspath)
-        os.chdir(dname)
-
-        self.mode=mode
-
-        jsondat = open('settings.json').read()
-        self.jsettings=json.loads(jsondat)
-
-        self.setupUi(self)
-        self.comPort=comPort
-        phaseGroup = QtWidgets.QButtonGroup(self)  # Letter group
-        phaseGroup.addButton(self.p1Button)
-        phaseGroup.addButton(self.p2Button)
-
-        dispGroup=QtWidgets.QButtonGroup(self)
-        dispGroup.addButton(self.d1tBox)
-        dispGroup.addButton(self.d1bBox)
-        dispGroup.addButton(self.d2tBox)
-        dispGroup.addButton(self.d2bBox)
-        if self.jsettings['session_default']['position'] == 1:
-            self.d1tBox.setChecked(True)
-        elif self.jsettings['session_default']['position'] == 2:
-            self.d1bBox.setChecked(True)
-        elif self.jsettings['session_default']['position'] == 3:
-            self.d2tBox.setChecked(True)
-        elif self.jsettings['session_default']['position'] == 4:
-            self.d2bBox.setChecked(True)
-
-        if self.jsettings['mcu_config']['training_phase']==1:
-            self.p1Button.setChecked(True)
-            self.p2Button.setChecked(False)
-        elif self.jsettings['mcu_config']['training_phase'] == 2:
-            self.p2Button.setChecked(True)
-            self.p1Button.setChecked(False)
-        self.dripBox.setValue(self.jsettings['mcu_config']['drip_delay_time'])
-        self.punishBox.setValue(self.jsettings['mcu_config']['punishment_duration'])
-        self.delayBox.setValue(self.jsettings['mcu_config']['delay_duration'])
-        self.toneBox.setValue(self.jsettings['mcu_config']['tone_duration'])
-        self.betweenToneBox.setValue(self.jsettings['mcu_config']['time_between_tones'])
-        self.valveBox.setValue(self.jsettings['mcu_config']['valve_open_time'])
-        self.lickBox.setValue(self.jsettings['mcu_config']['lickwindow_duration'])
-        self.trailBox.setValue(self.jsettings['mcu_config']['trial_number'])
-        self.minBox.setValue(self.jsettings['mcu_config']['min_difficulty'])
-        self.maxBox.setValue(self.jsettings['mcu_config']['max_difficulty'])
-
-        if mode==1:
-            self.downloadButton.clicked.connect(self.getout)
-        self.minBox.valueChanged.connect(self.repairLimit)
-        self.maxBox.valueChanged.connect(self.repairLimit)
-
-        self.show()
-
-    def repairLimit(self):
-        self.maxBox.setMinimum(self.minBox.value())
-        self.minBox.setMaximum(self.maxBox.value())
-    def getout(self):
-        self.jsettings['mcu_config']['drip_delay_time']         =   self.dripBox.value()
-        self.jsettings['mcu_config']['punishment_duration']     =   self.punishBox.value()
-        self.jsettings['mcu_config']['delay_duration']          =   self.delayBox.value()
-        self.jsettings['mcu_config']['tone_duration']           =   self.toneBox.value()
-        self.jsettings['mcu_config']['time_between_tones']      =   self.betweenToneBox.value()
-        self.jsettings['mcu_config']['valve_open_time']         =   self.valveBox.value()
-        self.jsettings['mcu_config']['lickwindow_duration']     =   self.lickBox.value()
-        self.jsettings['mcu_config']['trial_number']            =   self.trailBox.value()
-        self.jsettings['mcu_config']['min_difficulty']          =   self.minBox.value()
-        self.jsettings['mcu_config']['max_difficulty']          =   self.maxBox.value()
-        self.jsettings['mcu_config']['training_phase'] = 1 if self.p1Button.isChecked() and self.p2Button.isChecked() else 2
-        self.jsettings['session_default']['position']+=1
-        if self.jsettings['session_default']['position'] == 5:
-            self.jsettings['session_default']['position']=1
-
-
-        self.download()
-        with open('settings.json', 'w') as outfile:
-            json.dump(self.jsettings, outfile)
-        if self.mode==1:
-            self.close()
-
-    def download(self):
-        try:
-            self.ComPort = serial.Serial(self.comPort)  # open the COM Port
-            self.ComPort.baudrate = 21000  # set Baud rate
-            self.ComPort.bytesize = 8  # Number of data bits = 8
-            self.ComPort.parity = 'N'  # No parity
-            self.ComPort.stopbits = 1  # Number of Stop bits = 1
-            self.ComPort.close()
-        except Exception as e:
-            print(str(e))
-
-
-
-    def setupUi(self,Form):
+class Ui_Form(object):
+    def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(326, 417)
         self.gridLayout_2 = QtWidgets.QGridLayout(Form)
@@ -344,10 +245,9 @@ class Settings(QtWidgets.QWidget):
         self.line_5.setObjectName("line_5")
         self.gridLayout.addWidget(self.line_5, 1, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 1, 0, 1, 1)
-        if self.mode ==1:
-            self.downloadButton = QtWidgets.QPushButton(Form)
-            self.downloadButton.setObjectName("downloadButton")
-            self.gridLayout_2.addWidget(self.downloadButton, 3, 0, 1, 1)
+        self.downloadButton = QtWidgets.QPushButton(Form)
+        self.downloadButton.setObjectName("downloadButton")
+        self.gridLayout_2.addWidget(self.downloadButton, 3, 0, 1, 1)
         self.line = QtWidgets.QFrame(Form)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
@@ -356,10 +256,6 @@ class Settings(QtWidgets.QWidget):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
-
-
-
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -390,10 +286,15 @@ class Settings(QtWidgets.QWidget):
         self.label_17.setText(_translate("Form", "Trail Number"))
         self.label_18.setText(_translate("Form", "Drip Delay Time"))
         self.label_19.setText(_translate("Form", "Seconds"))
-        if self.mode ==1:
-            self.downloadButton.setText(_translate("Form", "Download Settings"))
+        self.downloadButton.setText(_translate("Form", "Download Settings"))
 
-# if __name__ == "__main__":
-#     app = QtWidgets.QApplication(sys.argv)
-#     prep = Settings("COM4")
-#     app.exec_()
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+

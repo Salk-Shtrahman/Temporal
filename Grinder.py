@@ -27,8 +27,7 @@ class Grind():
         if self.count == 4:
             self.badboy = 4
             time.sleep(1)
-            payload= self.count, random.randint(-1, 1),random.randint(0, 1), random.randint(0, 16) #right/wrong
-
+            payload= self.count, random.randint(-1, 1),random.randint(0, 1), (random.randint(0, 16)*random.randint(0,1))
         self.count = self.count + 1 if self.count < 4 else 1
         return payload
 # Type 1 Transmission: Session start Session_Id ++
@@ -52,7 +51,7 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
     event_time = []
     dirr=[]
     bro=brother(port_name)
-    # pcc=Grind()
+  #  bro=Grind()
     t_zero=time.time()
     while 1:
         # (1, 1488832244.381148, '20170306123044.381148')
