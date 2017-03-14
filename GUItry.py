@@ -11,7 +11,7 @@ from Grinder import *
 import matplotlib.patches as patches
 import random
 import signal, time
-import os
+import os, datetime
 from luncher import Luncher
 from settings import Settings
 class App(QMainWindow):
@@ -751,11 +751,15 @@ class App(QMainWindow):
         self.flushButtonStatus= not self.flushButtonStatus
 
     def update_figure(self):
+        if self.ind==1:
+            self.startTime = datetime.datetime.now().replace(microsecond=0)
         SONGDICT={0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G'}
         song_alpha=[]
         if not new_stuff.value:
-            self.timeText.setText(time.strftime("%Y-%m-%d %H:%M:%S"))
-
+            try:
+                self.timeText.setText('T+ '+str(datetime.datetime.now().replace(microsecond=0)- self.startTime))
+            except Exception as e:
+                print('this is bad'+str(e))
         else:
             new_stuff.value = False
 
