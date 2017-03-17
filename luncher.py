@@ -6,6 +6,7 @@ import mysql.connector
 import time,sys,json
 import csv
 from settings import Settings
+from fakeSQL import *
 # Form implementation generated from reading ui file 'luncherUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.8
@@ -264,6 +265,12 @@ class Luncher(QtWidgets.QWidget):
                 self.lunchButton.setEnabled(True)
         except Exception as e:
             self.sql_status = str(e)
+            #now make face sql
+            self.stepTwo.setText("Step 2: Connect to Database   (Failed)")
+            self.cnx=fakeSQL()
+            self.broImReady[1] = 1
+            if sum(self.broImReady) == 3:
+                self.lunchButton.setEnabled(True)
         self.textBrowser.append((self.sql_status))
 
 
