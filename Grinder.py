@@ -74,7 +74,26 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
 
             if update_flag:
                 update_flag=False
-                new_stuff.value = True
+                try:
+
+                    idump[0] = direction
+                    idump[1] = correct
+                    idump[2] = difficulty
+
+                    lickdump[:] = event_time
+                    lickdirection[:] = dirr
+                    print('direction is important', lickdirection[:])
+                    timestampd.value = text_time
+                    event_time = []
+                    dirr = []
+
+                    new_stuff.value = True
+                    print("####THREAD##### : Toggled")
+                except Exception as e:
+                    lickdump[:] = [0]
+                    lickdirection[:] = [0]
+                    print(e, 'ignoring this round, its garbage')
+
             #print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
             # cnx.commit()
         if type == 2:
@@ -92,24 +111,9 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
             correct = result[2]
             difficulty = result[3]
 
-
-            idump[0]=direction
-            idump[1]=correct
-            idump[2]=difficulty
+            update_flag = True
             # for i in range(len(event_time)):
-            try:
-                lickdump[:]=event_time
-                lickdirection[:]=dirr
-                print('direction is important',lickdirection[:])
-                timestampd.value = text_time
-                event_time = []
-                dirr=[]
-                update_flag=True
-                print("####THREAD##### : Toggled")
-            except Exception as e:
-                lickdump[:]=[0]
-                lickdirection[:] = [0]
-                print(e,'ignoring this round, its garbage')
+
 
 
 
