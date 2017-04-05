@@ -6,16 +6,141 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>326</width>
-    <height>417</height>
+    <width>363</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="2" column="0">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="downloadButton">
+     <property name="text">
+      <string>Download Settings</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <layout class="QGridLayout" name="gridLayout">
+     <item row="2" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Punishment Duration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="punishBox">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::UpDownArrows</enum>
+         </property>
+         <property name="maximum">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_16">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Seconds</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Tone Duration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="toneBox">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::UpDownArrows</enum>
+         </property>
+         <property name="maximum">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_14">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Seconds</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="6" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Time Between Tones</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="betweenToneBox">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::UpDownArrows</enum>
+         </property>
+         <property name="maximum">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Seconds</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="7" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
@@ -115,117 +240,6 @@
        </item>
       </layout>
      </item>
-     <item row="4" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Tone Duration</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDoubleSpinBox" name="toneBox">
-         <property name="buttonSymbols">
-          <enum>QAbstractSpinBox::UpDownArrows</enum>
-         </property>
-         <property name="maximum">
-          <double>5.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_14">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Seconds</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="6" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Time Between Tones</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDoubleSpinBox" name="betweenToneBox">
-         <property name="buttonSymbols">
-          <enum>QAbstractSpinBox::UpDownArrows</enum>
-         </property>
-         <property name="maximum">
-          <double>5.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_13">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Seconds</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="2" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Punishment Duration</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDoubleSpinBox" name="punishBox">
-         <property name="buttonSymbols">
-          <enum>QAbstractSpinBox::UpDownArrows</enum>
-         </property>
-         <property name="maximum">
-          <double>5.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_16">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Seconds</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
      <item row="11" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_10">
        <item>
@@ -302,6 +316,27 @@
        </item>
       </layout>
      </item>
+     <item row="15" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_13">
+       <item>
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Trail Number</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="trailBox">
+         <property name="maximum">
+          <number>200</number>
+         </property>
+         <property name="singleStep">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="17" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
@@ -345,26 +380,12 @@
        </item>
       </layout>
      </item>
-     <item row="15" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_13">
-       <item>
-        <widget class="QLabel" name="label_17">
-         <property name="text">
-          <string>Trail Number</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="trailBox">
-         <property name="maximum">
-          <number>200</number>
-         </property>
-         <property name="singleStep">
-          <number>5</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
+     <item row="12" column="0">
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
      </item>
      <item row="9" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -410,8 +431,8 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
-      <widget class="Line" name="line_3">
+     <item row="1" column="0">
+      <widget class="Line" name="line_5">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -424,28 +445,31 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="Line" name="line_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
+     <item row="18" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>Cage ID</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="cageBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_22">
+         <property name="text">
+          <string>Mouse ID</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="mouseBox"/>
+       </item>
+      </layout>
      </item>
     </layout>
-   </item>
-   <item row="3" column="0">
-    <widget class="QPushButton" name="downloadButton">
-     <property name="text">
-      <string>Download Settings</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

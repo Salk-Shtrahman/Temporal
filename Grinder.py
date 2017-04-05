@@ -51,6 +51,7 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
     event_time = []
     dirr=[]
     bro=brother(port_name)
+    update_flag=False;
   #  bro=Grind()
     t_zero=time.time()
     while 1:
@@ -70,6 +71,10 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
         if type == 1:
             t_zero = result[1]
             text_time=float(result[2])
+
+            if update_flag:
+                update_flag=False
+                new_stuff.value = True
             #print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
             # cnx.commit()
         if type == 2:
@@ -88,7 +93,6 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
             difficulty = result[3]
 
 
-
             idump[0]=direction
             idump[1]=correct
             idump[2]=difficulty
@@ -100,7 +104,7 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
                 timestampd.value = text_time
                 event_time = []
                 dirr=[]
-                new_stuff.value = True
+                update_flag=True
                 print("####THREAD##### : Toggled")
             except Exception as e:
                 lickdump[:]=[0]

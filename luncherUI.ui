@@ -23,29 +23,29 @@
    </item>
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="stepOne">
-       <property name="font">
-        <font>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Step 1: Connect to Serial</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="stepThree">
-       <property name="font">
-        <font>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Step 3: Choose File to Save</string>
-       </property>
-      </widget>
+     <item row="13" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>Cage ID</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="cageBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_22">
+         <property name="text">
+          <string>Mouse ID</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="mouseBox"/>
+       </item>
+      </layout>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
@@ -80,7 +80,31 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
+     <item row="9" column="0">
+      <widget class="QLabel" name="stepThree">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Step 3: Choose File to Save</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="stepOne">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Step 1: Connect to Serial</string>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="0">
       <widget class="QTextBrowser" name="textBrowser">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -96,22 +120,15 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0">
-      <widget class="Line" name="line_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="0">
       <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -123,6 +140,27 @@
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+     </item>
+     <item row="14" column="0">
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QComboBox" name="serialDrop"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="serialButton">
+         <property name="text">
+          <string>Connect</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="7" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -170,20 +208,6 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QComboBox" name="serialDrop"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="serialButton">
-         <property name="text">
-          <string>Connect</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
      <item row="10" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
@@ -222,6 +246,25 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Step 4: Who's There?</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="Line" name="line_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
