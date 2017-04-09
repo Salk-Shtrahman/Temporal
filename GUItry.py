@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui,QtMultimedia
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QVBoxLayout, QSizePolicy, QMessageBox, QWidget, QPushButton
 import csv
 import ctypes
@@ -14,6 +14,7 @@ import signal, time
 import os, datetime
 from luncher import Luncher
 from settings import Settings
+import camera
 class App(QMainWindow):
 
     def __init__(self,cnx):
@@ -75,6 +76,8 @@ class App(QMainWindow):
         self.mainPlot.setMaximumSize(QtCore.QSize(1200, 800))
         self.sidePlot = PlotSide(self)
         self.sidePlot.setMaximumSize(QtCore.QSize(500, 800))
+        self.Cam=camera.Camera()
+
 
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.update_figure)
@@ -112,7 +115,25 @@ class App(QMainWindow):
         self.startButton.clicked.connect(self.flowControl)
         self.actionSettings.triggered.connect(self.openSettings)
 
+        cameraDevice = ''
 
+        videoDevicesGroup = QtWidgets.QActionGroup(self)
+        videoDevicesGroup.setExclusive(True)
+
+        for deviceName in QtMultimedia.QCamera.availableDevices():
+            description = QtMultimedia.QCamera.deviceDescription(deviceName)
+            videoDeviceAction = QtWidgets.QAction(description, videoDevicesGroup)
+            videoDeviceAction.setCheckable(True)
+            videoDeviceAction.setData(deviceName)
+
+            if not cameraDevice:
+                cameraDevice = deviceName
+                videoDeviceAction.setChecked(True)
+            print(videoDeviceAction)
+            self.menuCameras.addAction(videoDeviceAction)
+
+        videoDevicesGroup.triggered.connect(self.Cam.updateCameraDevice)
+        self.menubar.addAction(self.menuCameras.menuAction())
 
         self.show()
 
@@ -124,6 +145,10 @@ class App(QMainWindow):
         # self.update_figure()
         # time.sleep(3)
         # self.update_figure()
+
+    def updateCameraDevice(self, action):
+        self.setCamera(action.data())
+
     def flowControl(self):
         if self.flowButtonStatus:
             try:
@@ -153,7 +178,7 @@ class App(QMainWindow):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        #MainWindow.resize(1146, 650)
+       # MainWindow.resize(1146, 650)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -181,7 +206,7 @@ class App(QMainWindow):
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.gridLayout.addWidget(self.line_2, 0, 2, 1, 1)
-        #self.sidePlot = QtWidgets.QWidget(self.centralwidget)
+        # self.sidePlot = QtWidgets.QWidget(self.centralwidget)
         self.sidePlot.setObjectName("sidePlot")
         self.gridLayout.addWidget(self.sidePlot, 0, 3, 1, 1)
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
@@ -195,12 +220,12 @@ class App(QMainWindow):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 668, 545))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 603, 545))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        #self.mainPlot = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+        # self.mainPlot = QtWidgets.QWidget(self.scrollAreaWidgetContents)
         self.mainPlot.setObjectName("mainPlot")
         self.verticalLayout.addWidget(self.mainPlot)
         self.horizontalScrollBar = QtWidgets.QScrollBar(self.scrollAreaWidgetContents)
@@ -246,6 +271,16 @@ class App(QMainWindow):
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
         self.gridLayout.addWidget(self.line_3, 0, 4, 1, 1)
+        # self.Cam = QtWidgets.QWidget(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.Cam.sizePolicy().hasHeightForWidth())
+        self.Cam.setSizePolicy(sizePolicy)
+        self.Cam.setMinimumSize(QtCore.QSize(50, 0))
+        self.Cam.setMaximumSize(QtCore.QSize(400, 16777215))
+        self.Cam.setObjectName("Cam")
+        self.gridLayout.addWidget(self.Cam, 0, 7, 1, 1)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -615,12 +650,17 @@ class App(QMainWindow):
         self.line_19.setObjectName("line_19")
         self.gridLayout_3.addWidget(self.line_19, 0, 3, 1, 1)
         self.verticalLayout_4.addLayout(self.gridLayout_3)
-        self.gridLayout.addLayout(self.verticalLayout_4, 0, 7, 1, 1)
+        self.gridLayout.addLayout(self.verticalLayout_4, 0, 9, 1, 1)
         self.line_11 = QtWidgets.QFrame(self.centralwidget)
         self.line_11.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_11.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_11.setObjectName("line_11")
         self.gridLayout.addWidget(self.line_11, 0, 6, 1, 1)
+        self.line_20 = QtWidgets.QFrame(self.centralwidget)
+        self.line_20.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_20.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_20.setObjectName("line_20")
+        self.gridLayout.addWidget(self.line_20, 0, 8, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 2, 1, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -673,6 +713,8 @@ class App(QMainWindow):
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
+        self.menuCameras = QtWidgets.QMenu(self.menubar)
+        self.menuCameras.setObjectName("menuCameras")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -687,11 +729,11 @@ class App(QMainWindow):
         self.menuFile.addAction(self.actionSettings)
         self.menuFile.addAction(self.actionInfo)
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuCameras.menuAction())
 
         self.retranslateUi(MainWindow)
         self.horizontalScrollBar.sliderMoved['int'].connect(self.horizontalScrollBar.setValue)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -732,6 +774,7 @@ class App(QMainWindow):
         self.flushButton.setText(_translate("MainWindow", "Flush"))
         self.quitButton.setText(_translate("MainWindow", "Quit n Save"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuCameras.setTitle(_translate("MainWindow", "Cameras"))
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSettings.setText(_translate("MainWindow", "Settings"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))

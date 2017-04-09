@@ -23,3 +23,23 @@ Beginning into: C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app
 Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app\luncher.py`
   File updated.
 
+**  pyqt4_to_pyqt5.log  Wednesday 05. April 2017 17:18  **
+Args: ['pyqt4topyqt5.py', 'openCVtry.py']
+
+Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\openCVtry.py`
+  File updated.
+
+**  pyqt4_to_pyqt5.log  Wednesday 05. April 2017 17:30  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+**  pyqt4_to_pyqt5.log  Wednesday 05. April 2017 17:31  **
+Args: ['pyqt4topyqt5.py', 'pyqt4app', '-o', 'pyqt5app']
+
+Beginning into: C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app
+
+Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app\qtcvmain.py`
+  File updated.
+
+Processing file: `C:\Users\Dennis\PycharmProjects\Salk_Temporal\pyqt5app\ui.py`
+  File updated.
+
