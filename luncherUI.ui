@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>606</width>
-    <height>413</height>
+    <height>429</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,6 +44,13 @@
        </item>
        <item>
         <widget class="QLineEdit" name="mouseBox"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="checkButton">
+         <property name="text">
+          <string>Check-In</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

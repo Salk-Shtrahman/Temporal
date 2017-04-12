@@ -43,12 +43,13 @@ class App(QMainWindow):
 
 
         self.cursor.execute(
-            "INSERT INTO  Temporal_Session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (config['session_default']['animal_id'], config['mcu_config']['training_phase'], config['mcu_config'][
+            "INSERT INTO  Temporal_Session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (prep.SID, config['mcu_config']['training_phase'], config['mcu_config'][
                 'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
                 'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
-                'valve_open_time_L'], config['mcu_config']['valve_open_time_R'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
-             config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time']))
+                'valve_open_time_R'], config['mcu_config']['valve_open_time_L'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
+             config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time'],
+             config['mcu_config']['encourage'], config['mcu_config']['encourage_delay']))
         self.cnx.commit()
         read_que = '''
             SELECT
@@ -62,7 +63,8 @@ class App(QMainWindow):
 
         self.session_ID = self.cursor.fetchone()[0] #get first shit of tuple
 
-        #########################################
+
+
 
         self.initUI()
 
@@ -100,6 +102,7 @@ class App(QMainWindow):
         self.sessionID.setText("Session : %i"% self.session_ID)
         self.port_Status.setText("Port: %s"%prep.portName )
         self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
+        self.animalID.setText("Animal ID: %i (%s)"% (prep.SID,prep.nickName))
         self.quitButton.clicked.connect(self.close)
 
         self.flushButton.setIcon(QtGui.QIcon('flushOff.png'))
@@ -200,9 +203,10 @@ class App(QMainWindow):
             settings_dump[:]=[]
         except Exception as e:
             print(str(e))
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-       # MainWindow.resize(1146, 650)
+        # MainWindow.resize(1146, 650)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -688,6 +692,12 @@ class App(QMainWindow):
         self.gridLayout_2.addLayout(self.gridLayout, 2, 1, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.animalID = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.animalID.setFont(font)
+        self.animalID.setObjectName("animalID")
+        self.horizontalLayout.addWidget(self.animalID)
         self.sessionID = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -769,7 +779,7 @@ class App(QMainWindow):
         self.label_7.setText(_translate("MainWindow", "Total Trails:"))
         self.trailText.setText(_translate("MainWindow", "trailText"))
         self.targetText.setText(_translate("MainWindow", "targetText"))
-        self.label_10.setText(_translate("MainWindow", "Target Trails"))
+        self.label_10.setText(_translate("MainWindow", "Target"))
         self.label_14.setText(_translate("MainWindow",
                                          "<html><head/><body><p><span style=\" font-family:\'Verdana,Arial,Tahoma,Calibri,Geneva,sans-serif\'; font-size:13px; color:#00ff00; background-color:#fafafa;\">√</span></p></body></html>"))
         self.targetCorrect.setText(_translate("MainWindow", "TextLabel"))
@@ -790,11 +800,11 @@ class App(QMainWindow):
         self.label_2.setText(_translate("MainWindow", "% Correct"))
         self.wrongText.setText(_translate("MainWindow", "wrongText"))
         self.noText.setText(_translate("MainWindow", "noText"))
+        self.animalID.setText(_translate("MainWindow", "Animal"))
         self.sessionID.setText(_translate("MainWindow", "Session :1"))
         self.port_Status.setText(_translate("MainWindow", "Port:"))
         self.db_status.setText(_translate("MainWindow", "SQL(connected):"))
         self.timeText.setText(_translate("MainWindow", "TIME"))
-        #self.startButton.setText(_translate("MainWindow", "Start"))
         self.flushButton.setText(_translate("MainWindow", "Flush"))
         self.quitButton.setText(_translate("MainWindow", "Quit n Save"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))

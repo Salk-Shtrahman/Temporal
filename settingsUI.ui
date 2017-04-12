@@ -345,27 +345,37 @@
        </property>
       </widget>
      </item>
-     <item row="21" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_15">
+     <item row="12" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_17">
        <item>
-        <widget class="QLabel" name="label_21">
+        <widget class="QLabel" name="label_29">
          <property name="text">
-          <string>Cage ID</string>
+          <string>Encouragment Reward Delay</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="cageBox"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_22">
-         <property name="text">
-          <string>Mouse ID</string>
+        <widget class="QDoubleSpinBox" name="encourageDelayBox">
+         <property name="maximum">
+          <double>5.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.050000000000000</double>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="mouseBox"/>
+        <widget class="QLabel" name="label_30">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Seconds</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -619,40 +629,6 @@
          </property>
          <property name="text">
           <string>D</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="12" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_17">
-       <item>
-        <widget class="QLabel" name="label_29">
-         <property name="text">
-          <string>Encouragment Reward Delay</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDoubleSpinBox" name="encourageDelayBox">
-         <property name="maximum">
-          <double>5.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_30">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Seconds</string>
          </property>
         </widget>
        </item>

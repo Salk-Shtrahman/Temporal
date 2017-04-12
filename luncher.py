@@ -30,6 +30,7 @@ class Luncher(QtWidgets.QWidget):
         self.fileButton.clicked.connect(self.saveFileDialog)
         self.serialButton.clicked.connect(self.openSerial)
         self.sqlButton.clicked.connect(self.openSQL)
+        self.checkButton.clicked.connect(self.checkIn)
         self.lunchButton.setEnabled(False)
         self.lunchButton.clicked.connect(self.gtfo)
         self.lunchButton.setAutoDefault(True)
@@ -56,6 +57,14 @@ class Luncher(QtWidgets.QWidget):
         self.cage_ID=int(self.cageBox.text())
         self.settingsWidget.jsettings['session_default']['animal_id'] = self.mouse_ID
         self.settingsWidget.jsettings['session_default']['cage_id'] = self.cage_ID
+
+        self.settingsWidget.jsettings['mcu_config']['song1'] = self.settingsWidget.song1.text()
+        self.settingsWidget.jsettings['mcu_config']['song2'] = self.settingsWidget.song2.text()
+        self.settingsWidget.jsettings['mcu_config']['song3'] = self.settingsWidget.song3.text()
+        self.settingsWidget.jsettings['mcu_config']['song4'] = self.settingsWidget.song4.text()
+
+        self.settingsWidget.jsettings['mcu_config']['encourage'] = self.settingsWidget.encourageBox.value()
+        self.settingsWidget.jsettings['mcu_config']['encourage_delay'] = self.settingsWidget.encourageDelayBox.value()
 
         self.settingsWidget.jsettings['mcu_config']['drip_delay_time'] = self.settingsWidget.dripBox.value()
         self.settingsWidget.jsettings['mcu_config']['punishment_duration'] = self.settingsWidget.punishBox.value()
@@ -88,7 +97,7 @@ class Luncher(QtWidgets.QWidget):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(606, 413)
+        Form.resize(606, 429)
         self.gridLayout_2 = QtWidgets.QGridLayout(Form)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.line_5 = QtWidgets.QFrame(Form)
@@ -112,6 +121,9 @@ class Luncher(QtWidgets.QWidget):
         self.mouseBox = QtWidgets.QLineEdit(Form)
         self.mouseBox.setObjectName("mouseBox")
         self.horizontalLayout_15.addWidget(self.mouseBox)
+        self.checkButton = QtWidgets.QPushButton(Form)
+        self.checkButton.setObjectName("checkButton")
+        self.horizontalLayout_15.addWidget(self.checkButton)
         self.gridLayout.addLayout(self.horizontalLayout_15, 13, 0, 1, 1)
         self.label_4 = QtWidgets.QLabel(Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
@@ -250,7 +262,7 @@ class Luncher(QtWidgets.QWidget):
         self.lunchButton.setDefault(False)
         self.lunchButton.setObjectName("lunchButton")
         self.gridLayout_2.addWidget(self.lunchButton, 0, 4, 1, 1)
-        #self.settingsWidget = QtWidgets.QWidget(Form)
+        # self.settingsWidget = QtWidgets.QWidget(Form)
         self.settingsWidget.setObjectName("settingsWidget")
         self.gridLayout_2.addWidget(self.settingsWidget, 0, 2, 1, 1)
         self.line_6 = QtWidgets.QFrame(Form)
@@ -265,6 +277,9 @@ class Luncher(QtWidgets.QWidget):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Behavior Luncher"))
+        self.label_21.setText(_translate("Form", "Cage ID"))
+        self.label_22.setText(_translate("Form", "Mouse ID"))
+        self.checkButton.setText(_translate("Form", "Check-In"))
         self.label_4.setText(_translate("Form", "Choose one or both below (2 alone, 3 alone, or 2 and 3)"))
         self.stepTwo.setText(_translate("Form", "Step 2: Connect to Database"))
         self.stepThree.setText(_translate("Form", "Step 3: Choose File to Save"))
@@ -281,9 +296,30 @@ class Luncher(QtWidgets.QWidget):
         self.ipText.setText(_translate("Form", "ssh.dennisren.com"))
         self.sqlButton.setText(_translate("Form", "Connect"))
         self.label.setText(_translate("Form", "Step 4: Who\'s There?"))
-        self.label_21.setText(_translate("Form", "Cage ID"))
-        self.label_22.setText(_translate("Form", "Mouse ID"))
         self.lunchButton.setText(_translate("Form", "Launch"))
+    def checkIn(self):
+        print("attempting to checkin")
+        query = ("SELECT SID,Nickname from Animal_Control "
+                 "Where Cage_ID=%s and In_Cage_ID=%s")
+        print("attempting to checkin 2")
+        try:
+
+            self.nickName = 'default'  # get first shit of tuple
+            self.SID = 0
+            self.cursor.execute(query, (int(self.cageBox.text()), int(self.mouseBox.text())))
+            #########################################
+            print("attempting to checkin 3")
+            self.broImReady[2] = 1
+            self.lunchButton.setEnabled(sum(self.broImReady) == 3)
+
+            fetch=self.cursor.fetchone()
+            self.nickName = fetch[1]  # get first shit of tuple
+            self.SID= fetch[0]  # get first shit of tuple
+            print("checkin success")
+
+            self.label.setText('Step 4: Where there?   (Checked-in)')
+        except Exception as e:
+            print(str(e))
     def openSQL(self):
 
         server=self.ipText.text()
@@ -309,7 +345,7 @@ class Luncher(QtWidgets.QWidget):
             if sum(self.broImReady) == 3:
                 self.lunchButton.setEnabled(True)
         self.textBrowser.append((self.sql_status))
-
+        self.cursor=self.cnx.cursor()
 
 
 
@@ -365,8 +401,7 @@ class Luncher(QtWidgets.QWidget):
                 self.theFile=open(pathName, 'w')
                 self.textBrowser.append("file ready")
                 self.stepThree.setText('Step 3: Choose Folder to Save   (Chosen)')
-                self.broImReady[2] = 1
-                self.lunchButton.setEnabled(sum(self.broImReady) == 3)
+
 
             except Exception as e:
                 self.file_status = str(e)

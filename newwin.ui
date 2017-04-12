@@ -933,6 +933,18 @@
     <item row="0" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QLabel" name="animalID">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Animal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="sessionID">
         <property name="font">
          <font>
