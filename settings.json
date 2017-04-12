@@ -1,1 +1,32 @@
-{"mcu_config": {"trial_number": 190, "time_between_tones": 1.0, "lickwindow_duration": 1.0, "drip_delay_time": 1.0, "valve_open_time": 1.0, "tone_duration": 0.9, "delay_duration": 1.25, "training_phase": 2, "punishment_duration": 1.0, "min_difficulty": 6, "max_difficulty": 8}, "session_default": {"db_schema": "Salk", "animal_id": 2, "db_login": "dennis", "db_pass": "rh960615", "db_url": "76.167.66.136", "position": 2, "cage_id": 1, "path": "C:/drivers"}}
+{
+  "session_default": {
+    "db_login": "dennis",
+    "animal_id": 2,
+    "db_url": "76.167.66.136",
+    "db_schema": "Salk",
+    "position": 2,
+    "cage_id": 1,
+    "db_pass": "rh960615",
+    "path": "C:/drivers"
+  },
+  "mcu_config": {
+    "tone_duration": 0.9,
+    "punishment_duration": 1,
+    "training_phase": 2,
+    "delay_duration": 1.25,
+    "lickwindow_duration": 1,
+    "trial_number": 190,
+    "drip_delay_time": 1,
+    "time_between_tones": 1.0,
+    "valve_open_time_L": 1.0,
+    "valve_open_time_R": 1.0,
+    "encourage": 1,
+    "encourage_delay": 1.0,
+    "song1" : "A",
+    "song2" : "A",
+    "song3" : "A",
+    "song4" : "A",
+    "max_difficulty": 8,
+    "min_difficulty": 6
+  }
+}

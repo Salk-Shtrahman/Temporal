@@ -33,6 +33,20 @@ class brother():
         self.Port.parity = 'N'  # No parity
         self.Port.stopbits = 1  # Number of Stop bits = 1
         # 0     x = no        lick, 1        x = incorrect        lick, 2        x = correct        lick        #
+    def flow_control(self,start_pause):
+        if start_pause:
+            self.Port.write(b'\x55')
+            print("0x55 sent to board")
+        else:
+            self.Port.write(b'\x56')
+            print("0x56 sent to board")
+    def flush_control(self,flush_stop):
+        if flush_stop:
+            self.Port.write(b'\x88')
+            print("0x88 sent to board")
+        else:
+            self.Port.write(b'\x89')
+            print("0x89 sent to board")
     def read_serial(self):
 
         index=0
@@ -44,7 +58,7 @@ class brother():
         if self.payload_cue:
             self.payload_cue=False
             return self.cued_payload
-        while self.Port.inWaiting()==0:pass
+
         while self.Port.inWaiting() > 0:
             buf=self.Port.read(1)
             if buf:

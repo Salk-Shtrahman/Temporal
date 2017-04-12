@@ -44,7 +44,7 @@ class Grind():
 # 4	Difficulty	INT
 # 5	LickResult	INT
 # 6	Correctness	BOOL
-def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,new_stuff):
+def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,new_stuff, send_pending,start_pause,settings_dump,flush_stop):
     print("thread started")
     # cursor = cnx.cursor()
     # t_zero_que = "INSERT INTO  Temporal_Trails(Session_ID,Animal_ID,Event_Type_ID,Trail_ID,Result) VALUES (%i,%i,%i,%i)"
@@ -59,60 +59,71 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
         # 20170306123044.383
         # (2, 2, 6, 6, 5)
         # (3, 0, 0, 13)
-        result = bro.read_serial()
-        print(result)
-  #      print(result)
-        try:
-            type = result[0]
-        except Exception as e:
-            print(e)
-            type=result
+        result=[]
+        #while result=
+        if send_pending.value is 1:
+            print("downlink command flow detected")
+            send_pending.value=0
+            bro.flow_control(start_pause.value)
+        elif send_pending.value is 2:
+            print("downlink command flow detected")
+            send_pending.value = 0
+            bro.flush_control(flush_stop.value)
+        if bro.Port.inWaiting() > 0:
+            result = bro.read_serial()
+            print(result)
+      #      print(result)
+            try:
+                type = result[0]
+            except Exception as e:
+                print(e)
+                type=result
 
-        if type == 1:
-            t_zero = result[1]
-            text_time=float(result[2])
+            if type == 1:
+                t_zero = result[1]
+                text_time=float(result[2])
 
-            if update_flag:
-                update_flag=False
-                try:
+                if update_flag:
+                    update_flag=False
+                    try:
 
-                    idump[0] = direction
-                    idump[1] = correct
-                    idump[2] = difficulty
+                        idump[0] = direction
+                        idump[1] = correct
+                        idump[2] = difficulty
 
-                    lickdump[:] = event_time
-                    lickdirection[:] = dirr
-                    print('direction is important', lickdirection[:])
-                    timestampd.value = text_time
-                    event_time = []
-                    dirr = []
+                        lickdump[:] = event_time
+                        lickdirection[:] = dirr
+                        print('direction is important', lickdirection[:])
+                        timestampd.value = text_time
+                        event_time = []
+                        dirr = []
 
-                    new_stuff.value = True
-                    print("####THREAD##### : Toggled")
-                except Exception as e:
-                    lickdump[:] = [0]
-                    lickdirection[:] = [0]
-                    print(e, 'ignoring this round, its garbage')
+                        new_stuff.value = True
+                        print("####THREAD##### : Toggled")
+                    except Exception as e:
+                        lickdump[:] = [0]
+                        lickdirection[:] = [0]
+                        print(e, 'ignoring this round, its garbage')
 
             #print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
             # cnx.commit()
-        if type == 2:
-            song=result[1:5]
-            for i in range(len(song)):
-                songdump[i] = song[i]
-                
-        if type == 3:
-            event_time.append(result[1] - t_zero)
-            dirr.append(result[2])
-          #  print('Lick time= %f' % event_time[::-1][0])
+            if type == 2:
+                song=result[1:5]
+                for i in range(len(song)):
+                    songdump[i] = song[i]
 
-        if type == 4:  # type==4:
-            direction = result[1]
-            correct = result[2]
-            difficulty = result[3]
+            if type == 3:
+                event_time.append(result[1] - t_zero)
+                dirr.append(result[2])
+              #  print('Lick time= %f' % event_time[::-1][0])
 
-            update_flag = True
-            # for i in range(len(event_time)):
+            if type == 4:  # type==4:
+                direction = result[1]
+                correct = result[2]
+                difficulty = result[3]
+
+                update_flag = True
+                # for i in range(len(event_time)):
 
 
 

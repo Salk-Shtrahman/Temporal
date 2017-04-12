@@ -16,7 +16,6 @@ from luncher import Luncher
 from settings import Settings
 import camera
 class App(QMainWindow):
-
     def __init__(self,cnx):
 
         user32 = ctypes.windll.user32
@@ -96,6 +95,8 @@ class App(QMainWindow):
 
         self.setupUi(self)
 
+
+
         self.sessionID.setText("Session : %i"% self.session_ID)
         self.port_Status.setText("Port: %s"%prep.portName )
         self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
@@ -155,27 +156,50 @@ class App(QMainWindow):
                 self.toggleFlow(False)
                 self.startButton.setIcon(QtGui.QIcon('pause.png'))
                 self.flowButtonStatus = not self.flowButtonStatus
+                self.flushButton.setEnabled(False)
             except Exception as e:
                 print(str(e))
 
         else:
             try:
-                self.toggleFlow(False)
+                self.toggleFlow(True)
                 self.startButton.setIcon(QtGui.QIcon('play.png'))
                 self.flowButtonStatus = not self.flowButtonStatus
+                self.flushButton.setEnabled(True)
             except Exception as e:
                 print(str(e))
     def toggleFlow(self,start_stop):
-        pass
+        start_pause.value=start_stop
+        print(send_pending.value)
+        send_pending.value=1
+        print(send_pending.value)
+        print('ran def toggle flow')
 
+    def toggleFlush(self,start_stop):
+        flush_stop.value = start_stop
+        print(send_pending.value)
+        send_pending.value = 2
+        print(send_pending.value)
+        print('ran def toggle flow')
 
     def openSettings(self):
 
         #send pause signal
         #wait for confirmed pause
-
+        print("brother 111111111")
         self.settingsWindow = Settings("COM4")
+        print("brother 222222222")
 
+        self.settingsWindow.downloadButton.clicked.connect(self.download_settings)
+
+        print("brother 333333333")
+
+    def download_settings(self):
+        print("attempt to download settings")
+        try:
+            settings_dump[:]=[]
+        except Exception as e:
+            print(str(e))
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
        # MainWindow.resize(1146, 650)
@@ -786,9 +810,12 @@ class App(QMainWindow):
         self.mainPlot.update_scroll(scroll)
     def flushValves(self):
         if self.flushButtonStatus:
+            self.toggleFlush(True)
             self.flushButton.setIcon(QtGui.QIcon('flushOn.png'))
             self.flushButton.setText('Stop Flush')
+
         else:
+            self.toggleFlush(False)
             self.flushButton.setIcon(QtGui.QIcon('flushOff.png'))
             self.flushButton.setText('Flush')
         self.flushButtonStatus= not self.flushButtonStatus
@@ -1236,12 +1263,16 @@ if __name__ == '__main__':
         dump = Array('i', range(3))
         timestampd = Value('f', 0.0)
         songdump = Array('i', range(4))
+        send_pending = Value('i', 0)# 0 is nothing, 1 is start/pause download, 2 is flush/stop flush,3 is settings download
+        start_pause = Value('b', False)
+        flush_stop = Value('b', False)
+        settings_dump = Array('i', range(4))
         # l = Array('f',100)
         manager = Manager()
         lickdump = manager.list()
         lickdirection = manager.list()
         time.sleep(2)
-        slave = Process(target=Serial_Process, args=(prep.portName,lickdirection, dump, lickdump, songdump, timestampd, new_stuff))
+        slave = Process(target=Serial_Process, args=(prep.portName,lickdirection, dump, lickdump, songdump, timestampd, new_stuff, send_pending,start_pause,settings_dump,flush_stop))
         slave.start()
         mainApp = QApplication(sys.argv)
         ex = App(prep.cnx)
