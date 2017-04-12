@@ -47,7 +47,7 @@ class App(QMainWindow):
             (config['session_default']['animal_id'], config['mcu_config']['training_phase'], config['mcu_config'][
                 'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
                 'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
-                'valve_open_time'], config['mcu_config']['valve_open_time'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
+                'valve_open_time_L'], config['mcu_config']['valve_open_time_R'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
              config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time']))
         self.cnx.commit()
         read_que = '''
