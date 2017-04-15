@@ -83,7 +83,7 @@ class Settings(QtWidgets.QWidget):
 
         self.show()
 
-        print(self.buildConfig())
+
     def repairLimit(self):
         self.maxBox.setMinimum(self.minBox.value())
         self.minBox.setMaximum(self.maxBox.value())
@@ -131,6 +131,7 @@ class Settings(QtWidgets.QWidget):
     def download(self):
         try:
             if mode is 2:
+                print(self.buildConfig())
                 self.ComPort = serial.Serial(self.comPort)  # open the COM Port
                 self.ComPort.baudrate = 21000  # set Baud rate
                 self.ComPort.bytesize = 8  # Number of data bits = 8
