@@ -22,11 +22,15 @@ class Luncher(QtWidgets.QWidget):
         self.settingsWidget = Settings('COM4',mode=2)
         self.setupUi(self)
 
+        self.scannerDrop.addItem("Select...")
 
         ports = list(list_ports.comports())
         for p in ports:
             self.serialDrop.addItem(str(p))
+            if "USB Serial Device" in str(p):
+                self.scannerDrop.addItem(str(p))
 
+        self.scannerDrop.currentIndexChanged.connect(self.linkScanner)
         self.fileButton.clicked.connect(self.saveFileDialog)
         self.serialButton.clicked.connect(self.openSerial)
         self.sqlButton.clicked.connect(self.openSQL)
@@ -97,7 +101,7 @@ class Luncher(QtWidgets.QWidget):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(606, 429)
+        Form.resize(724, 432)
         self.gridLayout_2 = QtWidgets.QGridLayout(Form)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.line_5 = QtWidgets.QFrame(Form)
@@ -113,17 +117,31 @@ class Luncher(QtWidgets.QWidget):
         self.label_21.setObjectName("label_21")
         self.horizontalLayout_15.addWidget(self.label_21)
         self.cageBox = QtWidgets.QLineEdit(Form)
+        self.cageBox.setMinimumSize(QtCore.QSize(60, 0))
         self.cageBox.setObjectName("cageBox")
         self.horizontalLayout_15.addWidget(self.cageBox)
         self.label_22 = QtWidgets.QLabel(Form)
         self.label_22.setObjectName("label_22")
         self.horizontalLayout_15.addWidget(self.label_22)
         self.mouseBox = QtWidgets.QLineEdit(Form)
+        self.mouseBox.setMaximumSize(QtCore.QSize(40, 16777215))
         self.mouseBox.setObjectName("mouseBox")
         self.horizontalLayout_15.addWidget(self.mouseBox)
         self.checkButton = QtWidgets.QPushButton(Form)
         self.checkButton.setObjectName("checkButton")
         self.horizontalLayout_15.addWidget(self.checkButton)
+        self.line_8 = QtWidgets.QFrame(Form)
+        self.line_8.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_8.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_8.setObjectName("line_8")
+        self.horizontalLayout_15.addWidget(self.line_8)
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_15.addWidget(self.label_2)
+        self.scannerDrop = QtWidgets.QComboBox(Form)
+        self.scannerDrop.setMinimumSize(QtCore.QSize(100, 0))
+        self.scannerDrop.setObjectName("scannerDrop")
+        self.horizontalLayout_15.addWidget(self.scannerDrop)
         self.gridLayout.addLayout(self.horizontalLayout_15, 13, 0, 1, 1)
         self.label_4 = QtWidgets.QLabel(Form)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
@@ -262,7 +280,7 @@ class Luncher(QtWidgets.QWidget):
         self.lunchButton.setDefault(False)
         self.lunchButton.setObjectName("lunchButton")
         self.gridLayout_2.addWidget(self.lunchButton, 0, 4, 1, 1)
-        # self.settingsWidget = QtWidgets.QWidget(Form)
+        #self.settingsWidget = QtWidgets.QWidget(Form)
         self.settingsWidget.setObjectName("settingsWidget")
         self.gridLayout_2.addWidget(self.settingsWidget, 0, 2, 1, 1)
         self.line_6 = QtWidgets.QFrame(Form)
@@ -280,6 +298,7 @@ class Luncher(QtWidgets.QWidget):
         self.label_21.setText(_translate("Form", "Cage ID"))
         self.label_22.setText(_translate("Form", "Mouse ID"))
         self.checkButton.setText(_translate("Form", "Check-In"))
+        self.label_2.setText(_translate("Form", "Scanner:"))
         self.label_4.setText(_translate("Form", "Choose one or both below (2 alone, 3 alone, or 2 and 3)"))
         self.stepTwo.setText(_translate("Form", "Step 2: Connect to Database"))
         self.stepThree.setText(_translate("Form", "Step 3: Choose File to Save"))
@@ -297,6 +316,7 @@ class Luncher(QtWidgets.QWidget):
         self.sqlButton.setText(_translate("Form", "Connect"))
         self.label.setText(_translate("Form", "Step 4: Who\'s There?"))
         self.lunchButton.setText(_translate("Form", "Launch"))
+
     def checkIn(self):
         print("attempting to checkin")
         query = ("SELECT SID,Nickname from Animal_Control "
@@ -348,6 +368,83 @@ class Luncher(QtWidgets.QWidget):
         self.cursor=self.cnx.cursor()
 
 
+    def linkScanner(self):
+        print("it's lit fam")
+        try:
+            info = self.scannerDrop.currentText()
+            filtered_wip = fnmatch.filter([info.split(' ', 1)[0]], 'COM?*')[0]
+
+            self.scanPort = serial.Serial(filtered_wip)  # open the COM Port
+            self.scanPort.baudrate = 9600  # set Baud rate
+            self.scanPort.bytesize = 8  # Number of data bits = 8
+            self.scanPort.parity = 'N'  # No parity
+            self.scanPort.stopbits = 1  # Number of Stop bits = 1
+
+            self.scantimer = QtCore.QTimer(self)
+            self.scantimer.timeout.connect(self.read_ID)
+            self.scantimer.start(200)
+            self.textBrowser.append(str("scanner connected "+ filtered_wip))
+        except Exception as e:
+            self.textBrowser.append(str(e))
+
+    def read_ID(self):
+
+        index = 0
+        out = []
+        # print("hola amigo", self.scanPort.inWaiting())
+
+        if self.scanPort.inWaiting() > 0:
+            while self.scanPort.inWaiting() > 0:
+                out.append(self.scanPort.read(1))
+                index += 1
+
+            # print(out)
+            if len(out) <= 6:
+                print (1, "reader detected, no (new) tag")  # return tuble, first err, sec load
+            if out[0] != b'\x01':
+                print (2, "no reader detected")
+            if out[1] != b'\x09':
+                print (3, "tag response error")
+
+            ID_data = ''
+
+            for i in reversed(range(len(out))):
+                if int.from_bytes(out[i], byteorder='big') > 16:
+                    ID_data = "%s%x" % (ID_data, int.from_bytes(out[i], byteorder='big'))
+                else:
+                    ID_data = "%s0%x" % (ID_data, int.from_bytes(out[i], byteorder='big'))
+            CRC_ID = ID_data[8:12]
+            Tag_ID = bytearray.fromhex(ID_data[2:18])
+            rBCC = bytearray.fromhex(ID_data[0:2])
+            cBCC = bytearray.fromhex(ID_data)
+            BCC = 0
+            for i in range(len(cBCC) - 2):
+                BCC = BCC ^ cBCC[i + 1]
+            if BCC != rBCC[0]:
+                print (4, "BCC don't match")
+            self.animalTag=ID_data[2:18]
+            ######################
+
+            # cursor = self.cnx.cursor()
+            # dude = "INSERT INTO  ID_Event (Animal_ID) VALUES (%s)"
+            # cursor.execute(dude, (aID,))
+            # cnx.commit()
+            # read_que = '''
+            #         SELECT
+            #         ID_Event.Event_ID,
+            #         Animal_Control.Nickname,
+            #         Animal_Control.Animal_Short_ID,
+            #         Animal_Control.Comments
+            #         FROM
+            #         Animal_Control
+            #             INNER JOIN
+            #         ID_Event ON ID_Event.Animal_ID=Animal_Control.Animal_ID
+            #         ORDER BY ID_Event.Event_ID DESC
+            #         LIMIT 1
+            #     '''
+            # cursor.execute(read_que)
+            # results = cursor.fetchone()
+            # print(results)
 
     def openSerial(self):
         if self.serialButton.text()=='Connect':

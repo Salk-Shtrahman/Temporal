@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>606</width>
-    <height>429</height>
+    <width>724</width>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="cageBox"/>
+        <widget class="QLineEdit" name="cageBox">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_22">
@@ -43,12 +50,43 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="mouseBox"/>
+        <widget class="QLineEdit" name="mouseBox">
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="checkButton">
          <property name="text">
           <string>Check-In</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Scanner:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
          </property>
         </widget>
        </item>
