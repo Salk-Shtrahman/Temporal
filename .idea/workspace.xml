@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5e20bb91-bbd6-4125-a18a-e951eca07de5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GUItry.py" afterPath="$PROJECT_DIR$/GUItry.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/luncher.py" afterPath="$PROJECT_DIR$/luncher.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.json" afterPath="$PROJECT_DIR$/settings.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.py" afterPath="$PROJECT_DIR$/settings.py" />
     </list>
     <ignored path="Salk_Temporal.iws" />
@@ -27,7 +30,7 @@
     <SUITE FILE_PATH="coverage/Salk_Temporal$camera.coverage" NAME="camera Coverage Results" MODIFIED="1491444798978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Salk_Temporal$dualPlotter.coverage" NAME="dualPlotter Coverage Results" MODIFIED="1488937268644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Salk_Temporal$luncher.coverage" NAME="luncher Coverage Results" MODIFIED="1489196531942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Salk_Temporal$GUItry.coverage" NAME="GUItry Coverage Results" MODIFIED="1492226261058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Salk_Temporal$GUItry.coverage" NAME="GUItry Coverage Results" MODIFIED="1492336975201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -41,8 +44,8 @@
       <file leaf-file-name="GUItry.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GUItry.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1046">
-              <caret line="202" column="31" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
+            <state relative-caret-position="190">
+              <caret line="1245" column="29" selection-start-line="1245" selection-start-column="29" selection-end-line="1245" selection-end-column="29" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#6734#7023#0" expanded="false" />
@@ -52,11 +55,11 @@
                 <element signature="e#42833#47466#0" expanded="false" />
                 <element signature="e#47499#48400#0" expanded="false" />
                 <element signature="e#48434#48736#0" expanded="false" />
-                <marker date="1492036932427" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
-                <marker date="1492036932427" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
-                <marker date="1492036932427" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
-                <marker date="1492036932427" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
-                <marker date="1492036932427" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
+                <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
+                <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
+                <marker date="1492336906180" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
+                <marker date="1492336906180" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
+                <marker date="1492336906180" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
               </folding>
             </state>
           </provider>
@@ -78,8 +81,8 @@
       <file leaf-file-name="experiment.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/experiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2924">
-              <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
+            <state relative-caret-position="360">
+              <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -98,7 +101,7 @@
       <file leaf-file-name="qtcvmain.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pyqt5app/qtcvmain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
+            <state relative-caret-position="497">
               <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -119,17 +122,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="luncher.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="luncher.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/luncher.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="93" column="42" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
+            <state relative-caret-position="408">
+              <caret line="469" column="59" selection-start-line="469" selection-start-column="59" selection-end-line="469" selection-end-column="59" />
               <folding>
                 <element signature="e#24#59#0" expanded="true" />
-                <element signature="e#17859#18933#0" expanded="false" />
-                <element signature="e#23459#24334#0" expanded="false" />
-                <marker date="1492219115561" expanded="false" signature="5315:15311" placeholder="..." />
-                <marker date="1492219115561" expanded="false" signature="15347:16879" placeholder="..." />
+                <element signature="e#17997#19071#0" expanded="false" />
+                <marker date="1492336975184" expanded="false" signature="5453:15449" placeholder="..." />
+                <marker date="1492336975184" expanded="false" signature="15485:17017" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -138,21 +140,22 @@
       <file leaf-file-name="luncherUI.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/luncherUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="226" column="62" selection-start-line="11" selection-start-column="3" selection-end-line="226" selection-end-column="62" />
+            <state relative-caret-position="832">
+              <caret line="221" column="61" selection-start-line="221" selection-start-column="61" selection-end-line="221" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
+            <state relative-caret-position="340">
+              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
               <folding>
                 <element signature="e#24#59#0" expanded="true" />
-                <element signature="e#9788#30030#0" expanded="false" />
+                <element signature="e#4115#6023#0" expanded="false" />
+                <element signature="e#9501#29743#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -196,10 +199,10 @@
         <option value="$PROJECT_DIR$/Grinder.py" />
         <option value="$PROJECT_DIR$/settingsUI.py" />
         <option value="$PROJECT_DIR$/newwin.py" />
-        <option value="$PROJECT_DIR$/GUItry.py" />
         <option value="$PROJECT_DIR$/luncherUI.py" />
-        <option value="$PROJECT_DIR$/luncher.py" />
         <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/GUItry.py" />
+        <option value="$PROJECT_DIR$/luncher.py" />
       </list>
     </option>
   </component>
@@ -804,7 +807,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492226255222</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="download settings beta1">
+      <created>1492226327931</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1492226327931</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -865,7 +875,8 @@
     <MESSAGE value="fixed json syntax" />
     <MESSAGE value="animal ID logging added" />
     <MESSAGE value="download settings beta" />
-    <option name="LAST_COMMIT_MESSAGE" value="download settings beta" />
+    <MESSAGE value="download settings beta1" />
+    <option name="LAST_COMMIT_MESSAGE" value="download settings beta1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -894,11 +905,11 @@
             <element signature="e#42833#47466#0" expanded="false" />
             <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
-            <marker date="1492036932427" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
-            <marker date="1492036932427" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
-            <marker date="1492036932427" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
+            <marker date="1492336906180" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
+            <marker date="1492336906180" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
           </folding>
         </state>
       </provider>
@@ -944,11 +955,11 @@
             <element signature="e#42833#47466#0" expanded="false" />
             <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
-            <marker date="1492036932427" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
-            <marker date="1492036932427" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
-            <marker date="1492036932427" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
+            <marker date="1492336906180" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
+            <marker date="1492336906180" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
           </folding>
         </state>
       </provider>
@@ -994,11 +1005,11 @@
             <element signature="e#42833#47466#0" expanded="false" />
             <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
-            <marker date="1492036932427" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
-            <marker date="1492036932427" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
-            <marker date="1492036932427" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
+            <marker date="1492336906180" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
+            <marker date="1492336906180" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
           </folding>
         </state>
       </provider>
@@ -1183,16 +1194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pyqt5app/qtcvmain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1204,14 +1205,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6647">
           <caret line="391" column="51" selection-start-line="349" selection-start-column="8" selection-end-line="391" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/luncherUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="226" column="62" selection-start-line="11" selection-start-column="3" selection-end-line="226" selection-end-column="62" />
           <folding />
         </state>
       </provider>
@@ -1234,28 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GUItry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1046">
-          <caret line="202" column="31" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#6734#7023#0" expanded="false" />
-            <element signature="e#7250#38732#0" expanded="false" />
-            <element signature="e#38783#42125#0" expanded="false" />
-            <element signature="e#42158#42359#0" expanded="false" />
-            <element signature="e#42833#47466#0" expanded="false" />
-            <element signature="e#47499#48400#0" expanded="false" />
-            <element signature="e#48434#48736#0" expanded="false" />
-            <marker date="1492036932427" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
-            <marker date="1492036932427" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
-            <marker date="1492036932427" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
-            <marker date="1492036932427" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Grinder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1190">
@@ -1267,35 +1238,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/experiment.py">
+    <entry file="file://$PROJECT_DIR$/pyqt5app/qtcvmain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2924">
-          <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/luncher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="93" column="42" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
+        <state relative-caret-position="497">
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
           <folding>
-            <element signature="e#24#59#0" expanded="true" />
-            <element signature="e#17859#18933#0" expanded="false" />
-            <element signature="e#23459#24334#0" expanded="false" />
-            <marker date="1492219115561" expanded="false" signature="5315:15311" placeholder="..." />
-            <marker date="1492219115561" expanded="false" signature="15347:16879" placeholder="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
+        <state relative-caret-position="340">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
           <folding>
             <element signature="e#24#59#0" expanded="true" />
-            <element signature="e#9788#30030#0" expanded="false" />
+            <element signature="e#4115#6023#0" expanded="false" />
+            <element signature="e#9501#29743#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/luncherUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="832">
+          <caret line="221" column="61" selection-start-line="221" selection-start-column="61" selection-end-line="221" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/experiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GUItry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="1245" column="29" selection-start-line="1245" selection-start-column="29" selection-end-line="1245" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#6734#7023#0" expanded="false" />
+            <element signature="e#7250#38732#0" expanded="false" />
+            <element signature="e#38783#42125#0" expanded="false" />
+            <element signature="e#42158#42359#0" expanded="false" />
+            <element signature="e#42833#47466#0" expanded="false" />
+            <element signature="e#47499#48400#0" expanded="false" />
+            <element signature="e#48434#48736#0" expanded="false" />
+            <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
+            <marker date="1492336906180" expanded="true" signature="48099:48256" placeholder="INSERT INTO Temporal_Trails" />
+            <marker date="1492336906180" expanded="true" signature="57957:58011" placeholder="update Tempo... " />
+            <marker date="1492336906180" expanded="true" signature="57963:57994" placeholder="INSERT INTO Temporal_Session" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/luncher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="469" column="59" selection-start-line="469" selection-start-column="59" selection-end-line="469" selection-end-column="59" />
+          <folding>
+            <element signature="e#24#59#0" expanded="true" />
+            <element signature="e#17997#19071#0" expanded="false" />
+            <marker date="1492336975184" expanded="false" signature="5453:15449" placeholder="..." />
+            <marker date="1492336975184" expanded="false" signature="15485:17017" placeholder="..." />
           </folding>
         </state>
       </provider>

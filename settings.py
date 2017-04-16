@@ -14,7 +14,7 @@ import csv,os
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Settings(QtWidgets.QWidget):
-    def __init__(self,comPort,mode=1):
+    def __init__(self,parent,mode=1): #1 is standalone 2 is embeded in luncher
         super().__init__()
         abspath = os.path.abspath(__file__)
         dname = os.path.dirname(abspath)
@@ -26,7 +26,7 @@ class Settings(QtWidgets.QWidget):
         self.jsettings=json.loads(jsondat)
 
         self.setupUi(self)
-        self.comPort=comPort
+        self.parent=parent
         phaseGroup = QtWidgets.QButtonGroup(self)  # Letter group
         phaseGroup.addButton(self.p1Button)
         phaseGroup.addButton(self.p2Button)
@@ -88,8 +88,7 @@ class Settings(QtWidgets.QWidget):
         self.maxBox.setMinimum(self.minBox.value())
         self.minBox.setMaximum(self.maxBox.value())
     def getout(self):
-        self.dict2json
-
+        self.dict2json()
 
         self.download()
         with open('settings.json', 'w') as outfile:
@@ -130,14 +129,11 @@ class Settings(QtWidgets.QWidget):
             self.jsettings['session_default']['position'] = 1
     def download(self):
         try:
-            if mode is 2:
-                print(self.buildConfig())
-                self.ComPort = serial.Serial(self.comPort)  # open the COM Port
-                self.ComPort.baudrate = 21000  # set Baud rate
-                self.ComPort.bytesize = 8  # Number of data bits = 8
-                self.ComPort.parity = 'N'  # No parity
-                self.ComPort.stopbits = 1  # Number of Stop bits = 1
-                self.ComPort.close()
+            print("d1")
+            thepoop=self.buildConfig()
+            print("d2")
+            return thepoop
+
         except Exception as e:
             print(str(e))
     def buildConfig(self):

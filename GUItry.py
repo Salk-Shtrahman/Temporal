@@ -1242,9 +1242,9 @@ def exitApp():
     prep.cnx.commit()
     prep.cnx.disconnect()
     prep.theFile.close()
-    newName=prep.pathName[:-4]+str(ex.session_ID)+'.csv'
+    newName=pathName[:-4]+str(ex.session_ID)+'.csv'
     os.chdir(prep.defaultPath)
-    os.rename(prep.pathName,newName)
+    os.rename(pathName,newName)
     print('leaving with hella style')
         # ...
         # os.rename(filename, filename[7:])
@@ -1254,10 +1254,18 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     prep = Luncher()
     app.exec_()
-
-    print(prep.ComPort)
-    print(prep.theFile)
-    print(prep.cnx)
+    try:
+        print(prep.ComPort)
+        print(prep.theFile)
+        print(prep.cnx)
+    except AttributeError:
+        import os, time
+        pathName=os.getcwd()
+        prep.pathName = pathName[-22:]
+        pathName += time.strftime("/%Y-%m-%d_%H%M%S_.csv")
+        pathName.strip()
+        prep.theFile = open(pathName, 'w')
+        print("defualt logging file created")
     momom=5
     ind = 1
     l_diff = [0, ]

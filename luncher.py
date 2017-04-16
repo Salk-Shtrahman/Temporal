@@ -19,7 +19,7 @@ class Luncher(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.settingsWidget = Settings('COM4',mode=2)
+        self.settingsWidget = Settings(self,mode=2)
         self.setupUi(self)
 
         self.scannerDrop.addItem("Select...")
@@ -52,6 +52,7 @@ class Luncher(QtWidgets.QWidget):
 
 
     def gtfo(self):
+
         self.settingsWidget.jsettings['session_default']['db_login']    =self.userText.text()
         self.settingsWidget.jsettings['session_default']['db_pass']     =self.passText.text()
         self.settingsWidget.jsettings['session_default']['db_schema']   =self.dbText.text()
@@ -91,8 +92,11 @@ class Luncher(QtWidgets.QWidget):
         with open('settings.json', 'w') as outfile:
             json.dump(self.settingsWidget.jsettings, outfile)
         try:
-            self.settingsWidget.download()
+            thepoop=self.settingsWidget.download()
+            print(str(thepoop)+"mclaunchface")
+            self.ComPort.write(thepoop)
             self.close()
+            print("just pooped everywhere")
         except Exception as e:
             print('Download Failure: '+ str(e))
 
@@ -454,7 +458,7 @@ class Luncher(QtWidgets.QWidget):
             # print(filtered_wip)
             try:
                 self.ComPort = serial.Serial(filtered_wip)  # open the COM Port
-                self.ComPort.baudrate = 9600  # set Baud rate
+                self.ComPort.baudrate = 21000  # set Baud rate
                 self.ComPort.bytesize = 8  # Number of data bits = 8
                 self.ComPort.parity = 'N'  # No parity
                 self.ComPort.stopbits = 1  # Number of Stop bits = 1
