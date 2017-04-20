@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e20bb91-bbd6-4125-a18a-e951eca07de5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/luncherUI.ui" afterPath="$PROJECT_DIR$/luncherUI.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GUItry.py" afterPath="$PROJECT_DIR$/GUItry.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/luncher.py" afterPath="$PROJECT_DIR$/luncher.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.json" afterPath="$PROJECT_DIR$/settings.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.py" afterPath="$PROJECT_DIR$/settings.py" />
     </list>
     <ignored path="Salk_Temporal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,7 +28,7 @@
     <SUITE FILE_PATH="coverage/Salk_Temporal$camera.coverage" NAME="camera Coverage Results" MODIFIED="1491444798978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Salk_Temporal$dualPlotter.coverage" NAME="dualPlotter Coverage Results" MODIFIED="1488937268644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Salk_Temporal$luncher.coverage" NAME="luncher Coverage Results" MODIFIED="1489196531942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Salk_Temporal$GUItry.coverage" NAME="GUItry Coverage Results" MODIFIED="1492336975201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Salk_Temporal$GUItry.coverage" NAME="GUItry Coverage Results" MODIFIED="1492647337902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -44,8 +42,8 @@
       <file leaf-file-name="GUItry.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GUItry.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="1245" column="29" selection-start-line="1245" selection-start-column="29" selection-end-line="1245" selection-end-column="29" />
+            <state relative-caret-position="223">
+              <caret line="945" column="151" selection-start-line="945" selection-start-column="149" selection-end-line="945" selection-end-column="151" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#6734#7023#0" expanded="false" />
@@ -53,7 +51,6 @@
                 <element signature="e#38783#42125#0" expanded="false" />
                 <element signature="e#42158#42359#0" expanded="false" />
                 <element signature="e#42833#47466#0" expanded="false" />
-                <element signature="e#47499#48400#0" expanded="false" />
                 <element signature="e#48434#48736#0" expanded="false" />
                 <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
                 <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
@@ -125,13 +122,13 @@
       <file leaf-file-name="luncher.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/luncher.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="469" column="59" selection-start-line="469" selection-start-column="59" selection-end-line="469" selection-end-column="59" />
+            <state relative-caret-position="520">
+              <caret line="438" column="30" selection-start-line="438" selection-start-column="30" selection-end-line="438" selection-end-column="30" />
               <folding>
                 <element signature="e#24#59#0" expanded="true" />
                 <element signature="e#17997#19071#0" expanded="false" />
-                <marker date="1492336975184" expanded="false" signature="5453:15449" placeholder="..." />
-                <marker date="1492336975184" expanded="false" signature="15485:17017" placeholder="..." />
+                <marker date="1492647337886" expanded="false" signature="5453:15449" placeholder="..." />
+                <marker date="1492647337886" expanded="false" signature="15485:17017" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -814,7 +811,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492226327931</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="got download setting working">
+      <created>1492364614803</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1492364614804</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -837,7 +841,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3351709" sideWeight="0.4946581" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32745314" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22050716" sideWeight="0.48773986" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22271223" sideWeight="0.48773986" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32194045" sideWeight="0.4936034" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -876,7 +880,8 @@
     <MESSAGE value="animal ID logging added" />
     <MESSAGE value="download settings beta" />
     <MESSAGE value="download settings beta1" />
-    <option name="LAST_COMMIT_MESSAGE" value="download settings beta1" />
+    <MESSAGE value="got download setting working" />
+    <option name="LAST_COMMIT_MESSAGE" value="got download setting working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -903,7 +908,6 @@
             <element signature="e#38783#42125#0" expanded="false" />
             <element signature="e#42158#42359#0" expanded="false" />
             <element signature="e#42833#47466#0" expanded="false" />
-            <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
             <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
             <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
@@ -953,7 +957,6 @@
             <element signature="e#38783#42125#0" expanded="false" />
             <element signature="e#42158#42359#0" expanded="false" />
             <element signature="e#42833#47466#0" expanded="false" />
-            <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
             <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
             <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
@@ -1003,7 +1006,6 @@
             <element signature="e#38783#42125#0" expanded="false" />
             <element signature="e#42158#42359#0" expanded="false" />
             <element signature="e#42833#47466#0" expanded="false" />
-            <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
             <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
             <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
@@ -1278,8 +1280,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GUItry.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="1245" column="29" selection-start-line="1245" selection-start-column="29" selection-end-line="1245" selection-end-column="29" />
+        <state relative-caret-position="223">
+          <caret line="945" column="151" selection-start-line="945" selection-start-column="149" selection-end-line="945" selection-end-column="151" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#6734#7023#0" expanded="false" />
@@ -1287,7 +1289,6 @@
             <element signature="e#38783#42125#0" expanded="false" />
             <element signature="e#42158#42359#0" expanded="false" />
             <element signature="e#42833#47466#0" expanded="false" />
-            <element signature="e#47499#48400#0" expanded="false" />
             <element signature="e#48434#48736#0" expanded="false" />
             <marker date="1492336906180" expanded="true" signature="1441:1730" placeholder="INSERT INTO Temporal_Session" />
             <marker date="1492336906180" expanded="true" signature="2429:2579" placeholder="SELECT Tempo... Temporal_Session" />
@@ -1300,13 +1301,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/luncher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="469" column="59" selection-start-line="469" selection-start-column="59" selection-end-line="469" selection-end-column="59" />
+        <state relative-caret-position="520">
+          <caret line="438" column="30" selection-start-line="438" selection-start-column="30" selection-end-line="438" selection-end-column="30" />
           <folding>
             <element signature="e#24#59#0" expanded="true" />
             <element signature="e#17997#19071#0" expanded="false" />
-            <marker date="1492336975184" expanded="false" signature="5453:15449" placeholder="..." />
-            <marker date="1492336975184" expanded="false" signature="15485:17017" placeholder="..." />
+            <marker date="1492647337886" expanded="false" signature="5453:15449" placeholder="..." />
+            <marker date="1492647337886" expanded="false" signature="15485:17017" placeholder="..." />
           </folding>
         </state>
       </provider>

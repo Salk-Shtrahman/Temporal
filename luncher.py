@@ -427,28 +427,18 @@ class Luncher(QtWidgets.QWidget):
             if BCC != rBCC[0]:
                 print (4, "BCC don't match")
             self.animalTag=ID_data[2:18]
-            ######################
-
-            # cursor = self.cnx.cursor()
-            # dude = "INSERT INTO  ID_Event (Animal_ID) VALUES (%s)"
-            # cursor.execute(dude, (aID,))
-            # cnx.commit()
-            # read_que = '''
-            #         SELECT
-            #         ID_Event.Event_ID,
-            #         Animal_Control.Nickname,
-            #         Animal_Control.Animal_Short_ID,
-            #         Animal_Control.Comments
-            #         FROM
-            #         Animal_Control
-            #             INNER JOIN
-            #         ID_Event ON ID_Event.Animal_ID=Animal_Control.Animal_ID
-            #         ORDER BY ID_Event.Event_ID DESC
-            #         LIMIT 1
-            #     '''
-            # cursor.execute(read_que)
-            # results = cursor.fetchone()
-            # print(results)
+            try:
+                cursor = self.cnx.cursor()
+                command=""" SELECT * FROM Salk.Animal_Control Where Salk.Animal_Control.Animal_ID="%s" ;"""% self.animalTag
+                print(command)
+                cursor.execute(command)
+                self.bioInfo = cursor.fetchone()
+                self.textBrowser.append(str(self.bioInfo)+"detected")
+                self.mouseBox.setText(str(self.bioInfo[4]))
+                self.cageBox.setText(str(self.bioInfo[3]))
+                self.checkIn()
+            except Exception as e:
+                print(str(e))
 
     def openSerial(self):
         if self.serialButton.text()=='Connect':

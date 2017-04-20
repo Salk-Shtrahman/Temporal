@@ -81,7 +81,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox">
+        <widget class="QComboBox" name="scannerDrop">
          <property name="minimumSize">
           <size>
            <width>100</width>
