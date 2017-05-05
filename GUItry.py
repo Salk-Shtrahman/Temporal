@@ -43,7 +43,7 @@ class App(QMainWindow):
 
 
         self.cursor.execute(
-            "INSERT INTO  Temporal_Session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            "INSERT INTO  temporal_session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (prep.SID, config['mcu_config']['training_phase'], config['mcu_config'][
                 'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
                 'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
@@ -53,10 +53,10 @@ class App(QMainWindow):
         self.cnx.commit()
         read_que = '''
             SELECT
-            Temporal_Session.id
+            temporal_session.id
             FROM
-            Temporal_Session
-            ORDER BY Temporal_Session.id DESC
+            temporal_session
+            ORDER BY temporal_session.id DESC
             LIMIT 1
         '''
         self.cursor.execute(read_que)
@@ -943,7 +943,7 @@ class App(QMainWindow):
         # print(self.session_ID, self.ind, str(t_zero), self.song_mem[0], str(event_time), difficulty, correct,direction)
 
         self.cursor.execute(
-            "INSERT INTO  Temporal_Trails ( Session_ID, Trail_ID, SequenceStartTime, Song, LickTime, Difficulty, Correctness, LickResult) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
+            "INSERT INTO  temporal_trails ( Session_ID, Trail_ID, SequenceStartTime, Song, LickTime, Difficulty, Correctness, LickResult) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
             (self.session_ID, self.ind, str(t_zero), self.song_mem[0], sevent_time, difficulty, correct,direction))
         self.cnx.commit()
 
@@ -1238,7 +1238,7 @@ def exitApp():
     slave.terminate()
     prep.ComPort.close()
     cursor = prep.cnx.cursor()
-    cursor.execute("update  Temporal_Session set Complete=%s where id = %s",(1,ex.session_ID))
+    cursor.execute("update  temporal_session set Complete=%s where id = %s",(1,ex.session_ID))
     prep.cnx.commit()
     prep.cnx.disconnect()
     prep.theFile.close()
