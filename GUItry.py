@@ -105,12 +105,12 @@ class App(QMainWindow):
         self.animalID.setText("Animal ID: %i (%s)"% (prep.SID,prep.nickName))
         self.quitButton.clicked.connect(self.close)
 
-        self.flushButton.setIcon(QtGui.QIcon('flushOff.png'))
+        self.flushButton.setIcon(QtGui.QIcon('Static\flushOff.png'))
         self.flushButton.setIconSize(QtCore.QSize(75,75))
         self.flushButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon);
         self.flushButton.clicked.connect(self.flushValves)
 
-        self.startButton.setIcon(QtGui.QIcon('play.png'))
+        self.startButton.setIcon(QtGui.QIcon('Static\play.png'))
         self.startButton.setIconSize(QtCore.QSize(75, 75))
         # self.pauseButton.setIcon(QtGui.QIcon('pause.png'))
         # self.pauseButton.setIconSize(QtCore.QSize(75, 75))
@@ -157,7 +157,7 @@ class App(QMainWindow):
         if self.flowButtonStatus:
             try:
                 self.toggleFlow(False)
-                self.startButton.setIcon(QtGui.QIcon('pause.png'))
+                self.startButton.setIcon(QtGui.QIcon('Static\pause.png'))
                 self.flowButtonStatus = not self.flowButtonStatus
                 self.flushButton.setEnabled(False)
             except Exception as e:
@@ -166,7 +166,7 @@ class App(QMainWindow):
         else:
             try:
                 self.toggleFlow(True)
-                self.startButton.setIcon(QtGui.QIcon('play.png'))
+                self.startButton.setIcon(QtGui.QIcon('Static\play.png'))
                 self.flowButtonStatus = not self.flowButtonStatus
                 self.flushButton.setEnabled(True)
             except Exception as e:
@@ -821,12 +821,12 @@ class App(QMainWindow):
     def flushValves(self):
         if self.flushButtonStatus:
             self.toggleFlush(True)
-            self.flushButton.setIcon(QtGui.QIcon('flushOn.png'))
+            self.flushButton.setIcon(QtGui.QIcon('Static\flushOn.png'))
             self.flushButton.setText('Stop Flush')
 
         else:
             self.toggleFlush(False)
-            self.flushButton.setIcon(QtGui.QIcon('flushOff.png'))
+            self.flushButton.setIcon(QtGui.QIcon('Static\flushOff.png'))
             self.flushButton.setText('Flush')
         self.flushButtonStatus= not self.flushButtonStatus
 
