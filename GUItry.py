@@ -84,6 +84,10 @@ class App(QMainWindow):
         timer.timeout.connect(self.update_figure)
         timer.start(200)
 
+        self.progresstimer = QtCore.QTimer(self)
+        self.progresstimer.timeout.connect(self.animateProgress)
+
+
         self.ind = 1
         self.totalTarget=0
         self.totalCorrect=0
@@ -93,7 +97,7 @@ class App(QMainWindow):
         self.itargetWrong=0
         self.intargetCorrect = 0
         self.intargetWrong = 0
-
+        self.progress=0
 
         self.setupUi(self)
 
@@ -204,9 +208,10 @@ class App(QMainWindow):
         except Exception as e:
             print(str(e))
 
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        # MainWindow.resize(1146, 650)
+        MainWindow.resize(2027, 658)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -229,41 +234,6 @@ class App(QMainWindow):
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.gridLayout.setObjectName("gridLayout")
-        self.line_2 = QtWidgets.QFrame(self.centralwidget)
-        self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_2.setObjectName("line_2")
-        self.gridLayout.addWidget(self.line_2, 0, 2, 1, 1)
-        # self.sidePlot = QtWidgets.QWidget(self.centralwidget)
-        self.sidePlot.setObjectName("sidePlot")
-        self.gridLayout.addWidget(self.sidePlot, 0, 3, 1, 1)
-        self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
-                                           QtWidgets.QSizePolicy.MinimumExpanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
-        self.scrollArea.setSizePolicy(sizePolicy)
-        self.scrollArea.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 603, 545))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        # self.mainPlot = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-        self.mainPlot.setObjectName("mainPlot")
-        self.verticalLayout.addWidget(self.mainPlot)
-        self.horizontalScrollBar = QtWidgets.QScrollBar(self.scrollAreaWidgetContents)
-        self.horizontalScrollBar.setSingleStep(3)
-        self.horizontalScrollBar.setPageStep(50)
-        self.horizontalScrollBar.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalScrollBar.setObjectName("horizontalScrollBar")
-        self.verticalLayout.addWidget(self.horizontalScrollBar)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.gridLayout.addWidget(self.scrollArea, 0, 0, 1, 1)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.song1 = QtWidgets.QLabel(self.centralwidget)
@@ -293,13 +263,8 @@ class App(QMainWindow):
         self.song3.setFont(font)
         self.song3.setObjectName("song3")
         self.verticalLayout_2.addWidget(self.song3)
-        self.gridLayout.addLayout(self.verticalLayout_2, 0, 5, 1, 1)
-        self.line_3 = QtWidgets.QFrame(self.centralwidget)
-        self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_3.setObjectName("line_3")
-        self.gridLayout.addWidget(self.line_3, 0, 4, 1, 1)
-        # self.Cam = QtWidgets.QWidget(self.centralwidget)
+        self.gridLayout.addLayout(self.verticalLayout_2, 0, 7, 1, 1)
+        #self.Cam = QtWidgets.QWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -308,7 +273,56 @@ class App(QMainWindow):
         self.Cam.setMinimumSize(QtCore.QSize(50, 0))
         self.Cam.setMaximumSize(QtCore.QSize(400, 16777215))
         self.Cam.setObjectName("Cam")
-        self.gridLayout.addWidget(self.Cam, 0, 7, 1, 1)
+        self.gridLayout.addWidget(self.Cam, 0, 9, 1, 1)
+        self.line_3 = QtWidgets.QFrame(self.centralwidget)
+        self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_3.setObjectName("line_3")
+        self.gridLayout.addWidget(self.line_3, 0, 6, 1, 1)
+        self.line_2 = QtWidgets.QFrame(self.centralwidget)
+        self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.gridLayout.addWidget(self.line_2, 0, 2, 1, 1)
+        self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                                           QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
+        self.scrollArea.setSizePolicy(sizePolicy)
+        self.scrollArea.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 487, 462))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        #self.mainPlot = QtWidgets.QWidget(self.scrollAreaWidgetContents)
+        self.mainPlot.setObjectName("mainPlot")
+        self.verticalLayout.addWidget(self.mainPlot)
+        self.horizontalScrollBar = QtWidgets.QScrollBar(self.scrollAreaWidgetContents)
+        self.horizontalScrollBar.setSingleStep(3)
+        self.horizontalScrollBar.setPageStep(50)
+        self.horizontalScrollBar.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalScrollBar.setObjectName("horizontalScrollBar")
+        self.verticalLayout.addWidget(self.horizontalScrollBar)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.gridLayout.addWidget(self.scrollArea, 0, 0, 1, 1)
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setTextVisible(False)
+        self.progressBar.setObjectName("progressBar")
+        self.verticalLayout_5.addWidget(self.progressBar)
+        #self.sidePlot = QtWidgets.QWidget(self.centralwidget)
+        self.sidePlot.setMinimumSize(QtCore.QSize(30, 0))
+        self.sidePlot.setObjectName("sidePlot")
+        self.verticalLayout_5.addWidget(self.sidePlot)
+        self.gridLayout.addLayout(self.verticalLayout_5, 0, 4, 1, 1)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -678,17 +692,17 @@ class App(QMainWindow):
         self.line_19.setObjectName("line_19")
         self.gridLayout_3.addWidget(self.line_19, 0, 3, 1, 1)
         self.verticalLayout_4.addLayout(self.gridLayout_3)
-        self.gridLayout.addLayout(self.verticalLayout_4, 0, 9, 1, 1)
-        self.line_11 = QtWidgets.QFrame(self.centralwidget)
-        self.line_11.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line_11.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_11.setObjectName("line_11")
-        self.gridLayout.addWidget(self.line_11, 0, 6, 1, 1)
+        self.gridLayout.addLayout(self.verticalLayout_4, 0, 11, 1, 1)
         self.line_20 = QtWidgets.QFrame(self.centralwidget)
         self.line_20.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_20.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_20.setObjectName("line_20")
-        self.gridLayout.addWidget(self.line_20, 0, 8, 1, 1)
+        self.gridLayout.addWidget(self.line_20, 0, 10, 1, 1)
+        self.line_11 = QtWidgets.QFrame(self.centralwidget)
+        self.line_11.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_11.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_11.setObjectName("line_11")
+        self.gridLayout.addWidget(self.line_11, 0, 8, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 2, 1, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -743,7 +757,7 @@ class App(QMainWindow):
         self.gridLayout_2.addWidget(self.quitButton, 0, 3, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1146, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 2027, 38))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -775,7 +789,8 @@ class App(QMainWindow):
         self.song1.setText(_translate("MainWindow", "N/A"))
         self.song2.setText(_translate("MainWindow", "N/A"))
         self.song3.setText(_translate("MainWindow", "N/A"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Stats</p></body></html>"))
+        self.label.setText(
+            _translate("MainWindow", "<html><head/><body><p align=\"center\">Stats</p></body></html>"))
         self.label_7.setText(_translate("MainWindow", "Total Trails:"))
         self.trailText.setText(_translate("MainWindow", "trailText"))
         self.targetText.setText(_translate("MainWindow", "targetText"))
@@ -812,6 +827,7 @@ class App(QMainWindow):
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSettings.setText(_translate("MainWindow", "Settings"))
         self.actionInfo.setText(_translate("MainWindow", "Info"))
+
     def slideVal(self):
         scroll=self.horizontalScrollBar.value()
         print(scroll)
@@ -926,6 +942,16 @@ class App(QMainWindow):
                 self.horizontalScrollBar.setPageStep(100 * self.scrollWidth / (self.ind - self.scrollWidth))
             # print("deenah latina is gone")
             self.ind+=1
+            self.progresstimer.start(100)
+    def animateProgress(self):
+        #animate at 10hz
+        if self.progress < 7*10:
+            self.progressBar.setValue(self.progress/70*100)
+            self.progress=self.progress+1
+        elif self.progress==70:
+            self.progress=0
+            self.progresstimer.stop()
+
     def writeSQL(self):
         t_zero = timestampd.value
         song = songdump
