@@ -76,7 +76,7 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
             try:
                 type = result[0]
             except Exception as e:
-                print(e)
+                print(str(e)+'shit')
                 type=result
 
             if type == 1:

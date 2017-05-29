@@ -140,45 +140,56 @@ class Settings(QtWidgets.QWidget):
         TONETRAN={'A':0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G':6}
         self.dict2json()
         self.config=[]
+        # 0th char: 0x11, send this so that the mcu knows you're about to send setting
         self.config.append(b'\x11')
-        self.config.append(bytearray([self.jsettings['mcu_config']['training_phase']*16+ self.jsettings['mcu_config']['min_difficulty']]))
+        #1st char: training phase
+
+        self.config.append(bytearray([self.jsettings['mcu_config']['training_phase']]))
+        self.config.append(bytearray([self.jsettings['mcu_config']['min_difficulty']]))
         self.config.append(bytearray([self.jsettings['mcu_config']['max_difficulty']]))
 
-        self.config.append(bytearray([16*TONETRAN[self.song1.text()]+ TONETRAN[self.song2.text()]]))
-        self.config.append(bytearray([16 * TONETRAN[self.song3.text()] + TONETRAN[self.song4.text()]]))
-        self.config.append(b'\x00')
-        #trail number 6th, 7th char: number of trials, int (i.e. 6th: 0x01, 7th: 0x2C) --> 300
+        self.config.append(bytearray([TONETRAN[self.song1.text()]]))
+        self.config.append(bytearray([TONETRAN[self.song2.text()]]))
+        self.config.append(bytearray([TONETRAN[self.song3.text()]]))
+        self.config.append(bytearray([TONETRAN[self.song4.text()]]))
+        self.config.append(bytearray([TONETRAN[self.song4.text()]]))##TODO: replace after GUI is updated for 5&6
+        self.config.append(bytearray([TONETRAN[self.song4.text()]]))
+
+
+        #trail number 10th, 11th char: number of trials, int (i.e. 6th: 0x01, 7th: 0x2C) --> 300
         self.config.append(bytearray([int(self.jsettings['mcu_config']['trial_number']/256)]))
         self.config.append(bytearray([int(self.jsettings['mcu_config']['trial_number'] % 256)]))
-        #delay duration 8th, 9th char: duration of delay (units of 10 ms)
+        #delay duration 12th, 13th char: duration of delay (units of 10 ms)
 
         self.config.append(bytearray([int(self.jsettings['mcu_config']['delay_duration']*100 / 256)]))
         self.config.append(bytearray([int(self.jsettings['mcu_config']['delay_duration']*100 % 256)]))
-        #10th, 11th char: duration of punishment if mouse licks incorrectly (units of 10 ms)
+        #14th, 15th char: duration of punishment if mouse licks incorrectly (units of 10 ms)
 
         self.config.append(bytearray([int(self.jsettings['mcu_config']['punishment_duration'] / 256*100)]))
         self.config.append(bytearray([int(self.jsettings['mcu_config']['punishment_duration']*100 % 256)]))
-        #12th, 13th char: lick window duration (units of 10 ms)
+        #16th, 17th char: lick window duration (units of 10 ms)
         self.config.append(bytearray([int(self.jsettings['mcu_config']['lickwindow_duration'] / 256*100)]))
         self.config.append(bytearray([int(self.jsettings['mcu_config']['lickwindow_duration']*100 % 256)]))
 
-#         14th char: tone duration (units of 10 ms)
+#         18th char: tone duration (units of 10 ms)
         self.config.append(bytearray([int(self.jsettings['mcu_config']['tone_duration']*100)]))
 
-    # 15th char: duration of time between tones (units of 10 ms)
+    # 19th char: duration of time between tones (units of 10 ms)
         self.config.append(bytearray([int(self.jsettings['mcu_config']['time_between_tones']*100)]))
 #
-# 16th char: duration of right valve open time (units of 10 ms)
+# 20th char: duration of right valve open time (units of 10 ms)
         self.config.append(bytearray([int(self.jsettings['mcu_config']['valve_open_time_R']*100)]))
 
-# 17th char: duration of left valve open time (units of 10 ms)
+# 21th char: duration of left valve open time (units of 10 ms)
         self.config.append(bytearray([int(self.jsettings['mcu_config']['valve_open_time_L']*100)]))
 
-    # 18th char: duration of time between song and reward for training phase 1
+    # 22th char: duration of time between song and reward for training phase 1
         self.config.append(bytearray([int(self.jsettings['mcu_config']['encourage_delay']*100)]))
-    # 19th char: number of no lick trials until mouse is given an encouragement drop
+    # 23th char: number of no lick trials until mouse is given an encouragement drop
         self.config.append(bytearray([int(self.jsettings['mcu_config']['encourage'])]))
-    # 20th, 21st char: checksum. I'm pretty sure that two chars should be enough to sum all the parameters
+    #24th char: how likely mouse is to get encouragement drop
+        self.config.append(bytearray([int(self.jsettings['mcu_config']['encourage'])])) #TODO: change after update GUI
+    # 25th, 26st char: checksum. I'm pretty sure that two chars should be enough to sum all the parameters
         summ=0
         for item in self.config:
             summ=summ+int.from_bytes(item, byteorder='big', signed=False)
@@ -186,6 +197,8 @@ class Settings(QtWidgets.QWidget):
 
         self.config.append(bytearray([int(summ / 256)]))
         self.config.append(bytearray([int(summ % 256)]))
+        print("### The Lengh of Download Command is " , str(len(self.config)))
+        print("### " + str(self.config))
         cris=b''
         for con in self.config:
             cris=cris+con

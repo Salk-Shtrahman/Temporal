@@ -28,7 +28,7 @@ class brother():
         self.payload_cue = False
 
         self.Port = serial.Serial(george)  # open the COM Port
-        self.Port.baudrate = 20800  # set Baud rate
+        self.Port.baudrate = 19200  # set Baud rate
         self.Port.bytesize = 8  # Number of data bits = 8
         self.Port.parity = 'N'  # No parity
         self.Port.stopbits = 1  # Number of Stop bits = 1
@@ -69,30 +69,30 @@ class brother():
         # print(self.return_song)
         print('Ladder',self.char_ladder)
         for yo in out:
-            # print(yo)
+            print(yo)
             # print(self.char_ladder)
             if yo==b'\xff' or yo==b'\xfe':
                 if len(out)==1:
                     return( 3, time.time(),1 if yo==b'\xff' else 0)
-                try:
-                    for o in out:
-                        nobro=KEY[o]
-                    return (3, time.time(), 1 if out[0] == b'\xff' else 0)
-                except KeyError:
-                    print('super jackpottttttttttttttttttttttttttttt')
-                    if out[1]==b'\x74':
-                        print(out)
-                        while len(out) < 4:
-                            buf = self.Port.read(1)
-                            if buf:
-                                out.append(buf)
-                        print(out)
-                        self.payload_cue=True
-                        self.cued_payload=(4, self.LOR[int.from_bytes(out[2], byteorder='big') % 16], self.COR[
-                            int.from_bytes(out[2], byteorder='big') // 16], int.from_bytes(out[3], byteorder='big'))
-                        print('jackpot just got bigger')
-                        self.char_ladder = 0
-                        return (3, time.time(), 1 if out[0] == b'\xff' else 0)
+                # try:
+                #     for o in out:
+                #         nobro=KEY[o]
+                #     return (3, time.time(), 1 if out[0] == b'\xff' else 0)
+                # except KeyError:
+                #     print('super jackpottttttttttttttttttttttttttttt')
+                #     if out[1]==b'\x74':
+                #         print(out)
+                #         while len(out) < 4:
+                #             buf = self.Port.read(1)
+                #             if buf:
+                #                 out.append(buf)
+                #         print(out)
+                #         self.payload_cue=True
+                #         self.cued_payload=(4, self.LOR[int.from_bytes(out[2], byteorder='big') % 16], self.COR[
+                #             int.from_bytes(out[2], byteorder='big') // 16], int.from_bytes(out[3], byteorder='big'))
+                #         print('jackpot just got bigger')
+                #         self.char_ladder = 0
+                #         return (3, time.time(), 1 if out[0] == b'\xff' else 0)
 
             elif self.char_ladder==0 and yo==b'\x71':
                 self.char_ladder=1
@@ -100,37 +100,37 @@ class brother():
                 self.sesh_timeS=datetime.datetime.now().strftime("%Y%m%d%H%M%S.%f")
                 self.return_new_trail=True
                 self.event_list = []
-                #print('made it to 0')
+                print('made it to 0')
             elif self.char_ladder==1 or self.char_ladder ==2:
                 self.session_num_temp.append(yo)
                 self.char_ladder+=1
-                #print('made it to 1,2')
+                print('made it to 1,2')
 
             elif self.char_ladder==3 and yo==b'\x72':
                 self.char_ladder = 4
-                #print('made it to 3')
+                print('made it to 3')
                 #do shits to varify above
-            elif self.char_ladder==4 or self.char_ladder ==5:
+            elif self.char_ladder>=4 and self.char_ladder <=9:
                 self.session_song_temp.append(yo)
                 self.char_ladder += 1
-                #print('made it to 4,5')
+                print('made it to '+str(self.char_ladder))
 
 
-            elif self.char_ladder==6 and yo==b'\x74':
-                self.char_ladder=7
-                # print('made it to 6')
+            elif self.char_ladder==10 and yo==b'\x74':
+                self.char_ladder=11
+                print('made it to 10')
                 # do shits to varify above
-            elif self.char_ladder == 7:
-                self.char_ladder = 8
+            elif self.char_ladder == 11:
+                self.char_ladder = 12
                 self.correct = int.from_bytes(yo, byteorder='big') // 16
                 self.direction = int.from_bytes(yo, byteorder='big') % 16
-                #print('made it to 7')
+                print('made it to 11')
                 # print('yo',yo)
                 # print('corr, dir',correct,direction)
-            elif self.char_ladder == 8:
+            elif self.char_ladder == 12:
                 difficulty = int.from_bytes(yo, byteorder='big')
                 self.char_ladder=0
-                #print('made it to 8')
+                print('made it to 12')
                 if self.return_lick:
                     self.return_lick=False
                     return (4,  self.LOR[self.direction], self.COR[self.correct], difficulty)
@@ -178,7 +178,7 @@ class brother():
                 self.session_song_temp=[]
                 return(2,tone1,tone2,tone3,tone4)
             except Exception as e:
-                print(e)
+                print(str(e)+'fuck is this you?')
                 self.return_song = True
 
 

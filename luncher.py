@@ -467,7 +467,7 @@ class Luncher(QtWidgets.QWidget):
             # print(filtered_wip)
             try:
                 self.ComPort = serial.Serial(filtered_wip)  # open the COM Port
-                self.ComPort.baudrate = 21000  # set Baud rate
+                self.ComPort.baudrate = 19200  # set Baud rate
                 self.ComPort.bytesize = 8  # Number of data bits = 8
                 self.ComPort.parity = 'N'  # No parity
                 self.ComPort.stopbits = 1  # Number of Stop bits = 1
