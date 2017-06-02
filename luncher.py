@@ -51,7 +51,21 @@ class Luncher(QtWidgets.QWidget):
 
 
     def gtfo(self):
+        
+        self.settingsWidget.ComPort=self.portName
 
+        with open('settings.json', 'w') as outfile:
+            json.dump(self.settingsWidget.jsettings, outfile)
+        try:
+            thepoop=self.settingsWidget.download()
+            print(str(thepoop)+"mclaunchface")
+            self.ComPort.write(thepoop)
+            self.close()
+            print("just pooped everywhere")
+        except Exception as e:
+            print('Download Failure: '+ str(e))
+
+            
         self.settingsWidget.jsettings['session_default']['db_login']    =self.userText.text()
         self.settingsWidget.jsettings['session_default']['db_pass']     =self.passText.text()
         self.settingsWidget.jsettings['session_default']['db_schema']   =self.dbText.text()
@@ -85,19 +99,7 @@ class Luncher(QtWidgets.QWidget):
         self.settingsWidget.jsettings['session_default']['position'] += 1
         if self.settingsWidget.jsettings['session_default']['position'] == 5:
             self.settingsWidget.jsettings['session_default']['position'] = 1
-        self.settingsWidget.ComPort=self.portName
 
-
-        with open('settings.json', 'w') as outfile:
-            json.dump(self.settingsWidget.jsettings, outfile)
-        try:
-            thepoop=self.settingsWidget.download()
-            print(str(thepoop)+"mclaunchface")
-            self.ComPort.write(thepoop)
-            self.close()
-            print("just pooped everywhere")
-        except Exception as e:
-            print('Download Failure: '+ str(e))
 
 
         self.close()

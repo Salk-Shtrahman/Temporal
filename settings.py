@@ -38,24 +38,24 @@ class Settings(QtWidgets.QWidget):
         dispGroup.addButton(self.d1bBox)
         dispGroup.addButton(self.d2tBox)
         dispGroup.addButton(self.d2bBox)
-        if self.jsettings['session_default']['position'] == 1:
+        if self.jsettings['session_default']['position'] == 0:
             self.d1tBox.setChecked(True)
-        elif self.jsettings['session_default']['position'] == 2:
+        elif self.jsettings['session_default']['position'] == 1:
             self.d1bBox.setChecked(True)
-        elif self.jsettings['session_default']['position'] == 3:
+        elif self.jsettings['session_default']['position'] == 2:
             self.d2tBox.setChecked(True)
-        elif self.jsettings['session_default']['position'] == 4:
+        elif self.jsettings['session_default']['position'] == 3:
             self.d2bBox.setChecked(True)
 
-        if self.jsettings['mcu_config']['training_phase']==1:
+        if self.jsettings['mcu_config']['training_phase']==0:
             self.p1Button.setChecked(True)
             # self.p2Button.setChecked(False)
-        elif self.jsettings['mcu_config']['training_phase'] == 2:
+        elif self.jsettings['mcu_config']['training_phase'] == 1:
             self.p2Button.setChecked(True)
             # self.p1Button.setChecked(False)
-        elif self.jsettings['mcu_config']['training_phase'] == 3:
+        elif self.jsettings['mcu_config']['training_phase'] == 2:
             self.p3Button.setChecked(True)
-        elif self.jsettings['mcu_config']['training_phase'] == 4:
+        elif self.jsettings['mcu_config']['training_phase'] == 3:
             self.p4Button.setChecked(True)
 
         self.dripBox.setValue(self.jsettings['mcu_config']['drip_delay_time'])
@@ -116,13 +116,13 @@ class Settings(QtWidgets.QWidget):
         self.jsettings['mcu_config']['min_difficulty'] = self.minBox.value()
         self.jsettings['mcu_config']['max_difficulty'] = self.maxBox.value()
         if self.p1Button.isChecked():
-            self.jsettings['mcu_config']['training_phase'] = 2 ###############################################
+            self.jsettings['mcu_config']['training_phase'] = 0 ###############################################
         elif self.p2Button.isChecked():
-            self.jsettings['mcu_config']['training_phase'] = 4 ##############################################
+            self.jsettings['mcu_config']['training_phase'] = 1 ##############################################
         elif self.p3Button.isChecked():
-            self.jsettings['mcu_config']['training_phase'] = 6 ###############################################
+            self.jsettings['mcu_config']['training_phase'] = 2 ###############################################
         elif self.p4Button.isChecked():
-            self.jsettings['mcu_config']['training_phase'] = 8 #####################################################
+            self.jsettings['mcu_config']['training_phase'] = 3 #####################################################
 
         self.jsettings['session_default']['position'] += 1
         if self.jsettings['session_default']['position'] == 5:
@@ -137,7 +137,7 @@ class Settings(QtWidgets.QWidget):
         except Exception as e:
             print(str(e))
     def buildConfig(self):
-        TONETRAN={'A':0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G':6}
+        TONETRAN={'C8':0,'Db8':1,'D8':2,'Eb8':3,'F8':4,'Gb8':5,'G8':6,'Ab8':7,'A8':8,'Bb8':9,'B8':10,'C9':11,'Db9':12,'D9':13,'Eb9':14,'E9':15}
         self.dict2json()
         self.config=[]
         # 0th char: 0x11, send this so that the mcu knows you're about to send setting
@@ -188,7 +188,7 @@ class Settings(QtWidgets.QWidget):
     # 23th char: number of no lick trials until mouse is given an encouragement drop
         self.config.append(bytearray([int(self.jsettings['mcu_config']['encourage'])]))
     #24th char: how likely mouse is to get encouragement drop
-        self.config.append(bytearray([int(self.jsettings['mcu_config']['encourage'])])) #TODO: change after update GUI
+        self.config.append(bytearray(0x02)) ###############################################TODO: change after update GUI
     # 25th, 26st char: checksum. I'm pretty sure that two chars should be enough to sum all the parameters
         summ=0
         for item in self.config:
@@ -578,20 +578,20 @@ class Settings(QtWidgets.QWidget):
         self.label_6.setText(_translate("Form", "Delay Duration"))
         self.label_15.setText(_translate("Form", "Seconds"))
         self.label.setText(_translate("Form", "Training Phase"))
-        self.p1Button.setText(_translate("Form", "Phase 1"))
-        self.p2Button.setText(_translate("Form", "Phase 2"))
-        self.p3Button.setText(_translate("Form", "Phase 3"))
-        self.p4Button.setText(_translate("Form", "Phase 4"))
+        self.p1Button.setText(_translate("Form", "Phase 0"))
+        self.p2Button.setText(_translate("Form", "Phase 1"))
+        self.p3Button.setText(_translate("Form", "Phase 2"))
+        self.p4Button.setText(_translate("Form", "Phase 3"))
         self.label_7.setText(_translate("Form", "Diffrence"))
         self.label_8.setText(_translate("Form", "Max"))
         self.label_9.setText(_translate("Form", "Min"))
         self.label_27.setText(_translate("Form", "Encouragement Drop          After"))
         self.label_28.setText(_translate("Form", "No licks"))
         self.label_23.setText(_translate("Form", "Song"))
-        self.song1.setText(_translate("Form", "A"))
-        self.song2.setText(_translate("Form", "B"))
-        self.song3.setText(_translate("Form", "C"))
-        self.song4.setText(_translate("Form", "D"))
+        self.song1.setText(_translate("Form", "C8"))
+        self.song2.setText(_translate("Form", "E9"))
+        self.song3.setText(_translate("Form", "G8"))
+        self.song4.setText(_translate("Form", "C9"))
         if self.mode ==1:
             self.downloadButton.setText(_translate("Form", "Download Settings"))
 

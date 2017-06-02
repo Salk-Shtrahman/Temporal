@@ -849,7 +849,7 @@ class App(QMainWindow):
     def update_figure(self):
         if self.ind==1:
             self.startTime = datetime.datetime.now().replace(microsecond=0)
-        SONGDICT={0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G'}
+        SONGDICT={0:'C8',1:'Db8',2:'D8',3:'Eb8',4:'F8',5:'Gb8',6:'G8',7:'Ab8',8:'A8',9:'Bb8',10:'B8',11:'C9',12:'Db9',13:'D9',14:'Eb9',15:'E9'}
         song_alpha=[]
         if not new_stuff.value:
             try:
@@ -863,6 +863,7 @@ class App(QMainWindow):
             song = songdump[:]
             for tone in song:
                 song_alpha.append(SONGDICT[tone])
+                song_alpha.append(' ')
             # print(song)
             self.song_mem.insert(0,''.join(song_alpha))
             if len(self.song_mem) == 4:
@@ -945,10 +946,12 @@ class App(QMainWindow):
             self.progresstimer.start(100)
     def animateProgress(self):
         #animate at 10hz
-        if self.progress < 7*10:
-            self.progressBar.setValue(self.progress/70*100)
+        self.trailLength=100#TODO: replace later with prep.settings.whatever+whatever
+#4*(tone duration)+3(time between tones)+lickwindow+delay(+delay punishment?)
+        if self.progress < self.trailLength:
+            self.progressBar.setValue(self.progress/self.trailLength*100)
             self.progress=self.progress+1
-        elif self.progress==70:
+        elif self.progress==self.trailLength:
             self.progress=0
             self.progresstimer.stop()
 

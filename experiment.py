@@ -51,7 +51,10 @@ class brother():
 
         index=0
         out=[]
-        KEY={b'\xff':5, b'\xfe':10}
+        KEY={b'\xfe':5, b'\xfd':10} # <-- left and right respectively
+
+
+
 
         consecutive=False
 
@@ -61,6 +64,16 @@ class brother():
 
         while self.Port.inWaiting() > 0:
             buf=self.Port.read(1)
+
+ 
+            if buf==b'\x77':
+                print("mission successful")
+            if buf==b'\x75':
+                print("mission unsuccessful")
+            else:
+                print("POOOOOOOOOOOOOOOOOOOOOOOOOOOP")
+
+                
             if buf:
                 out.append(buf)
             else:
@@ -70,10 +83,14 @@ class brother():
         print('Ladder',self.char_ladder)
         for yo in out:
             print(yo)
+
+
+
+            
             # print(self.char_ladder)
-            if yo==b'\xff' or yo==b'\xfe':
+            if yo==b'\xfe' or yo==b'\xfd':
                 if len(out)==1:
-                    return( 3, time.time(),1 if yo==b'\xff' else 0)
+                    return( 3, time.time(),1 if yo==b'\xfd' else 0)
                 # try:
                 #     for o in out:
                 #         nobro=KEY[o]
@@ -134,6 +151,7 @@ class brother():
                 if self.return_lick:
                     self.return_lick=False
                     return (4,  self.LOR[self.direction], self.COR[self.correct], difficulty)
+
 
 
 
