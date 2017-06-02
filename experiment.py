@@ -188,13 +188,15 @@ class brother():
             self.return_song=False
             self.return_lick=True
             try:
-                tone1 =int.from_bytes(self.session_song_temp[0], byteorder='big') // 16
-                tone2 =int.from_bytes(self.session_song_temp[0], byteorder='big') % 16
-                tone3 =int.from_bytes(self.session_song_temp[1], byteorder='big') // 16
-                tone4 =int.from_bytes(self.session_song_temp[1], byteorder='big') % 16
+                tone1 =int.from_bytes(self.session_song_temp[0], byteorder='big')
+                tone2 =int.from_bytes(self.session_song_temp[1], byteorder='big')
+                tone3 =int.from_bytes(self.session_song_temp[2], byteorder='big')
+                tone4 =int.from_bytes(self.session_song_temp[3], byteorder='big')
+                tone5 =int.from_bytes(self.session_song_temp[4], byteorder='big')
+                tone6 =int.from_bytes(self.session_song_temp[5], byteorder='big')
 
                 self.session_song_temp=[]
-                return(2,tone1,tone2,tone3,tone4)
+                return(2,tone1,tone2,tone3,tone4,tone5,tone6)
             except Exception as e:
                 print(str(e)+'fuck is this you?')
                 self.return_song = True

@@ -7,6 +7,7 @@ import time,sys,json
 import csv
 from settings import Settings
 from fakeSQL import *
+import time
 # Form implementation generated from reading ui file 'luncherUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.8
@@ -51,21 +52,7 @@ class Luncher(QtWidgets.QWidget):
 
 
     def gtfo(self):
-        
-        self.settingsWidget.ComPort=self.portName
 
-        with open('settings.json', 'w') as outfile:
-            json.dump(self.settingsWidget.jsettings, outfile)
-        try:
-            thepoop=self.settingsWidget.download()
-            print(str(thepoop)+"mclaunchface")
-            self.ComPort.write(thepoop)
-            self.close()
-            print("just pooped everywhere")
-        except Exception as e:
-            print('Download Failure: '+ str(e))
-
-            
         self.settingsWidget.jsettings['session_default']['db_login']    =self.userText.text()
         self.settingsWidget.jsettings['session_default']['db_pass']     =self.passText.text()
         self.settingsWidget.jsettings['session_default']['db_schema']   =self.dbText.text()
@@ -100,7 +87,25 @@ class Luncher(QtWidgets.QWidget):
         if self.settingsWidget.jsettings['session_default']['position'] == 5:
             self.settingsWidget.jsettings['session_default']['position'] = 1
 
+        self.settingsWidget.ComPort=self.portName
 
+        with open('settings.json', 'w') as outfile:
+            json.dump(self.settingsWidget.jsettings, outfile)
+        try:
+            thepoop=self.settingsWidget.download()
+            print(str(thepoop)+"mclaunchface")
+            self.ComPort.write(thepoop)
+            time.sleep(0.6)
+            buf=[]
+            # read the splash of the poop
+            while self.ComPort.inWaiting():
+                buf.append(self.ComPort.read(1))
+            print('######################## TTTAAAADDDAAA #################')
+            print(buf)
+            self.close()
+            print("just pooped everywhere")
+        except Exception as e:
+            print('Download Failure: '+ str(e))
 
         self.close()
 

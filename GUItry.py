@@ -211,7 +211,7 @@ class App(QMainWindow):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(2027, 658)
+        MainWindow.resize(1900, 500)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -849,7 +849,7 @@ class App(QMainWindow):
     def update_figure(self):
         if self.ind==1:
             self.startTime = datetime.datetime.now().replace(microsecond=0)
-        SONGDICT={0:'C8',1:'Db8',2:'D8',3:'Eb8',4:'F8',5:'Gb8',6:'G8',7:'Ab8',8:'A8',9:'Bb8',10:'B8',11:'C9',12:'Db9',13:'D9',14:'Eb9',15:'E9'}
+        SONGDICT={0:'C8',1:'Db8',2:'D8',3:'Eb8',4:'F8',5:'Gb8',6:'G8',7:'Ab8',8:'A8',9:'Bb8',10:'B8',11:'C9',12:'Db9',13:'D9',14:'Eb9',15:'E9',255:'_'}
         song_alpha=[]
         if not new_stuff.value:
             try:
@@ -866,6 +866,7 @@ class App(QMainWindow):
                 song_alpha.append(' ')
             # print(song)
             self.song_mem.insert(0,''.join(song_alpha))
+    
             if len(self.song_mem) == 4:
                 self.song_mem.pop()
             self.mainPlot.update_figure(self.ind)
@@ -946,12 +947,10 @@ class App(QMainWindow):
             self.progresstimer.start(100)
     def animateProgress(self):
         #animate at 10hz
-        self.trailLength=100#TODO: replace later with prep.settings.whatever+whatever
-#4*(tone duration)+3(time between tones)+lickwindow+delay(+delay punishment?)
-        if self.progress < self.trailLength:
-            self.progressBar.setValue(self.progress/self.trailLength*100)
+        if self.progress < 7*10:
+            self.progressBar.setValue(self.progress/70*100)
             self.progress=self.progress+1
-        elif self.progress==self.trailLength:
+        elif self.progress==70:
             self.progress=0
             self.progresstimer.stop()
 
@@ -1309,7 +1308,7 @@ if __name__ == '__main__':
         new_stuff = Value('b', False)
         dump = Array('i', range(3))
         timestampd = Value('f', 0.0)
-        songdump = Array('i', range(4))
+        songdump = Array('i', range(6))
         send_pending = Value('i', 0)# 0 is nothing, 1 is start/pause download, 2 is flush/stop flush,3 is settings download
         start_pause = Value('b', False)
         flush_stop = Value('b', False)

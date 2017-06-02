@@ -129,15 +129,15 @@ class Settings(QtWidgets.QWidget):
             self.jsettings['session_default']['position'] = 1
     def download(self):
         try:
-            print("d1")
+            print("download step 1")
             thepoop=self.buildConfig()
-            print("d2")
+            print("download step 2")
             return thepoop
 
         except Exception as e:
-            print(str(e))
+            print("download string build error"+str(e))
     def buildConfig(self):
-        TONETRAN={'C8':0,'Db8':1,'D8':2,'Eb8':3,'F8':4,'Gb8':5,'G8':6,'Ab8':7,'A8':8,'Bb8':9,'B8':10,'C9':11,'Db9':12,'D9':13,'Eb9':14,'E9':15}
+        TONETRAN={'C8':0,'Db8':1,'D8':2,'Eb8':3,'F8':4,'Gb8':5,'G8':6,'Ab8':7,'A8':8,'Bb8':9,'B8':10,'C9':11,'Db9':12,'D9':13,'Eb9':14,'E9':15,'0':255}
         self.dict2json()
         self.config=[]
         # 0th char: 0x11, send this so that the mcu knows you're about to send setting
@@ -152,8 +152,8 @@ class Settings(QtWidgets.QWidget):
         self.config.append(bytearray([TONETRAN[self.song2.text()]]))
         self.config.append(bytearray([TONETRAN[self.song3.text()]]))
         self.config.append(bytearray([TONETRAN[self.song4.text()]]))
-        self.config.append(bytearray([TONETRAN[self.song4.text()]]))##TODO: replace after GUI is updated for 5&6
-        self.config.append(bytearray([TONETRAN[self.song4.text()]]))
+        self.config.append(bytearray([TONETRAN[self.song5.text()]]))##TODO: replace after GUI is updated for 5&6
+        self.config.append(bytearray([TONETRAN[self.song6.text()]]))
 
 
         #trail number 10th, 11th char: number of trials, int (i.e. 6th: 0x01, 7th: 0x2C) --> 300
@@ -188,10 +188,13 @@ class Settings(QtWidgets.QWidget):
     # 23th char: number of no lick trials until mouse is given an encouragement drop
         self.config.append(bytearray([int(self.jsettings['mcu_config']['encourage'])]))
     #24th char: how likely mouse is to get encouragement drop
-        self.config.append(bytearray(0x02)) ###############################################TODO: change after update GUI
+        self.config.append(bytearray(b'\x02')) ###############################################TODO: change after update GUI
     # 25th, 26st char: checksum. I'm pretty sure that two chars should be enough to sum all the parameters
         summ=0
-        for item in self.config:
+        print("the built string is: "+str(self.config))
+        iterchars = iter(self.config)
+        next(iterchars)
+        for item in iterchars:
             summ=summ+int.from_bytes(item, byteorder='big', signed=False)
            # print(sum)
 
@@ -535,6 +538,14 @@ class Settings(QtWidgets.QWidget):
             self.song4.setMaximumSize(QtCore.QSize(30, 16777215))
             self.song4.setObjectName("song4")
             self.horizontalLayout_14.addWidget(self.song4)
+            self.song5 = QtWidgets.QLineEdit(Form)
+            self.song5.setMaximumSize(QtCore.QSize(30, 16777215))
+            self.song5.setObjectName("song5")
+            self.horizontalLayout_14.addWidget(self.song5)
+            self.song6 = QtWidgets.QLineEdit(Form)
+            self.song6.setMaximumSize(QtCore.QSize(30, 16777215))
+            self.song6.setObjectName("song6")
+            self.horizontalLayout_14.addWidget(self.song6)
             self.gridLayout.addLayout(self.horizontalLayout_14, 16, 0, 1, 1)
             self.gridLayout_2.addLayout(self.gridLayout, 1, 0, 1, 1)
             if self.mode ==1:
@@ -592,6 +603,8 @@ class Settings(QtWidgets.QWidget):
         self.song2.setText(_translate("Form", "E9"))
         self.song3.setText(_translate("Form", "G8"))
         self.song4.setText(_translate("Form", "C9"))
+        self.song5.setText(_translate("Form", "0"))
+        self.song6.setText(_translate("Form", "0"))
         if self.mode ==1:
             self.downloadButton.setText(_translate("Form", "Download Settings"))
 

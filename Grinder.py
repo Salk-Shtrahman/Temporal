@@ -108,7 +108,7 @@ def Serial_Process(port_name,lickdirection,idump,lickdump,songdump,timestampd,ne
             #print(text_time)            # cursor.execute(t_zero_que, (t_zero,))
             # cnx.commit()
             if type == 2:
-                song=result[1:5]
+                song=result[1:7]
                 for i in range(len(song)):
                     songdump[i] = song[i]
 
