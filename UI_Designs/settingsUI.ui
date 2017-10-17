@@ -463,30 +463,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="p1Button">
-         <property name="text">
-          <string>Phase 1</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="p2Button">
-         <property name="text">
-          <string>Phase 2</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="p3Button">
-         <property name="text">
-          <string>Phase 3</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="p4Button">
-         <property name="text">
-          <string>Phase 4</string>
+        <widget class="QSpinBox" name="trainingPhaseBox">
+         <property name="maximumSize">
+          <size>
+           <width>80</width>
+           <height>16777215</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -497,7 +479,7 @@
        <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Diffrence</string>
+          <string>Difference</string>
          </property>
         </widget>
        </item>
@@ -589,7 +571,7 @@
           </size>
          </property>
          <property name="text">
-          <string>A</string>
+          <string>C8</string>
          </property>
         </widget>
        </item>
@@ -628,7 +610,45 @@
           </size>
          </property>
          <property name="text">
-          <string>D</string>
+          <string>C9</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="song5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="song6">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="maxLength">
+          <number>3</number>
          </property>
         </widget>
        </item>
