@@ -41,16 +41,17 @@ class App(QMainWindow):
         #TODO: Insert actual settings
         config=prep.settingsWidget.jsettings
 
-
-        self.cursor.execute(
-            "INSERT INTO  temporal_session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (prep.SID, config['mcu_config']['training_phase'], config['mcu_config'][
-                'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
-                'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
-                'valve_open_time_R'], config['mcu_config']['valve_open_time_L'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
-             config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time'],
-             config['mcu_config']['encourage'], config['mcu_config']['encourage_delay']))
-        self.cnx.commit()
+        if (prep.mouse_ID.lower()!="practice"):
+            mouseID=prep.cage_ID+prep.mouse_ID
+            self.cursor.execute(
+                "INSERT INTO  temporal_session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (mouseID, config['mcu_config']['training_phase'], config['mcu_config'][
+                    'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
+                    'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
+                    'valve_open_time_R'], config['mcu_config']['valve_open_time_L'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
+                 config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time'],
+                 config['mcu_config']['encourage'], config['mcu_config']['encourage_delay']))
+            self.cnx.commit()
         read_que = '''
             SELECT
             temporal_session.id
@@ -103,10 +104,14 @@ class App(QMainWindow):
 
 
 
-        self.sessionID.setText("Session : %i"% self.session_ID)
+        self.sessionID.setText("Session: %i"% self.session_ID)
         self.port_Status.setText("Port: %s"%prep.portName )
         self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
-        self.animalID.setText("Animal ID: %i (%s)"% (prep.SID,prep.nickName))
+        
+        if (prep.mouse_ID.lower()=="practice"):
+            self.animalID.setText("Practice")
+        else:
+            self.animalID.setText("Cage %s Mouse %s"%(prep.cage_ID,prep.mouse_ID))
         self.quitButton.clicked.connect(self.close)
 
         self.flushButton.setIcon(QtGui.QIcon('Static\flushOff.png'))
@@ -871,8 +876,9 @@ class App(QMainWindow):
                 self.song_mem.pop()
             self.mainPlot.update_figure(self.ind)
             self.sidePlot.update_figure(self.ind)
-            self.writeSQL()
-            self.writeCSV()
+            if (prep.mouse_ID.lower()!="practice"):
+                self.writeSQL()
+                self.writeCSV()
 
 
             self.song1.setText(self.song_mem[0] )
