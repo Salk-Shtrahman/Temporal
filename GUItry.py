@@ -41,16 +41,17 @@ class App(QMainWindow):
         #TODO: Insert actual settings
         config=prep.settingsWidget.jsettings
 
-
-        self.cursor.execute(
-            "INSERT INTO  temporal_session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (prep.SID, config['mcu_config']['training_phase'], config['mcu_config'][
-                'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
-                'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
-                'valve_open_time_R'], config['mcu_config']['valve_open_time_L'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
-             config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time'],
-             config['mcu_config']['encourage'], config['mcu_config']['encourage_delay']))
-        self.cnx.commit()
+        if (prep.mouse_ID.lower()!="practice"):
+            mouseID=prep.cage_ID+prep.mouse_ID
+            self.cursor.execute(
+                "INSERT INTO  temporal_session (Animal_ID, Training, Punishment_Duration, Tone_Duration, Ttime_Between_Tones, Lickwindow_Duration, R_Opentime, L_Opentime, Trial_Limit, min_Difficulty, max_Difficulty, Drip_Delay, Encourage, Encourage_Delay) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (mouseID, config['mcu_config']['training_phase'], config['mcu_config'][
+                    'punishment_duration'], config['mcu_config']['tone_duration'], config['mcu_config'][
+                    'time_between_tones'], config['mcu_config']['lickwindow_duration'], config['mcu_config'][
+                    'valve_open_time_R'], config['mcu_config']['valve_open_time_L'], config['mcu_config']['trial_number'], config['mcu_config']['min_difficulty'],
+                 config['mcu_config']['max_difficulty'], config['mcu_config']['drip_delay_time'],
+                 config['mcu_config']['encourage'], config['mcu_config']['encourage_delay']))
+            self.cnx.commit()
         read_que = '''
             SELECT
             temporal_session.id
@@ -72,14 +73,13 @@ class App(QMainWindow):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-
         self.mainPlot = PlotMain(self)
         self.mainPlot.setMaximumSize(QtCore.QSize(1200, 800))
         self.sidePlot = PlotSide(self)
         self.sidePlot.setMaximumSize(QtCore.QSize(500, 800))
+        print(6)
         self.Cam=camera.Camera()
-
-
+        print(7)
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.update_figure)
         timer.start(200)
@@ -103,10 +103,14 @@ class App(QMainWindow):
 
 
 
-        self.sessionID.setText("Session : %i"% self.session_ID)
-        self.port_Status.setText("Port: %s"%prep.portName )
+        self.sessionID.setText("Session: %i"% self.session_ID)
+        self.port_Status.setText("Port: %s Phase %i"% (prep.portName, prep.trainingPhase) )
         self.db_status.setText('SQL(%s): %s'% (prep.sql_status,dbName))
-        self.animalID.setText("Animal ID: %i (%s)"% (prep.SID,prep.nickName))
+        
+        if (prep.mouse_ID.lower()=="practice"):
+            self.animalID.setText("Practice")
+        else:
+            self.animalID.setText("Cage %s Mouse %s"%(prep.cage_ID,prep.mouse_ID))
         self.quitButton.clicked.connect(self.close)
 
         self.flushButton.setIcon(QtGui.QIcon('Static\flushOff.png'))
@@ -849,7 +853,7 @@ class App(QMainWindow):
     def update_figure(self):
         if self.ind==1:
             self.startTime = datetime.datetime.now().replace(microsecond=0)
-        SONGDICT={0:'C8',1:'Db8',2:'D8',3:'Eb8',4:'F8',5:'Gb8',6:'G8',7:'Ab8',8:'A8',9:'Bb8',10:'B8',11:'C9',12:'Db9',13:'D9',14:'Eb9',15:'E9',255:'_'}
+        SONGDICT={0:'C8',1:'Db8',2:'D8',3:'Eb8',4:'E8',5:'F8',6:'Gb8',7:'G8',8:'Ab8',9:'A8',10:'Bb8',11:'B8',12:'C9',13:'Db9',14:'D9',15:'Eb9',16:'E9',255:'_'}
         song_alpha=[]
         if not new_stuff.value:
             try:
@@ -871,8 +875,9 @@ class App(QMainWindow):
                 self.song_mem.pop()
             self.mainPlot.update_figure(self.ind)
             self.sidePlot.update_figure(self.ind)
-            self.writeSQL()
-            self.writeCSV()
+            if (prep.mouse_ID.lower()!="practice"):
+                self.writeSQL()
+                self.writeCSV()
 
 
             self.song1.setText(self.song_mem[0] )
@@ -1122,7 +1127,10 @@ class PlotSide(FigureCanvas):
         self.ax3.set_yticks([-1, 0, 1])
         self.ax3.set_yticklabels(['Left', 'No lick', 'Right'])
         self.ax3.axhline(y=0, color='k')
-        self.ax3.axvline(x=1.85,color='r')
+        self.ax3.axvline(x=prep.toneDuration*6+prep.nullDuration*5,color='r')
+        self.ax3.axvline(x=prep.toneDuration*6+prep.nullDuration*5+prep.lickwindowDuration,color='r')
+        self.ax3.axvline(x=prep.toneDuration*4+prep.nullDuration*3,color='g')
+        self.ax3.axvline(x=prep.toneDuration*4+prep.nullDuration*3+prep.lickwindowDuration,color='g')
         ### second guy
         self.ax4 = self.figure.add_subplot(312)
         self.ax4.set_xlim(0, 6)
@@ -1131,7 +1139,10 @@ class PlotSide(FigureCanvas):
         self.ax4.set_yticks([-1, 0, 1])
         self.ax4.set_yticklabels(['Left', 'No lick', 'Right'])
         self.ax4.axhline(y=0, color='k')
-        self.ax4.axvline(x=1.85, color='r')
+        self.ax4.axvline(x=prep.toneDuration*6+prep.nullDuration*5,color='r')
+        self.ax4.axvline(x=prep.toneDuration*6+prep.nullDuration*5+prep.lickwindowDuration,color='r')
+        self.ax4.axvline(x=prep.toneDuration*4+prep.nullDuration*3,color='g')
+        self.ax4.axvline(x=prep.toneDuration*4+prep.nullDuration*3+prep.lickwindowDuration,color='g')
         ### third guy
         self.ax5 = self.figure.add_subplot(313)
         self.ax5.set_xlim(0, 6)
@@ -1140,7 +1151,10 @@ class PlotSide(FigureCanvas):
         self.ax5.set_yticks([-1, 0, 1])
         self.ax5.set_yticklabels(['Left', 'No lick', 'Right'])
         self.ax5.axhline(y=0, color='k')
-        self.ax5.axvline(x=1.85, color='r')
+        self.ax5.axvline(x=prep.toneDuration*6+prep.nullDuration*5,color='r')
+        self.ax5.axvline(x=prep.toneDuration*6+prep.nullDuration*5+prep.lickwindowDuration,color='r')
+        self.ax5.axvline(x=prep.toneDuration*4+prep.nullDuration*3,color='g')
+        self.ax5.axvline(x=prep.toneDuration*4+prep.nullDuration*3+prep.lickwindowDuration,color='g')
         self.figure.subplots_adjust(hspace=.75)
 
         temp = patches.Rectangle(

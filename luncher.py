@@ -58,8 +58,8 @@ class Luncher(QtWidgets.QWidget):
         self.settingsWidget.jsettings['session_default']['db_schema']   =self.dbText.text()
         self.settingsWidget.jsettings['session_default']['db_url']      =self.ipText.text()
         self.settingsWidget.jsettings['session_default']['path'] = self.defaultPath
-        self.mouse_ID=int(self.mouseBox.text())
-        self.cage_ID=int(self.cageBox.text())
+        self.mouse_ID=self.mouseBox.text()
+        self.cage_ID=self.cageBox.text()
         self.settingsWidget.jsettings['session_default']['animal_id'] = self.mouse_ID
         self.settingsWidget.jsettings['session_default']['cage_id'] = self.cage_ID
 
@@ -67,6 +67,8 @@ class Luncher(QtWidgets.QWidget):
         self.settingsWidget.jsettings['mcu_config']['song2'] = self.settingsWidget.song2.text()
         self.settingsWidget.jsettings['mcu_config']['song3'] = self.settingsWidget.song3.text()
         self.settingsWidget.jsettings['mcu_config']['song4'] = self.settingsWidget.song4.text()
+        self.settingsWidget.jsettings['mcu_config']['song5'] = self.settingsWidget.song5.text()
+        self.settingsWidget.jsettings['mcu_config']['song6'] = self.settingsWidget.song6.text()
 
         self.settingsWidget.jsettings['mcu_config']['encourage'] = self.settingsWidget.encourageBox.value()
         self.settingsWidget.jsettings['mcu_config']['encourage_delay'] = self.settingsWidget.encourageDelayBox.value()
@@ -74,6 +76,9 @@ class Luncher(QtWidgets.QWidget):
         self.settingsWidget.jsettings['mcu_config']['drip_delay_time'] = self.settingsWidget.dripBox.value()
         self.settingsWidget.jsettings['mcu_config']['punishment_duration'] = self.settingsWidget.punishBox.value()
         self.settingsWidget.jsettings['mcu_config']['delay_duration'] = self.settingsWidget.delayBox.value()
+        self.toneDuration = self.settingsWidget.toneBox.value()
+        self.nullDuration = self.settingsWidget.betweenToneBox.value()
+        self.lickwindowDuration = self.settingsWidget.lickBox.value()
         self.settingsWidget.jsettings['mcu_config']['tone_duration'] = self.settingsWidget.toneBox.value()
         self.settingsWidget.jsettings['mcu_config']['time_between_tones'] = self.settingsWidget.betweenToneBox.value()
         self.settingsWidget.jsettings['mcu_config']['valve_open_time_L'] = self.settingsWidget.valveBoxL.value()
@@ -82,7 +87,8 @@ class Luncher(QtWidgets.QWidget):
         self.settingsWidget.jsettings['mcu_config']['trial_number'] = self.settingsWidget.trailBox.value()
         self.settingsWidget.jsettings['mcu_config']['min_difficulty'] = self.settingsWidget.minBox.value()
         self.settingsWidget.jsettings['mcu_config']['max_difficulty'] = self.settingsWidget.maxBox.value()
-        self.settingsWidget.jsettings['mcu_config']['training_phase'] = 1 if self.settingsWidget.p1Button.isChecked() and self.settingsWidget.p2Button.isChecked() else 2
+        self.trainingPhase = self.settingsWidget.trainingPhaseBox.value()
+        self.settingsWidget.jsettings['mcu_config']['training_phase'] = self.settingsWidget.trainingPhaseBox.value()
         self.settingsWidget.jsettings['session_default']['position'] += 1
         if self.settingsWidget.jsettings['session_default']['position'] == 5:
             self.settingsWidget.jsettings['session_default']['position'] = 1
@@ -356,7 +362,7 @@ class Luncher(QtWidgets.QWidget):
 
             self.nickName = 'default'  # get first shit of tuple
             self.SID = 0
-            self.cursor.execute(query, (int(self.cageBox.text()), int(self.mouseBox.text())))
+            self.cursor.execute(query, (self.cageBox.text(), self.mouseBox.text()))
             #########################################
             print("attempting to checkin 3")
             self.broImReady[2] = 1

@@ -23,9 +23,7 @@ class Camera(QtWidgets.QWidget):
 
 
         self.setupUi()
-
         cameraDevice = ''
-
         videoDevicesGroup = QActionGroup(self)
         videoDevicesGroup.setExclusive(True)
 
@@ -38,9 +36,9 @@ class Camera(QtWidgets.QWidget):
             if not cameraDevice:
                 cameraDevice = deviceName
                 videoDeviceAction.setChecked(True)
-
+        print(7)
         self.setCamera(cameraDevice)
-
+        print(8)
         self.show()
 
     def setupUi(self):
