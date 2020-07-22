@@ -1277,7 +1277,7 @@ class PlotSide(FigureCanvas):
                 #self.draw()
 
 def exitApp():
-    slave.terminate()
+    subordinate.terminate()
     prep.ComPort.close()
     cursor = prep.cnx.cursor()
     cursor.execute("update  temporal_session set Complete=%s where id = %s",(1,ex.session_ID))
@@ -1332,8 +1332,8 @@ if __name__ == '__main__':
         lickdump = manager.list()
         lickdirection = manager.list()
         time.sleep(2)
-        slave = Process(target=Serial_Process, args=(prep.portName,lickdirection, dump, lickdump, songdump, timestampd, new_stuff, send_pending,start_pause,settings_dump,flush_stop))
-        slave.start()
+        subordinate = Process(target=Serial_Process, args=(prep.portName,lickdirection, dump, lickdump, songdump, timestampd, new_stuff, send_pending,start_pause,settings_dump,flush_stop))
+        subordinate.start()
         mainApp = QApplication(sys.argv)
         ex = App(prep.cnx)
         mainApp.exec_()

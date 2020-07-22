@@ -113,8 +113,8 @@ if __name__ == '__main__':
     lickdump = manager.list()
     lickdirection = manager.list()
     time.sleep(2)
-    slave = Process(target=Serial_Process, args=(lickdirection, dump, lickdump, songdump, timestampd, new_stuff))
-    slave.start()
+    subordinate = Process(target=Serial_Process, args=(lickdirection, dump, lickdump, songdump, timestampd, new_stuff))
+    subordinate.start()
 
     while 1:
         while not new_stuff.value:pass
